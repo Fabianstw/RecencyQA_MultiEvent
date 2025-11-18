@@ -1,0 +1,119 @@
+[
+    {
+        "q_id": 1,
+        "question": "What new features does the latest Microsoft Windows software update include?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "A-Few-Hours",
+                "context1": "At the annual Microsoft product conference, shortly after the announcement of the latest Windows software update, an attendee asks about the new features."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 2,
+        "question": "What are the latest smartphone models unveiled at CES this year?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "A-Year",
+                "context1": "As the CES exhibition doors open to the public for the first time, a tech enthusiast asks about the newest smartphone releases."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 3,
+        "question": "Who are the nominees for Best Actor in a Leading Role at the Oscars?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "A-Year",
+                "context1": "As the Academy Awards ceremony approaches, fans and critics alike are eager to know the contenders for the top honors."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 4,
+        "question": "What is the title of the mid-season finale episode of Stranger Things?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "Never",
+                "context1": "As the latest season of Stranger Things has just concluded, fans are discussing their favorite episodes and storylines."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 5,
+        "question": "How many inches of rainfall is expected in New York over the next 5 days?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "A-Day",
+                "context1": "As a severe storm warning is issued for the Northeast, residents of New York are checking the forecast on Monday morning."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 6,
+        "question": "Who is the director of the movie 'Galactic Odyssey'?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "Never",
+                "context1": "As the credits roll after the premiere of 'Galactic Odyssey', a curious audience member asks about the film's director."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 7,
+        "question": "How many attendees are expected at Coachella this season?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "A-Year",
+                "context1": "As the Coachella lineup is announced and ticket sales are about to begin, fans are wondering about the expected crowd size."
+            }
+        ],
+        "stationary": "YES",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    },
+    {
+        "q_id": 8,
+        "question": "What is the impact of the outage on TechCorp's e-commerce and sales operations?",
+        "labels": [
+            {
+                "stage": "L1",
+                "recency_label1": "A-Few-Hours",
+                "context1": "As news breaks that TechCorp's data center has just experienced a major unexpected outage,"
+            },
+            {
+                "stage": "L2",
+                "recency_label2": "A-Few-Hours",
+                "context2": "As TechCorp's CEO is about to announce a plan to restore operations and prevent future outages in a live press conference,"
+            }
+        ],
+        "stationary": "NO",
+        "source": "LLM-generated",
+        "hop_type": "Single-Hop"
+    }
+]
