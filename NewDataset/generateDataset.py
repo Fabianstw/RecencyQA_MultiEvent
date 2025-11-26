@@ -1,118 +1,108 @@
 import json
 import pandas as pd
 from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
+from together import Together
 
-###############################################
-# SETUP: Lokales Modell laden
-###############################################
 
-MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2"   # funktioniert in 8GB (4-bit)
-device = "cuda" if torch.cuda.is_available() else "cpu"
+########################################################
+# 1. Together AI Setup
+########################################################
 
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+# Make sure your environment variable TOGETHER_API_KEY is set!
+client = Together()
 
-model = AutoModelForCausalLM.from_pretrained(
-    MODEL_NAME,
-    load_in_4bit=True,
-    torch_dtype=torch.float16,
-    device_map="auto"
-)
+MODEL_NAME = "meta-llama/Llama-3.3-70B-Instruct-Turbo"
 
-print("Model loaded:", MODEL_NAME)
+print("Using Together AI model:", MODEL_NAME)
 
-###############################################
-# Utility: LLM Chat Wrapper
-###############################################
 
-def llm(prompt, max_new_tokens=300, temp=0.7):
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-    output = model.generate(
-        **inputs,
-        max_new_tokens=max_new_tokens,
-        temperature=temp,
-        do_sample=True
+########################################################
+# 2. Chat wrapper (replaces local HF model)
+########################################################
+
+def llm(prompt, max_new_tokens=350):
+    response = client.chat.completions.create(
+        model=MODEL_NAME,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=max_new_tokens,
+        temperature=0.8,
+        top_p=0.95
     )
-    return tokenizer.decode(output[0], skip_special_tokens=True)
 
-###############################################
-# Step 1 — Events extrahieren aus context1 / context2
-###############################################
+    # --- Token Logging ---
+    usage = response.usage
+    input_tokens = usage.prompt_tokens
+    output_tokens = usage.completion_tokens
+    total_tokens = usage.total_tokens
 
-EVENT_EXTRACTION_PROMPT = """
-Convert the following context description into explicit event statements.
-Return 1–3 clear, factual, standalone events. Avoid narrative style.
+    print(f"[Token Log] Input: {input_tokens} | Output: {output_tokens} | Total: {total_tokens}")
 
-Context:
-{context}
+    # Optional: Kosten schätzen (Together AI Preisstand 2025)
+    # Llama 3.3 70B Turbo
+    # input:  $0.27 / 1M tokens
+    # output: $0.54 / 1M tokens
 
-Return JSON:
+    cost_input = input_tokens * 0.27 / 1_000_000
+    cost_output = output_tokens * 0.54 / 1_000_000
+    cost_total = cost_input + cost_output
+
+    print(f"[Cost Est.] ${cost_total:.6f} USD\n")
+
+    return response.choices[0].message.content
+
+
+
+########################################################
+# JSON/JSONL AUTO-DETECT LOADER
+########################################################
+
+def load_dataset(path):
+    with open(path, "r", encoding="utf-8") as f:
+        first = f.read(1)
+
+    if first == "[":
+        print("Detected JSON array → using lines=False")
+        return pd.read_json(path)
+    elif first == "{":
+        print("Detected JSONL → using lines=True")
+        return pd.read_json(path, lines=True)
+    else:
+        raise ValueError("Invalid JSON/JSONL format")
+
+
+########################################################
+# 3. New Question Generation (Single)
+########################################################
+
+SINGLE_GEN_PROMPT = """
+You are a question generation system.
+
+Generate 5 NEW temporal questions inspired by the following examples.
+Rules:
+- DO NOT paraphrase the example questions.
+- DO NOT use placeholders ("q1", "question 1", etc.).
+- New questions MUST require time-based or evolving information.
+- Questions MUST be meaningful real-world questions.
+
+Example questions:
+{examples}
+
+Return JSON ONLY:
 {{
- "events": ["event1", "event2", "event3"]
+ "questions": [
+   "full natural question 1",
+   "full natural question 2",
+   "full natural question 3",
+   "full natural question 4",
+   "full natural question 5"
+ ]
 }}
 """
 
-def extract_events(context):
-    if context is None or context.strip() == "":
-        return []
-    prompt = EVENT_EXTRACTION_PROMPT.format(context=context)
-    out = llm(prompt)
-    try:
-        j = json.loads(out[out.index("{"):out.rindex("}")+1])
-        return j["events"]
-    except:
-        return [context]
+def generate_single_questions(example_questions):
+    ex = "\n".join(f"- {q}" for q in example_questions)
+    out = llm(SINGLE_GEN_PROMPT.format(examples=ex))
 
-
-###############################################
-# Step 2 — Neue Fragen aus Events generieren
-###############################################
-
-QUESTION_GEN_PROMPT = """
-Generate 5 temporal questions whose answers depend on the given events.
-The questions must require time-based change or evolving conditions.
-
-Events:
-{events}
-
-Return JSON:
-{{
- "questions": ["q1", "q2", "q3", "q4", "q5"]
-}}
-"""
-
-def generate_single_event_questions(events):
-    prompt = QUESTION_GEN_PROMPT.format(events=events)
-    out = llm(prompt)
-    try:
-        j = json.loads(out[out.index("{"):out.rindex("}")+1])
-        return j["questions"]
-    except:
-        return []
-
-
-###############################################
-# Step 3 — Multi-Event temporale Fragen generieren
-###############################################
-
-MULTI_EVENT_PROMPT = """
-Generate 5 multi-event temporal reasoning questions.
-Each question must depend on at least two events and require ordering, causal,
-or evolving relationships between events.
-
-Events:
-{events}
-
-Return JSON:
-{{
- "questions": ["q1", "q2", "q3", "q4", "q5"]
-}}
-"""
-
-def generate_multi_event_questions(events):
-    prompt = MULTI_EVENT_PROMPT.format(events=events)
-    out = llm(prompt)
     try:
         j = json.loads(out[out.index("{"):out.rindex("}")+1])
         return j["questions"]
@@ -120,35 +110,79 @@ def generate_multi_event_questions(events):
         return []
 
 
-###############################################
-# Step 4 — Labeling (Recency, Stationarity, Reasoning Type)
-###############################################
+########################################################
+# 4. Multi-event generation
+########################################################
+
+MULTI_GEN_PROMPT = """
+Generate 5 multi-event temporal reasoning questions inspired by the following examples.
+
+Rules:
+- Each question MUST depend on at least two different situations/events.
+- Each question MUST require temporal reasoning (before, after, since, while).
+- DO NOT paraphrase the examples.
+- NO placeholders ("q1", "example 1", etc.).
+- Questions MUST be meaningful and realistic.
+
+Example questions:
+{examples}
+
+Return JSON ONLY:
+{{
+ "questions": [
+   "complex temporal question 1",
+   "complex temporal question 2",
+   "complex temporal question 3",
+   "complex temporal question 4",
+   "complex temporal question 5"
+ ]
+}}
+"""
+
+def generate_multi_questions(example_questions):
+    ex = "\n".join(f"- {q}" for q in example_questions)
+    out = llm(MULTI_GEN_PROMPT.format(examples=ex))
+
+    try:
+        j = json.loads(out[out.index("{"):out.rindex("}")+1])
+        return j["questions"]
+    except:
+        return []
+
+
+########################################################
+# 5. Labeling
+########################################################
 
 LABEL_PROMPT = """
-For the following question:
+Label the following question:
 
 "{question}"
 
-Assign:
-1. recency_label
-2. stationarity: Stationary / Non-Stationary
-3. event_dependency: Single-Event or Multi-Event
+Rules:
+- NEVER output placeholders like "..." or "label".
+- recency MUST be one of:
+["An-Hour","A-Few-Hours","A-Day","A-Few-Days","A-Week","A-Few-Weeks","A-Month","A-Few-Months","A-Year",
+ "A-Few-Years","Many-Years","Never"]
+- stationarity MUST be "Stationary" or "Non-Stationary"
+- event_dependency MUST be "Single-Event" or "Multi-Event"
 
-
-Return JSON:
+Return JSON ONLY:
 {{
- "recency": "...",
- "stationarity": "...",
- "event_dependency": "...",
- "explanation": "..."
+ "recency": "<label>",
+ "stationarity": "<label>",
+ "event_dependency": "<label>",
+ "context": "short context"
 }}
 """
 
 def label_question(q, is_multi):
     prompt = LABEL_PROMPT.format(question=q)
     if is_multi:
-        prompt += "\n(event_dependency should be Multi-Event)\n"
+        prompt += "\n(event_dependency MUST be Multi-Event)\n"
+
     out = llm(prompt)
+
     try:
         j = json.loads(out[out.index("{"):out.rindex("}")+1])
         return j
@@ -156,73 +190,46 @@ def label_question(q, is_multi):
         return None
 
 
-###############################################
-# Step 5 — OPTIONAL: Gemini Validation
-###############################################
-
-USE_GEMINI = False
-
-def validate_with_gemini(sample):
-    # You can fill this with your Gemini Free Tier API later
-    return {"valid": True}
-
-
-###############################################
-# MAIN — RecencyQA++ Generator
-###############################################
+########################################################
+# 6. MAIN PIPELINE
+########################################################
 
 def generate_recencyqa_plus(input_path, output_path):
 
-    df = pd.read_json(input_path, lines=True)
+    df = load_dataset(input_path)
     output = []
 
     for _, row in tqdm(df.iterrows(), total=len(df)):
-        
-        # 1. Events extrahieren
-        events1 = extract_events(row["labels"][0]["context1"])
-        events2 = []
-        if row.get("stationary") == "NO":
-            events2 = extract_events(row["labels"][1]["context2"])
+        example_questions = [row["question"]]
 
-        all_events = list(set(events1 + events2))
+        qs1 = generate_single_questions(example_questions)
+        qs2 = generate_multi_questions(example_questions)
 
-        # 2. Single-event Fragen generieren
-        qs_single = generate_single_event_questions(all_events)
-
-        # 3. Multi-event Fragen generieren
-        qs_multi = []
-        if len(all_events) >= 2:
-            qs_multi = generate_multi_event_questions(all_events)
-
-        # 4. Labeln
-        for q in qs_single:
+        for q in qs1:
             labels = label_question(q, is_multi=False)
             if labels:
-                sample = {
+                output.append({
                     "source_qid": row["q_id"],
+                    "generated_type": "single",
                     "question": q,
-                    "events": all_events,
                     "labels": labels
-                }
-                output.append(sample)
+                })
 
-        for q in qs_multi:
+        for q in qs2:
             labels = label_question(q, is_multi=True)
             if labels:
-                sample = {
+                output.append({
                     "source_qid": row["q_id"],
+                    "generated_type": "multi",
                     "question": q,
-                    "events": all_events,
                     "labels": labels
-                }
-                output.append(sample)
+                })
 
-    # Speichern
     with open(output_path, "w", encoding="utf-8") as f:
-        for item in output:
-            f.write(json.dumps(item, ensure_ascii=False) + "\n")
+        for o in output:
+            f.write(json.dumps(o, ensure_ascii=False) + "\n")
 
-    print("Done! Saved to", output_path)
+    print("Saved:", output_path)
 
 
 ###############################################
@@ -230,4 +237,7 @@ def generate_recencyqa_plus(input_path, output_path):
 ###############################################
 
 if __name__ == "__main__":
-    generate_recencyqa_plus("RecencyQA_dataset_small.json", "recencyqa_plus.json")
+    generate_recencyqa_plus(
+        "E:\\Uni\\ws2025\\aktuelleThemen\\RecencyQA\\NewDataset\\RecencyQA_dataset_small.json",
+        "recencyqa_plus.json"
+    )

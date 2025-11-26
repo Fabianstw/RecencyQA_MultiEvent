@@ -71,31 +71,41 @@
     },
     {
         "q_id": 6,
-        "question": "Who is the director of the movie 'Galactic Odyssey'?",
+        "question": "Who is the chair of the current employer of Deborah L. Birx?",
         "labels": [
             {
                 "stage": "L1",
-                "recency_label1": "Never",
-                "context1": "As the credits roll after the premiere of 'Galactic Odyssey', a curious audience member asks about the film's director."
+                "recency_label1": "A-Few-Months",
+                "context1": "As Deborah L. Birx is about to give a keynote speech at a major healthcare conference, attendees are curious about her current professional affiliations."
+            },
+            {
+                "stage": "L2",
+                "recency_label2": "A-Day",
+                "context2": "Just as a major corporate merger involving Deborah L. Birx's employer is officially announced, altering the company's leadership structure."
             }
         ],
-        "stationary": "YES",
-        "source": "LLM-generated",
-        "hop_type": "Single-Hop"
+        "stationary": "NO",
+        "source": "PATQA",
+        "hop_type": "Multi-Hop"
     },
     {
         "q_id": 7,
-        "question": "How many attendees are expected at Coachella this season?",
+        "question": "Who is the chair of the current employer of Eva Kreienkamp?",
         "labels": [
             {
                 "stage": "L1",
-                "recency_label1": "A-Year",
-                "context1": "As the Coachella lineup is announced and ticket sales are about to begin, fans are wondering about the expected crowd size."
+                "recency_label1": "A-Few-Months",
+                "context1": "As Eva Kreienkamp is about to give a keynote speech at a major industry conference, attendees are curious about her current professional affiliations."
+            },
+            {
+                "stage": "L2",
+                "recency_label2": "A-Few-Days",
+                "context2": "Just after a major corporate merger announcement involving Eva Kreienkamp's current employer, prompting speculation about potential leadership changes."
             }
         ],
-        "stationary": "YES",
-        "source": "LLM-generated",
-        "hop_type": "Single-Hop"
+        "stationary": "NO",
+        "source": "PATQA",
+        "hop_type": "Multi-Hop"
     },
     {
         "q_id": 8,
