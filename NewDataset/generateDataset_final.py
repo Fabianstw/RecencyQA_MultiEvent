@@ -72,29 +72,29 @@ You are a temporal question generation system.
 Your task:
 Generate EXACTLY 4 new temporal questions inspired by the examples.
 
-Your questions MUST be a MIX of:
-
-1) stable-update-frequency questions (about recurring, cyclic, predictable update schedules)
-   Examples:
-   - annual rankings
-   - monthly reports
-   - daily weather patterns
-   - quarterly earnings
-
-2) event-driven questions whose update frequency CHANGES depending on the phase of an event.
-   These MUST involve situations such as:
-   - early vs. late stages of a crisis (pandemic, war, economic crash)
-   - before vs. after a major announcement, emergency, or decision
-   - rapidly evolving events with unstable information flow
-   - natural disasters or political instability
-
-At least TWO out of the four questions must belong to category (2).
+Definition:
+-(stationary question) if:
+  - The timespan how often the answer must be updated to stay correct would remain the same regardless of when the question is asked.
+  - Even if the factual answer changes regularly, the time frame of change remains consistent, so the label is stable.
+-(non-stationary question) only if:
+  - The appropriate updating recency itself would change depending on when the question is asked.
+  - OR the question is only relevant within a short time window that makes its temporal behavior unstable.
+   
+At least TWO out of the four questions must be non-stationary.
 
 Rules:
-- Questions must rely on information that changes over time.
-- They must be meaningful real-world questions.
-- No paraphrasing of examples.
-- No placeholders.
+- Must rely on information that CHANGES over time.
+- Must include either a stable cyclical process OR an event-driven, rapidly shifting situation.
+- Must be meaningful real-world questions.
+- Must NOT paraphrase the examples.
+- Must NOT use placeholders.
+
+IMPORTANT RULE:
+Do NOT incorporate or mirror the definition of stationary vs. non-stationary in the content of the questions.
+The definitions are only for your internal reasoning, NOT part of the question topics. 
+Do NOT create questions about update frequency, reporting frequency, update cycles, stability cycles, or how often something changes.
+The questions must be about real-world temporal situations, not about the definitions themselves.
+
 
 Examples:
 {examples}
@@ -118,28 +118,38 @@ def generate_single_questions(example_questions):
     return js["questions"] if js and "questions" in js else []
 
 
-MULTI_GEN_PROMPT = """You are a multi-event temporal reasoning question generator.
+MULTI_GEN_PROMPT = """
+You are a multi-event temporal reasoning question generator.
 
 Your task:
-Generate EXACTLY 4 new temporal questions that compare or relate
-two or more events or phases.
+Generate EXACTLY 4 new temporal questions that require comparing
+or relating at least two different temporal events or phases.
 
-Your questions MUST be a MIX of:
-
-1) stable-update-frequency comparisons
-2) event-driven comparisons where the update frequency CHANGES depending on the event phase.
-   These MUST include cases such as:
-   - comparing two crises with rapidly changing conditions
-   - comparing early vs. late phases of an evolving event
-   - situations where information updates happen at different speeds before/after a milestone
-
-At least TWO of your questions must belong to category (2).
+Definition:
+-(stationary question) if:
+  - The timespan how often the answer must be updated to stay correct would remain the same regardless of when the question is asked.
+  - Even if the factual answer changes regularly, the time frame of change remains consistent, so the label is stable.
+-(non-stationary question) only if:
+  - The appropriate updating recency itself would change depending on when the question is asked.
+  - OR the question is only relevant within a short time window that makes its temporal behavior unstable.
+   
+At least TWO out of the four questions must be non-stationary. 
+   
 
 Rules:
-- Must require temporal reasoning.
-- Must involve at least two distinct events or phases.
-- Must rely on time-varying information.
-- No paraphrasing or placeholders.
+- Each question must require temporal reasoning AND combine two different events.
+- Must rely on information that changes over time.
+- Must involve at least two distinct events.
+- Must rely on information that CHANGES over time
+- Must NOT paraphrase examples.
+- Must NOT use placeholders.
+
+IMPORTANT RULE:
+Do NOT incorporate or mirror the definition of stationary vs. non-stationary in the content of the questions.
+The definitions are only for your internal reasoning, NOT part of the question topics. 
+Do NOT create questions about update frequency, reporting frequency, update cycles, stability cycles, or how often something changes.
+The questions must be about real-world temporal situations, not about the definitions themselves.
+
 
 Examples:
 {examples}
@@ -190,12 +200,7 @@ Your tasks (do them step by step internally, but only output the final JSON):
   "Never": "The answer will never change"
 }}
 
-2. Provide a really short but clear temporal context in ONE sentence. 
-    - The context should ground the question on an EVENT! 
-    - Do not include specific years, simply create a natural moment where the question arises.
-    - Only describe an EVENT, PHASE, or CONDITION that triggers the question, no “someone asks” or "someone wonders".
-
-3. Determine whether the question is stationary or non-stationary.
+2. Determine whether the question is stationary or non-stationary.
 Use this rule:
 - "YES" (stationary) if:
   - The chosen recency label would remain the same regardless of when the question is asked.
@@ -207,9 +212,16 @@ Use this rule:
 Critical distinction: Questions mentioning speciﬁc events are stationary if they ask about metrics that change at the same frequency regardless of
 the event.
 
-4. If stationary is NO:
-    4.1 Provide a second recency label (label2), following the same rules as in step 1.
-    4.2 Provide a second context (context2), following the same rules as in step 2.
+3.1. If Stationary:
+    - Provide a really short but clear temporal context in ONE sentence. 
+    - The context should ground the question on an EVENT! 
+    - Do not include specific years, simply create a natural moment where the question arises.
+    - Only describe an EVENT, PHASE, or CONDITION that triggers the question, no “someone asks” or "someone wonders".
+
+
+3.2. If stationary is NO:
+    3.2.1 Provide a second recency label (label2), following the same rules as in step 1.
+    3.2.2 Provide a second context (context2), following the same rules as in step 3.1
 
 
 IMPORTANT:
