@@ -205,7 +205,7 @@ Use this rule:
 - "YES" (stationary) if:
   - The chosen recency label would remain the same regardless of when the question is asked.
   - Even if the factual answer changes regularly, the time frame of change remains consistent, so the label is stable.
-- "NO" (non-stationary) only if:
+- "NO" (non-stationary)  if:
   - The appropriate recency label itself would change depending on when the question is asked.
   - OR the question is only relevant within a short time window that makes its temporal behavior unstable.
 
@@ -221,10 +221,11 @@ the event.
 
 3.2. If stationary is NO:
     3.2.1 Provide a second recency label (label2), following the same rules as in step 1.
-    3.2.2 Provide a second context (context2), following the same rules as in step 3.1
+    3.2.2 Provide a second context (context2), following the same rules as in the if in step 3.1
 
 
 IMPORTANT:
+Do NOT be lazy determining the stationarity
 Output VALID JSON ONLY.
 ALWAYS output lists.
 If stationary : lists have length 1.
@@ -335,5 +336,5 @@ def generate_recencyqa_plus(input_path, output_path):
 if __name__ == "__main__":
     generate_recencyqa_plus(
         "E:\\Uni\\ws2025\\aktuelleThemen\\RecencyQA\\NewDataset\\RecencyQA_dataset_small.json",
-        "recencyqa_plus_stationaryNot.json"
+        "recencyqa_plus_final.json"
     )
