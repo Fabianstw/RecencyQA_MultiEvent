@@ -1,0 +1,896 @@
+{
+    "q_id": 1,
+    "question": "What are the current top-ranked teams in the English Premier League?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "During an ongoing football season, rankings are being continually updated after each match day."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "What is the forecasted high tide time for the coast of Miami tomorrow?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "High tide times are being planned for the next day's coastal activities."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "How does the preparation phase of a hurricane affect the evacuation procedures that follow?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "As a hurricane is approaching land, preparations are underway to ensure public safety."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "What is the typical time gap between the peak of spring blossoming and the start of summer vacation in Japan?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During the late spring season when blossoms have peaked and summer vacation is approaching."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "What are the current evacuation zones for the ongoing wildfire in California?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "Firefighters are battling to contain the spreading wildfire as strong winds fan the flames."
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "Residents are returning to their homes after a brief period of evacuation as the wildfire is slowly being brought under control."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "How many people have been affected by the recent hurricane in Florida as of today?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "Relief efforts are underway to help those displaced by the hurricane."
+        },
+        {
+            "recency_label2": "A-Week",
+            "context2": "The state is assessing the total damage caused by the hurricane."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "How does the recent surge in COVID-19 cases impact the timing of the upcoming flu season and the development of new vaccines?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Weeks",
+            "context1": "As the number of COVID-19 cases spikes during winter, health officials scramble to prepare for the overlapping flu season."
+        },
+        {
+            "recency_label2": "A-Month",
+            "context2": "Following a significant increase in COVID-19 hospitalizations, researchers rush to develop and test new vaccines before the next wave of infections."
+        }
+    ]
+}
+{
+    "q_id": 1,
+    "question": "What is the relationship between the announcement of the new iPhone release and the subsequent stock market fluctuations over the past week?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Week",
+            "context1": "The company's stock prices are being closely monitored during the initial launch period of the new iPhone."
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "Investors are analyzing market trends after a significant fluctuation in stock prices following the iPhone release announcement."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "What are the current top-ranked teams in the English Premier League?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "During an ongoing English Premier League season, teams are constantly competing and rankings are being updated."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "What is the forecasted high tide time for the coast of Miami tomorrow?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "As the next day's weather and tidal conditions are being planned for."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "How does the increase in temperature during summer affect the growth of crops in the subsequent harvest season?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During the summer season, a significant increase in temperature is observed."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "What is the typical time gap between the release of a new iPhone model and the availability of its accessories in the market?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Weeks",
+            "context1": "When a new iPhone model is released, manufacturers and retailers prepare for the demand of accessories."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "What are the current standings in the NCAA March Madness tournament?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "The tournament is in its final rounds with teams competing in the semifinals."
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "Teams are being eliminated and the bracket is narrowing down to the last few contenders."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "How many minutes are left in the ongoing Super Bowl halftime show?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "The Super Bowl halftime show is nearing its end with a final performance by the main artist."
+        },
+        {
+            "recency_label2": "An-Hour",
+            "context2": "The halftime show has just started and the crowd is waiting for the main event to begin."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "How do the recent fluctuations in global oil prices affect the timing of the upcoming OPEC meeting to discuss production cuts?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "Oil prices have been volatile since the latest supply and demand report was released, prompting urgent discussions among OPEC members."
+        },
+        {
+            "recency_label2": "A-Week",
+            "context2": "The energy market is experiencing a period of high uncertainty as multiple factors, including geopolitical tensions and natural disasters, impact global oil production and distribution."
+        }
+    ]
+}
+{
+    "q_id": 2,
+    "question": "What is the time difference between the announcement of the Nobel Prize winners and the subsequent stock market reaction to the news?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "The stock market is experiencing high volatility after a major economic announcement"
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "The Nobel Prize winners are being formally recognized at an official ceremony"
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "What are the current top-ranked teams in the English Premier League?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "During an ongoing English Premier League season, team rankings are being closely watched and updated."
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "Who are the contestants on the latest season of the reality TV show Survivor?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Season",
+            "context1": "When a new season of the reality TV show Survivor is airing"
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "What are the typical weather conditions during the summer months when the monsoon season begins in India?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During the summer monsoon season in India, weather conditions are typically at their most humid and hot."
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "How do the opening and closing ceremonies of the Olympic Games relate to each other in terms of their timing and purpose?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "The Olympic Games are taking place, with various events and ceremonies occurring over a short period."
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "What are the current standings in the Wimbledon tennis tournament?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "The tournament is nearing its finals, with several matches taking place simultaneously."
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "A major upset has occurred in the semifinals, leading to a shift in rankings."
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "Which teams are still in contention for the Super Bowl championship?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Week",
+            "context1": "The playoffs are nearing the final rounds and teams are being eliminated quickly."
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "A major upset has just occurred in the semifinals, altering the championship landscape."
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "What are the implications of a sudden stock market crash on the upcoming quarterly earnings reports of major tech companies?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "As stock prices plummet during a major financial downturn, investors scramble to reassess their portfolios."
+        },
+        {
+            "recency_label2": "A-Month",
+            "context2": "When quarterly earnings season approaches and market volatility is on the rise, analysts closely watch for signs of instability."
+        }
+    ]
+}
+{
+    "q_id": 3,
+    "question": "How do the changing weather patterns during hurricane season affect the scheduling of outdoor music festivals in coastal cities?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "As a severe hurricane warning is issued for the coastal city, festival organizers scramble to decide whether to postpone the event."
+        },
+        {
+            "recency_label2": "A-Few-Weeks",
+            "context2": "During the peak of hurricane season, city officials review and discuss contingency plans for outdoor events with festival promoters."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "What is the current position of the planet Mars in its orbit around the Sun?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "As Mars continues its orbit around the Sun, its position is constantly shifting."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "What is the expected date of the next full moon after the summer solstice?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Weeks",
+            "context1": "The summer solstice has recently occurred, marking the beginning of summer."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "What is the typical time gap between the blooming of cherry blossoms and the start of the summer harvest season in Japan?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During the spring season in Japan, when cherry blossoms have finished blooming and the summer harvest season is approaching."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "How many weeks separate the opening and closing ceremonies of the Olympic Games?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Weeks",
+            "context1": "The Olympic Games are underway, with the opening and closing ceremonies marking the beginning and end of the event."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "What is the current score in the ongoing Super Bowl?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "The Super Bowl is in its final quarter with only minutes left to play."
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "The Super Bowl has just ended and fans are waiting for the final statistics."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "How many minutes are left until the stock market closes today?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "Traders are preparing for the last trading session of the day."
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "Investors are checking the market schedule before a holiday."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "What is the average response time of emergency services during a hurricane, considering the time it takes for the storm to make landfall and the subsequent rescue operations?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "As the hurricane warning is issued and residents are evacuating, emergency services are put on high alert."
+        },
+        {
+            "recency_label2": "A-Few-Hours",
+            "context2": "During the immediate aftermath of the hurricane making landfall, rescue teams are scrambling to respond to distress calls."
+        }
+    ]
+}
+{
+    "q_id": 4,
+    "question": "How many days passed between the release of the latest iPhone model and the announcement of its upcoming software update, given that the unveiling event was postponed due to unforeseen technical issues?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "The company has just resolved the technical issues causing the postponement of the unveiling event."
+        },
+        {
+            "recency_label2": "A-Few-Weeks",
+            "context2": "The latest iPhone model is now available in stores and its software update is imminent."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "What is the predicted high tide time for the coast of Miami during the upcoming full moon?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "During the brief period surrounding a full moon, high tide times are critical for coastal activities in Miami."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "How many hours of daylight will Los Angeles experience on the summer solstice this year?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Year",
+            "context1": "During the summer solstice, the daylight hours are at their annual peak."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "What is the typical increase in temperature during the summer months after the spring equinox in the Northern Hemisphere?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During the summer season in the Northern Hemisphere, temperatures are rising after the spring equinox."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "How many hours of daylight occur in Stockholm on the summer solstice compared to the winter solstice?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Year",
+            "context1": "During the summer and winter solstices, the difference in daylight hours is most notable in Stockholm."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "What is the current air quality index in Beijing during the ongoing sandstorm?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "A severe sandstorm warning has been issued for the city, prompting concerns about air quality."
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "Beijing is experiencing a prolonged period of high winds and dust, affecting daily life and air quality."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "How many people have been evacuated from the flood-affected areas in Houston in the last 24 hours?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "Emergency responders are scrambling to evacuate people from flooded neighborhoods."
+        },
+        {
+            "recency_label2": "A-Few-Hours",
+            "context2": "As the storm surge begins to subside, rescue teams are rushing to evacuate stranded residents."
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "What is the predicted impact of the upcoming hurricane on the stock market's performance over the next week, given the recent economic downturn?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Week",
+            "context1": "The hurricane warning has just been issued for the coastal regions"
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "Stock market volatility is increasing as the hurricane makes landfall"
+        }
+    ]
+}
+{
+    "q_id": 5,
+    "question": "How will the timing of the summer solstice affect the duration of the total solar eclipse visible from Australia, considering the varying cloud cover patterns during that time?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "As astronomers track the eclipse's path across Australia, they notice changes in cloud cover patterns that may impact visibility within a day."
+        },
+        {
+            "recency_label2": "A-Few-Months",
+            "context2": "During the months leading up to the total solar eclipse, scientists study how the summer solstice affects the eclipse's duration and optimal viewing times."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "What is the current phase of the lunar cycle?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "A new moon phase is about to begin or has recently started."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "What is the present water level of the Lake Mead reservoir?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "Water levels are being closely monitored during a period of drought."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "What is the relationship between the peak tourist season in Hawaii and the annual surf competitions that take place on the islands?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Year",
+            "context1": "During the peak tourist season in Hawaii, annual surf competitions are held, attracting visitors from around the world."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "How does the autumn foliage season in New England relate to the apple harvesting period in the region?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Weeks",
+            "context1": "During the peak autumn season in New England, the foliage and apple harvesting periods overlap."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "What is the current status of the Winter Olympics torch relay route?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "The Olympic flame is being transported to the host city."
+        },
+        {
+            "recency_label2": "A-Year",
+            "context2": "Preparations for the upcoming Winter Olympics are underway."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "Which athletes are currently leading in the overall medal count at the Winter Olympics?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "The Winter Olympics are nearing their midpoint with intense competition across various events."
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "Medal ceremonies are taking place as the games enter their final stretch."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "What was the impact of the COVID-19 pandemic on the global economy during the time the US presidency was transitioned from Donald Trump to Joe Biden?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "As the new administration is taking office, economists are assessing the pandemic's effects on the global economy during the transition period."
+        },
+        {
+            "recency_label2": "A-Year",
+            "context2": "While reviewing the economic trends of the past year, researchers are analyzing the impact of the pandemic on the global economy during the US presidency transition."
+        }
+    ]
+}
+{
+    "q_id": 6,
+    "question": "How did the stock market react to the announcement of the iPhone 13 release on the day of the Federal Reserve's decision to raise interest rates?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "The company's stock prices are fluctuating wildly as investors scramble to react to the sudden news."
+        },
+        {
+            "recency_label2": "A-Few-Hours",
+            "context2": "Market analysts are closely watching the immediate aftermath of the Federal Reserve's decision to raise interest rates."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "What is the current phase of the moon?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Days",
+            "context1": "A new moon phase is about to begin or has recently started."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "What is the current water level of the River Thames?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "During periods of heavy rainfall or high tide, the water level of the River Thames is being closely monitored."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "What is the average temperature during the summer months when the tourism season is at its peak in the Mediterranean region?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During the peak tourism season in the Mediterranean region, temperatures are at their highest and most stable."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "How does the water level in the reservoirs change during the wet season compared to the dry season in areas prone to drought?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "During seasonal transitions from dry to wet periods, water levels in reservoirs are closely monitored."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "What is the current score in the ongoing Wimbledon men's singles final?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "The men's singles final is in its final set."
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "The Wimbledon tournament is nearing its conclusion."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "Who is leading the presidential election polls on the day before the election?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "The final debate has just concluded, sparking intense media coverage and last-minute campaigning."
+        },
+        {
+            "recency_label2": "A-Few-Days",
+            "context2": "Early voting has begun, and voters are eagerly awaiting the latest poll numbers before making their decision."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "What was the impact of the COVID-19 pandemic on the global stock market during the 2020 US presidential election?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "As a new wave of COVID-19 infections sweeps across the globe, financial analysts scramble to reassess market trends."
+        },
+        {
+            "recency_label2": "A-Year",
+            "context2": "During a post-election review of economic policies, researchers examine the pandemic's lasting effects on international trade and investment."
+        }
+    ]
+}
+{
+    "q_id": 7,
+    "question": "How did the resignation of Steve Jobs as CEO of Apple in 2011 affect the release of the iPhone 5 in 2012?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Year",
+            "context1": "The company is preparing to launch a new product line."
+        },
+        {
+            "recency_label2": "A-Few-Years",
+            "context2": "Apple is facing a major crisis in its leadership structure."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "What is the current phase of the lunar eclipse and how will it affect astronomical observations?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "A lunar eclipse is underway, causing variations in astronomical observations."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "How does the seasonal migration pattern of monarch butterflies impact the ecosystem in their wintering grounds?",
+    "event_dependency": "Single-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Year",
+            "context1": "During the winter months when monarch butterflies are present in their wintering grounds."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "How does the introduction of a new product line affect the production and distribution phases of a manufacturing company?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Months",
+            "context1": "When a company is in the process of expanding its product offerings and needs to adjust its production and distribution strategies accordingly."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "What is the relationship between the daily rush hour and the evening commute in terms of traffic volume and road congestion?",
+    "event_dependency": "Multi-Event",
+    "stationary": "YES",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "During a typical weekday, traffic volume and road congestion are being observed."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "How many people have been evacuated from the affected areas due to the wildfire as of today?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Hours",
+            "context1": "The wildfire is rapidly spreading across the county, forcing emergency services to evacuate residents from the affected areas."
+        },
+        {
+            "recency_label2": "A-Day",
+            "context2": "Firefighters have contained the wildfire, but evacuation orders remain in place as crews work to ensure the area is safe for residents to return."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "What is the current air quality index in the regions surrounding the wildfire and how is it expected to change in the next 24 hours?",
+    "event_dependency": "Single-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "Wildfire season is at its peak with multiple large fires burning across the region."
+        },
+        {
+            "recency_label2": "A-Few-Hours",
+            "context2": "A sudden wind shift is forecasted to impact the wildfire's spread and surrounding air quality."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "How does the sudden change in weather patterns affect the timing of the annual cherry blossom festival and the subsequent tourist season?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Few-Weeks",
+            "context1": "As festival organizers finalize the event schedule, they are concerned about the impact of shifting weather patterns on the festival's traditional timing."
+        },
+        {
+            "recency_label2": "A-Year",
+            "context2": "With the approaching anniversary of the festival's founding, city officials are assessing how changes in weather patterns over the past year have influenced tourist season duration and attendance."
+        }
+    ]
+}
+{
+    "q_id": 8,
+    "question": "What are the consequences of a cyberattack on a major financial institution's database during a period of high market volatility, and how does it influence the decision-making process for investors?",
+    "event_dependency": "Multi-Event",
+    "stationary": "NO",
+    "labels": [
+        {
+            "recency_label1": "A-Day",
+            "context1": "The financial institution's database is breached during a period of unusually high stock market fluctuations."
+        },
+        {
+            "recency_label2": "A-Few-Weeks",
+            "context2": "Investors are reviewing their portfolio performance after a major cyberattack on a financial institution's database was publicly disclosed."
+        }
+    ]
+}
