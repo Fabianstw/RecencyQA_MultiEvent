@@ -401,9 +401,8 @@ def generate_recencyqa_4way(
 ########################################################
 
 if __name__ == "__main__":
-    generate_recencyqa_4way(
-        "E:\\Uni\\ws2025\\aktuelleThemen\\RecencyQA\\NewDataset\\RecencyQA_dataset_small.json",
-        "recencyqa_adamInput.json",
+    generate_recencyqa_4way("C:\\ws2025\\aktuelle\\RecencyQA\\NewDataset\\RecencyQA_dataset_small.json",
+        "C:\\ws2025\\aktuelle\\RecencyQA\\generatedSet\\recencyqa_newContext.json",
         n_single_stationary=2,
         n_multi_stationary=2,
         n_single_nonstat=2,
