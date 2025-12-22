@@ -213,3 +213,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# confusion matrix, per-label stats, etc. can be added here
+#error_type  analysis
+# f1 
+# precision
+# recall
+
+# maybe ask for reasoning  of the model

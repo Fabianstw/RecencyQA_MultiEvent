@@ -3,6 +3,8 @@ import pandas as pd
 from tqdm import tqdm
 from together import Together
 
+#from RecencyQA.NewDataset.generateDataset_twoPipelines import gen_nonstationary_multi
+
 
 ########################################################
 # 1. Together AI Setup
@@ -99,15 +101,39 @@ def gen_stationary_single(example_q):
 
 ### --- Stationary + Multi Event ---
 
-PROMPT_STATIONARY_MULTI = """
+PROMPT_STATIONARY_MULTI_CAUSAL = """
 You generate STATIONARY multi-event temporal questions.
 
 Task:
-Generate EXACTLY 2 stationary temporal questions that involve TWO events or phases.
-Generate ONE of those questions with events that are related causally. The other question must be generated with events from clearly different real-world domains.
+Generate EXACTLY 2 stationary temporal questions involving TWO events that are causally related.
 
 Rules:
 - Must involve at least TWO distinct temporal events.
+- Events must have a clear cause-effect relationship.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1","q2"]
+}}
+"""
+PROMPT_STATIONARY_MULTI_TEMPORAL = """
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving TWO events that are ONLY temporally connected.
+
+Rules:
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
 - Temporal behavior must be stable, predictable, cyclical, or regular.
 - Must rely on real-world change.
 - Do NOT paraphrase examples.
@@ -123,9 +149,16 @@ Return JSON:
 }}
 """
 
-def gen_stationary_multi(example_q):
+
+def gen_stationary_multi_causal(example_q):
     ex = "\n".join(f"- {q}" for q in example_q)
-    js = extract_json(llm(PROMPT_STATIONARY_MULTI.format(examples=ex)))
+    js = extract_json(llm(PROMPT_STATIONARY_MULTI_CAUSAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+def gen_stationary_multi_temporal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_STATIONARY_MULTI_TEMPORAL.format(examples=ex)))
     return js["questions"] if js else []
 
 
@@ -166,13 +199,39 @@ def gen_nonstationary_single(example_q):
 
 ### --- Non-Stationary + Multi Event ---
 
-PROMPT_NONSTATIONARY_MULTI = """
+PROMPT_NONSTATIONARY_MULTI_CAUSAL = """
 You generate NON-STATIONARY multi-event temporal questions.
 
 Task:
-Generate EXACTLY 2 non-stationary temporal questions involving at least TWO events.
-Generate ONE of those questions with events that are related causally. The other question must be generated with events from clearly different real-world domains.
+Generate EXACTLY 2 non-stationary temporal questions involving TWO events that are causally related.
+
 Rules:
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Events must have a clear cause-effect relationship.
+- Must rely on real-world temporal change.
+- Must involve at least TWO distinct temporal events.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1","q2"]
+}}
+"""
+PROMPT_NONSTATIONARY_MULTI_TEMPORAL = """
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving TWO events that are ONLY temporally connected.
+
+Rules:
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
 - At least one event must be unstable, unpredictable, or highly time-sensitive.
 - Must rely on real-world temporal change.
 - Must involve at least TWO distinct temporal events.
@@ -189,9 +248,15 @@ Return JSON:
 }}
 """
 
-def gen_nonstationary_multi(example_q):
+def gen_nonstationary_multi_causal(example_q):
     ex = "\n".join(f"- {q}" for q in example_q)
-    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI.format(examples=ex)))
+    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI_CAUSAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+def gen_nonstationary_multi_temporal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI_TEMPORAL.format(examples=ex)))
     return js["questions"] if js else []
 
 
@@ -222,7 +287,7 @@ Your tasks (internal reasoning only, output JSON only):
   "Never": "never changes"
 }}
 
-2. Based on the selected label, write a short temporal context (ONE sentence) describing the current event, phase, or condition in which the question is asked.
+2. Based on the selected label, write a short temporal context (ONE sentence) describing the current event, phase, or condition in which the question is asked. This does not have to be realted to the question causally.
    - Must describe an EVENT, PHASE or CONDITION, taking place when the question becomes relevant.
    - No specific years.
    - No meta reasoning.
@@ -264,7 +329,7 @@ Your tasks (internal reasoning only, output JSON only):
   "Never": "never changes"
 }}
 
-2. For each selected label provide ONE short temporal contexts (ONE sentence each) describing the current event, phase, or condition in which the question is asked.
+2. For each selected label provide ONE short temporal contexts (ONE sentence each) describing the current event, phase, or condition in which the question is asked. This does not have to be realted to the question causally.
    - Each context must describe a different  EVENT, PHASE or CONDITION, taking place when the question becomes relevant.
    - No specific years.
    - No meta reasoning.
@@ -336,9 +401,14 @@ def generate_recencyqa_4way(
 
         # ---- generate 4 category sets ----
         qs_ss = ensure_n(gen_stationary_single, example, n_single_stationary)
-        qs_sm = ensure_n(gen_stationary_multi, example, n_multi_stationary)
+        qs_sm_causal = ensure_n(gen_stationary_multi_causal, example, n_multi_stationary)
+        qs_sm_temporal = ensure_n(gen_stationary_multi_temporal, example, n_multi_stationary)
+
+
+
         qs_ns = ensure_n(gen_nonstationary_single, example, n_single_nonstat)
-        qs_nm = ensure_n(gen_nonstationary_multi, example, n_multi_nonstat)
+        qs_nm_causal = ensure_n(gen_nonstationary_multi_causal, example, n_multi_nonstat)
+        qs_nm_temporal = ensure_n(gen_nonstationary_multi_temporal, example, n_multi_nonstat)
 
         # ---- STATIONARY SINGLE ----
         for q in qs_ss:
@@ -353,16 +423,30 @@ def generate_recencyqa_4way(
                 })
 
         # ---- STATIONARY MULTI ----
-        for q in qs_sm:
+        for q in qs_sm_causal:
             raw = label_stationary(q)
             if raw:
                 output.append({
                     "q_id": row["q_id"],
                     "question": q,
                     "event_dependency": "Multi-Event",
+                    "generation_type": "causal",
                     "stationary": "YES",
                     "labels": build_final_labels(raw)
                 })
+
+        for q in qs_sm_temporal:
+            raw = label_stationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "generation_type": "temporal_only",
+                    "stationary": "YES",
+                    "labels": build_final_labels(raw)
+                })
+
 
         # ---- NON-STATIONARY SINGLE ----
         for q in qs_ns:
@@ -377,21 +461,37 @@ def generate_recencyqa_4way(
                 })
 
         # ---- NON-STATIONARY MULTI ----
-        for q in qs_nm:
+        for q in qs_nm_causal:
             raw = label_nonstationary(q)
             if raw:
                 output.append({
                     "q_id": row["q_id"],
                     "question": q,
                     "event_dependency": "Multi-Event",
+                    "generation_type": "causal",
                     "stationary": "NO",
                     "labels": build_final_labels(raw)
                 })
 
+        for q in qs_nm_temporal:
+            raw = label_nonstationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "generation_type": "temporal_only",
+                    "stationary": "NO",
+                    "labels": build_final_labels(raw)
+                })
+
+
     # ---- write JSONL output ----
     with open(output_path, "w", encoding="utf-8") as f:
+        f.write("[\n")
         for o in output:
-            f.write(json.dumps(o, ensure_ascii=False) + "\n")
+            f.write(json.dumps(o, ensure_ascii=False) + ",\n")
+        f.write("]")
 
     print("Saved:", output_path)
 
