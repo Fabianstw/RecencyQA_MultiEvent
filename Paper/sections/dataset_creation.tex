@@ -1,0 +1,38 @@
+Our dataset pipeline converts a small seed set of temporal questions into a large collection annotated with fine-grained recency demands. We implement the pipeline with Llama-3.3-70B-Instruct-Turbo via Together AI, using deterministic prompts that separate generation, labeling, and augmentation (full templates appear in Appendix~\ref{app:prompts}).
+
+\subsection{Seed data and model setup}
+We start from a compact seed split of RecencyQA. Each seed question is passed as a one-shot example to the generator to anchor topic diversity and phrasing. The generation and labeling calls are made through the Together chat API with temperature 1.0 and top-$p$ 0.95. Token usage is logged to track cost, but no seed answers are exposed to the model.
+
+\subsection{Question taxonomy}
+We combine two axes: stationarity of temporal change and the number of events referenced by a question.
+\begin{itemize}
+    \item \textbf{Stationary vs. non-stationary}: Stationary questions have predictable update cycles (for example, seasonal patterns); non-stationary questions depend on volatile or event-triggered changes.
+    \item \textbf{Single-event vs. multi-event}: Single-event questions revolve around one evolving process. Our new multi-event category requires two distinct events. We support (a) \textit{causal} pairs where one event drives another and (b) \textit{temporal-only} pairs that co-occur in time but come from different domains without direct influence.
+\end{itemize}
+This yields four primary buckets: stationary single, stationary multi, non-stationary single, and non-stationary multi. For multi-event cases, both causal and temporal-only variants are generated, effectively giving six generation modes.
+
+\subsection{Question generation}
+Prompt templates explicitly instruct the model to output exactly two questions per call and forbid placeholders or paraphrasing of the seed (Appendix~\ref{app:gen-prompts}). A helper loops until the desired count is reached for each mode. Every generated question is tagged with the seed question identifier and metadata for stationarity, event dependency, and (for multi-event) causal vs. temporal-only linkage.
+
+\subsection{Recency labeling}
+Each question is labeled with recency classes that describe how quickly its answer should be refreshed. We use the following twelve labels:
+\begin{center}
+    \begin{tabular}{ll}
+    An hour & A few hours \\
+    A day & A few days \\
+    A week & A few weeks \\
+    A month & A few months \\
+    A year & A few years \\
+    Many years & Never
+    \end{tabular}
+\end{center}
+Stationary questions receive one label; non-stationary questions receive two labels to capture alternative temporal regimes. For every label we also elicit a one-sentence temporal context (event, phase, or condition) that makes the question relevant. The labeling prompt prohibits meta-reasoning or explicit time stamps and is reproduced in Appendix~\ref{app:label-prompts}. Labels and contexts are merged into a structured list so downstream models can pair each recency class with its motivating scenario.
+
+\subsection{Perturbation-based augmentation}
+To probe sensitivity, we check whether small lexical edits could change a question's recency demand. After the base dataset is built, we run the perturbation script (Appendix~\ref{app:perturbation}) to mark perturbable questions and generate minimally edited variants. Each variant is re-labeled with the same procedure, and both the original and variant are stored with a perturbable flag. This step expands coverage of borderline cases where temporal cues are subtle.
+
+\subsection{Human and external validation}
+After automatic generation and perturbation, we perform a filtering pass. We sample questions through the Gemini Free API, a VSCode-based spot-check script, and manual review to discard malformed or semantically weak questions. During this pass we also verify that recency labels and contexts remain plausible; items with inconsistent labels are either corrected or removed. Only questions that survive this triage are kept in the final release.
+
+\subsection{Output format}
+All examples are written to JSON with one object per question. Each record stores the seed question identifier, the generated question text, stationarity flag, event dependency type, optional causal vs. temporal-only marker, the list of recency labels and contexts, and the perturbable indicator when augmentation is applied. The resulting corpus offers controlled variation across temporal behaviors and provides explicit supervision for estimating when an answer is likely to drift.

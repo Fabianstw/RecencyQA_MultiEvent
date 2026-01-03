@@ -28,10 +28,16 @@
 % However, it will improve the aesthetics of text in
 % the typewriter font.
 \usepackage{inconsolata}
+\usepackage{fvextra}
+
+% Wrapped verbatim for prompts
+\DefineVerbatimEnvironment{promptblock}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small}
 
 %Including images in your LaTeX document requires adding
 %additional package(s)
 \usepackage{graphicx}
+
+\usepackage{siunitx}
 
 % If the title and author information does not fit in the area allocated, uncomment the following
 %
@@ -59,10 +65,10 @@
 
 \author{Peter Schulze \\
   https://github.com/peterschulze04 \\
-  \texttt{email@domain} \\\And
+  \texttt{Peter.Schulze@student.uibk.ac.at} \\\And
   Fabian Stiewe \\
   https://github.com/Fabianstw \\
-  \texttt{email@domain} \\
+  \texttt{Fabian.Stiewe@student.uibk.ac.at} \\
 }
 
 %\author{
@@ -106,44 +112,27 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-This document is a supplement to the general instructions for *ACL authors. It contains instructions for using the \LaTeX{} style files for ACL conferences.
-The document itself conforms to its own specifications, and is therefore an example of what your manuscript should look like.
-These instructions should be used both for papers submitted for review and for final versions of accepted papers.
+\input{sections/abstract}
 \end{abstract}
 
 \section{Introduction}
+\input{sections/introduction}
 
-These instructions are for authors submitting papers to *ACL conferences using \LaTeX. They are not self-contained. All authors must follow the general instructions for *ACL proceedings,\footnote{\url{http://acl-org.github.io/ACLPUB/formatting.html}} and this document contains additional instructions for the \LaTeX{} style files.
-
-The templates include the \LaTeX{} source of this document (\texttt{acl\_latex.tex}),
-the \LaTeX{} style file used to format it (\texttt{acl.sty}),
-an ACL bibliography style (\texttt{acl\_natbib.bst}),
-an example bibliography (\texttt{custom.bib}),
-and the bibliography for the ACL Anthology (\texttt{anthology.bib}).
-
-\section{Engines}
-
-To produce a PDF file, pdf\LaTeX{} is strongly recommended (over original \LaTeX{} plus dvips+ps2pdf or dvipdf).
-The style file \texttt{acl.sty} can also be used with
-lua\LaTeX{} and
-Xe\LaTeX{}, which are especially suitable for text in non-Latin scripts.
-The file \texttt{acl\_lualatex.tex} in this repository provides
-an example of how to use \texttt{acl.sty} with either
-lua\LaTeX{} or
-Xe\LaTeX{}.
-
-Test using a bib cite \cite{Gusfield:97}. And another cite \cite{Aho:72}.
+\section{Dataset Creation}
+\label{sec:dataset-creation}
+\input{sections/dataset_creation}
 
 % Bibliography entries for the entire Anthology, followed by custom entries
 %\bibliography{anthology,custom}
 % Custom bibliography entries only
+% \bibliographystyle{plainnat}
 \bibliography{custom}
 
+\newpage
 \appendix
-
-\section{Example Appendix}
-\label{sec:appendix}
-
-This is an appendix.
+\onecolumn
+\section{Prompt Templates}
+\label{app:prompts}
+\input{sections/appendix_prompts}
 
 \end{document}
