@@ -21,15 +21,15 @@ OUTPUT_DIR = "results"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 MODELS = [
-    "Qwen/Qwen2.5-72B-Instruct-Turbo"
-    
+    "Qwen/Qwen2.5-72B-Instruct-Turbo",
+    "deepseek-ai/DeepSeek-R1",
+    "openai/gpt-oss-120b"
     
 ]
 
-""""Qwen/Qwen2.5-72B-Instruct",
-    "mistralai/Mixtral-8x22B-Instruct",
-    "google/gemma-2-27b-it",
-    "deepseek-ai/DeepSeek-R1"
+""""Qwen/Qwen2.5-72B-Instruct-Turbo",
+    "deepseek-ai/DeepSeek-R1",
+    "openai/gpt-oss-120b"
     
     """
 
