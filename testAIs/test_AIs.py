@@ -16,16 +16,22 @@ from collections import defaultdict
 # CONFIG
 # =========================
 
-DATASET_FILE = "dataset.jsonl"
+DATASET_FILE = "C:\\ws2025\\aktuelle\\RecencyQA\\generatedSet\\recencyqa_betterMulti.json"
 OUTPUT_DIR = "results"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 MODELS = [
-    "Qwen/Qwen2.5-72B-Instruct",
+    "Qwen/Qwen2.5-72B-Instruct-Turbo"
+    
+    
+]
+
+""""Qwen/Qwen2.5-72B-Instruct",
     "mistralai/Mixtral-8x22B-Instruct",
     "google/gemma-2-27b-it",
     "deepseek-ai/DeepSeek-R1"
-]
+    
+    """
 
 TEMPERATURE = 0.0
 MAX_TOKENS = 10
@@ -59,7 +65,8 @@ Choose exactly one label from:
 [An-Hour, A-Few-Hours, A-Day, A-Few-Days, A-Week, A-Few-Weeks,
  A-Month, A-Few-Months, A-Year, A-Few-Years, Many-Years, Never]
 
-Answer only with the label.
+Answer ONLY with the label.
+DO NOT provide any explanations or additional text.
 """.strip()
 
 # =========================
@@ -67,8 +74,8 @@ Answer only with the label.
 # =========================
 
 def load_dataset(path):
-    with open(path, "r") as f:
-        return [json.loads(line) for line in f]
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 # =========================
 # INFERENCE
@@ -162,7 +169,7 @@ def main():
     if "TOGETHER_API_KEY" not in os.environ:
         raise RuntimeError("Please set TOGETHER_API_KEY")
 
-    client = Together(api_key=os.environ["TOGETHER_API_KEY"])
+    client = Together()
     dataset = load_dataset(DATASET_FILE)
 
     final_summary = []

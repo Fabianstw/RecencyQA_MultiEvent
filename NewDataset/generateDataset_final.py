@@ -3,6 +3,8 @@ import pandas as pd
 from tqdm import tqdm
 from together import Together
 
+#from RecencyQA.NewDataset.generateDataset_twoPipelines import gen_nonstationary_multi
+
 
 ########################################################
 # 1. Together AI Setup
@@ -14,7 +16,7 @@ print("Using Together AI model:", MODEL_NAME)
 
 
 ########################################################
-# 2. Chat wrapper with token logging + JSON extraction
+# 2. Chat wrapper + JSON extraction
 ########################################################
 
 def llm(prompt, max_new_tokens=350):
@@ -22,34 +24,30 @@ def llm(prompt, max_new_tokens=350):
         model=MODEL_NAME,
         messages=[{"role": "user", "content": prompt}],
         max_tokens=max_new_tokens,
-        temperature=0.8,
-        top_p=0.95
+        temperature=1.0,
+        top_p=0.95,
     )
 
-    # Token logging
     usage = response.usage
-    input_tokens = usage.prompt_tokens
-    output_tokens = usage.completion_tokens
-    print(f"[Token Log] Input={input_tokens} | Output={output_tokens} | Total={usage.total_tokens}")
+    print(f"[Token Log] Input={usage.prompt_tokens} | Output={usage.completion_tokens}")
 
-    cost = input_tokens * 0.27/1e6 + output_tokens * 0.54/1e6
+    cost = usage.prompt_tokens * 0.27/1e6 + usage.completion_tokens * 0.54/1e6
     print(f"[Estimated cost] ${cost:.6f}\n")
 
     return response.choices[0].message.content
 
 
 def extract_json(text):
-    """Extract JSON object from LLM output safely."""
     try:
         start = text.index("{")
         end = text.rindex("}") + 1
         return json.loads(text[start:end])
-    except:
+    except Exception:
         return None
 
 
 ########################################################
-# 3. JSON/JSONL auto loader
+# 3. Dataset loader
 ########################################################
 
 def load_dataset(path):
@@ -57,284 +55,643 @@ def load_dataset(path):
         first = f.read(1)
 
     if first == "[":
-        print("Detected JSON → array")
+        print("Detected JSON array")
         return pd.read_json(path)
     return pd.read_json(path, lines=True)
 
 
 ########################################################
-# 4. QUESTION GENERATION (stable)
+# 4. GENERATION PROMPTS (4 pipelines)
 ########################################################
 
-SINGLE_GEN_PROMPT = """
-You are a temporal question generation system.
+### --- Stationary + Single Event ---
 
-Your task:
-Generate EXACTLY 4 new temporal questions inspired by the examples.
+PROMPT_STATIONARY_SINGLE = """
+You generate STATIONARY temporal questions.
 
-Definition:
--(stationary question) if:
-  - The timespan how often the answer must be updated to stay correct would remain the same regardless of when the question is asked.
-  - Even if the factual answer changes regularly, the time frame of change remains consistent, so the label is stable.
--(non-stationary question) only if:
-  - The appropriate updating recency itself would change depending on when the question is asked.
-  - OR the question is only relevant within a short time window that makes its temporal behavior unstable.
-   
-At least TWO out of the four questions must be non-stationary.
+Definition (internal):
+- A stationary question has a stable temporal update behavior.
+- The answer changes over time, but the timespan how often the answer must be updated
+  would remain the same regardless of when the question is asked.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions focusing on ONE event or process.
 
 Rules:
-- Must rely on information that CHANGES over time.
-- Must include either a stable cyclical process OR an event-driven, rapidly shifting situation.
-- Must be meaningful real-world questions.
+- Must rely on real-world phenomena that change over time.
+- Must be stable, cyclical, predictable, or rhythm-based.
 - Must NOT paraphrase the examples.
 - Must NOT use placeholders.
-
-IMPORTANT RULE:
-Do NOT incorporate or mirror the definition of stationary vs. non-stationary in the content of the questions.
-The definitions are only for your internal reasoning, NOT part of the question topics. 
-Do NOT create questions about update frequency, reporting frequency, update cycles, stability cycles, or how often something changes.
-The questions must be about real-world temporal situations, not about the definitions themselves.
-
+- Do NOT mention stationarity in the question.
 
 Examples:
 {examples}
 
-Return VALID JSON ONLY in this format:
-
+Return JSON:
 {{
-  "questions": [
-    "question_1",
-    "question_2",
-    "question_3",
-    "question_4"
-  ]
+  "questions": ["q1","q2"]
 }}
 """
 
-def generate_single_questions(example_questions):
-    ex = "\n".join(f"- {q}" for q in example_questions)
-    result = llm(SINGLE_GEN_PROMPT.format(examples=ex))
-    js = extract_json(result)
-    return js["questions"] if js and "questions" in js else []
+def gen_stationary_single(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_STATIONARY_SINGLE.format(examples=ex)))
+    return js["questions"] if js else []
 
 
-MULTI_GEN_PROMPT = """
-You are a multi-event temporal reasoning question generator.
+### --- Stationary + Multi Event ---
 
-Your task:
-Generate EXACTLY 4 new temporal questions that require comparing
-or relating at least two different temporal events or phases.
+PROMPT_STATIONARY_MULTI_CAUSAL = """
+You generate STATIONARY multi-event temporal questions.
 
-Definition:
--(stationary question) if:
-  - The timespan how often the answer must be updated to stay correct would remain the same regardless of when the question is asked.
-  - Even if the factual answer changes regularly, the time frame of change remains consistent, so the label is stable.
--(non-stationary question) only if:
-  - The appropriate updating recency itself would change depending on when the question is asked.
-  - OR the question is only relevant within a short time window that makes its temporal behavior unstable.
-   
-At least TWO out of the four questions must be non-stationary. 
-   
+Task:
+Generate EXACTLY 2 stationary temporal questions involving TWO events that are causally related.
 
 Rules:
-- Each question must require temporal reasoning AND combine two different events.
-- Must rely on information that changes over time.
-- Must involve at least two distinct events.
-- Must rely on information that CHANGES over time
-- Must NOT paraphrase examples.
-- Must NOT use placeholders.
-
-IMPORTANT RULE:
-Do NOT incorporate or mirror the definition of stationary vs. non-stationary in the content of the questions.
-The definitions are only for your internal reasoning, NOT part of the question topics. 
-Do NOT create questions about update frequency, reporting frequency, update cycles, stability cycles, or how often something changes.
-The questions must be about real-world temporal situations, not about the definitions themselves.
-
+- Must involve at least TWO distinct temporal events.
+- Events must have a clear cause-effect relationship.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
 
 Examples:
 {examples}
 
-Return JSON ONLY in this format:
-
+Return JSON:
 {{
-  "questions": [
-    "question_1",
-    "question_2",
-    "question_3",
-    "question_4"
-  ]
+  "questions": ["q1","q2"]
+}}
+"""
+PROMPT_STATIONARY_MULTI_TEMPORAL = """
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving TWO events that are ONLY temporally connected.
+
+Rules:
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1","q2"]
 }}
 """
 
-def generate_multi_questions(example_questions):
-    ex = "\n".join(f"- {q}" for q in example_questions)
-    result = llm(MULTI_GEN_PROMPT.format(examples=ex))
-    js = extract_json(result)
-    return js["questions"] if js and "questions" in js else []
+
+def gen_stationary_multi_causal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_STATIONARY_MULTI_CAUSAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+def gen_stationary_multi_temporal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_STATIONARY_MULTI_TEMPORAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+### --- Non-Stationary + Single Event ---
+
+PROMPT_NONSTATIONARY_SINGLE = """
+You generate NON-STATIONARY temporal questions.
+
+Definition (internal):
+- A non-stationary question has unstable temporal update behavior.
+- How frequently the answer must be updated depends strongly on WHEN the question is asked.
+- OR the question is only relevant within short, event-dependent windows.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions focusing on ONE event.
+
+Rules:
+- Must rely on quickly evolving or unstable processes.
+- Must be meaningful and real-world.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity explicitly.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1","q2"]
+}}
+"""
+
+def gen_nonstationary_single(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_NONSTATIONARY_SINGLE.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+### --- Non-Stationary + Multi Event ---
+
+PROMPT_NONSTATIONARY_MULTI_CAUSAL = """
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving TWO events that are causally related.
+
+Rules:
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Events must have a clear cause-effect relationship.
+- Must rely on real-world temporal change.
+- Must involve at least TWO distinct temporal events.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1","q2"]
+}}
+"""
+PROMPT_NONSTATIONARY_MULTI_TEMPORAL = """
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving TWO events that are ONLY temporally connected.
+
+Rules:
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Must rely on real-world temporal change.
+- Must involve at least TWO distinct temporal events.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1","q2"]
+}}
+"""
+
+def gen_nonstationary_multi_causal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI_CAUSAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+def gen_nonstationary_multi_temporal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI_TEMPORAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+
+
+#-- 3 events --#
+PROMPT_STATIONARY_MULTI3_CAUSAL = """
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving THREE events
+that are causally related in a chain or network.
+
+Rules:
+- Must involve EXACTLY THREE distinct temporal events.
+- Events must have clear cause-effect relationships.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1", "q2"]
+}}
+"""
+PROMPT_STATIONARY_MULTI3_TEMPORAL = """
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving THREE events
+that are ONLY temporally connected.
+
+Rules:
+- Must involve EXACTLY THREE distinct events.
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1", "q2"]
+}}
+"""
+PROMPT_NONSTATIONARY_MULTI3_CAUSAL = """
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving THREE events
+that are causally related.
+
+Rules:
+- Must involve EXACTLY THREE distinct temporal events.
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Events must have clear cause-effect relationships.
+- Must rely on real-world temporal change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1", "q2"]
+}}
+"""
+PROMPT_NONSTATIONARY_MULTI3_TEMPORAL = """
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving THREE events
+that are ONLY temporally connected.
+
+Rules:
+- Must involve EXACTLY THREE distinct temporal events.
+- Events must be from clearly different real-world domains.
+- Must NOT influence each other causally.
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Must rely on real-world temporal change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{{
+  "questions": ["q1", "q2"]
+}}
+"""
+def gen_stationary_multi3_causal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_STATIONARY_MULTI3_CAUSAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+def gen_stationary_multi3_temporal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_STATIONARY_MULTI3_TEMPORAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+def gen_nonstationary_multi3_causal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI3_CAUSAL.format(examples=ex)))
+    return js["questions"] if js else []
+
+def gen_nonstationary_multi3_temporal(example_q):
+    ex = "\n".join(f"- {q}" for q in example_q)
+    js = extract_json(llm(PROMPT_NONSTATIONARY_MULTI3_TEMPORAL.format(examples=ex)))
+    return js["questions"] if js else []
+
 
 
 ########################################################
-# 5. LABELING (model decides 1 or 2 contexts)
+# 5. LABEL PROMPTS (NO stationarity inside prompt)
 ########################################################
 
-LABEL_PROMPT = """
-Analyze this question and produce temporal labels:
+LABEL_STATIONARY_PROMPT = """
+Analyze this temporal question and produce temporal labels:
 
 "{question}"
 
-Your tasks (do them step by step internally, but only output the final JSON):
+Your tasks (internal reasoning only, output JSON only):
 
-1. Provide a recency label (How frequently must the answer be updated to stay correct ?), (choose key from):
+1. Provide ONE recency label:
 {{
-  "An-Hour": "The answer changes within one hour",
-  "A-Few-Hours": "The answer changes within a few hours",
-  "A-Day": "The answer changes within one day",
-  "A-Few-Days": "The answer changes within a few days",
-  "A-Week": "The answer changes within one week",
-  "A-Few-Weeks": "The answer changes within a few weeks",
-  "A-Month": "The answer changes within one month",
-  "A-Few-Months": "The answer changes within a few months",
-  "A-Year": "The answer changes within one year",
-  "A-Few-Years": "The answer changes within a few years",
-  "Many-Years": "The answer will need 10 or more years to change",
-  "Never": "The answer will never change"
+  "An-Hour": "changes within one hour",
+  "A-Few-Hours": "changes within a few hours",
+  "A-Day": "changes within one day",
+  "A-Few-Days": "changes within a few days",
+  "A-Week": "changes within one week",
+  "A-Few-Weeks": "changes within a few weeks",
+  "A-Month": "changes within one month",
+  "A-Few-Months": "changes within a few months",
+  "A-Year": "changes within one year",
+  "A-Few-Years": "changes within a few years",
+  "Many-Years": "changes after 10 or more years",
+  "Never": "never changes"
 }}
 
-2. Determine whether the question is stationary or non-stationary.
-Use this rule:
-- "YES" (stationary) if:
-  - The chosen recency label would remain the same regardless of when the question is asked.
-  - Even if the factual answer changes regularly, the time frame of change remains consistent, so the label is stable.
-- "NO" (non-stationary)  if:
-  - The appropriate recency label itself would change depending on when the question is asked.
-  - OR the question is only relevant within a short time window that makes its temporal behavior unstable.
+2. Based on the selected label, write a short temporal context (ONE sentence) describing the current event, phase, or condition in which the question is asked. This does not have to be realted to the question causally.
+   - Must describe an EVENT, PHASE or CONDITION, taking place when the question becomes relevant.
+   - No specific years.
+   - No meta reasoning.
+   - No "current"
+   - No "the question is asked"
 
-Critical distinction: Questions mentioning speciﬁc events are stationary if they ask about metrics that change at the same frequency regardless of
-the event.
-
-3.1. If Stationary:
-    - Provide a really short but clear temporal context in ONE sentence. 
-    - The context should ground the question on an EVENT! 
-    - Do not include specific years, simply create a natural moment where the question arises.
-    - Only describe an EVENT, PHASE, or CONDITION that triggers the question, no “someone asks” or "someone wonders".
-
-
-3.2. If stationary is NO:
-    3.2.1 Provide a second recency label (label2), following the same rules as in step 1.
-    3.2.2 Provide a second context (context2), following the same rules as in the if in step 3.1
-
-
-IMPORTANT:
-Do NOT be lazy determining the stationarity
-Output VALID JSON ONLY.
-ALWAYS output lists.
-If stationary : lists have length 1.
-If non-stationary : lists have length 2.
-NEVER rename keys: must be exactly "recency_list", "context_list" and "stationary".
-
-STRICT FORMAT:
-
+Return JSON:
 {{
-  "recency_list": ["label1", "label2 optional"],
-  "context_list": ["context1", "context2 optional"],
-  "stationary": "<YES or NO>"
+  "recency_list": ["label1"],
+  "context_list": ["context1"]
 }}
 """
 
-def label_question(q):
-    result = llm(LABEL_PROMPT.format(question=q))
-    return extract_json(result)
+def label_stationary(q):
+    js = extract_json(llm(LABEL_STATIONARY_PROMPT.format(question=q)))
+    return js
+
+
+LABEL_NONSTATIONARY_PROMPT = """
+Analyze this temporal question and produce temporal labels:
+
+"{question}"
+
+Your tasks (internal reasoning only, output JSON only):
+
+1. Provide TWO recency labels (for two different realistic temporal situations), choose from:
+{{
+  "An-Hour": "changes within one hour",
+  "A-Few-Hours": "changes within a few hours",
+  "A-Day": "changes within one day",
+  "A-Few-Days": "changes within a few days",
+  "A-Week": "changes within one week",
+  "A-Few-Weeks": "changes within a few weeks",
+  "A-Month": "changes within one month",
+  "A-Few-Months": "changes within a few months",
+  "A-Year": "changes within one year",
+  "A-Few-Years": "changes within a few years",
+  "Many-Years": "changes after 10 or more years",
+  "Never": "never changes"
+}}
+
+2. For each selected label provide ONE short temporal contexts (ONE sentence each) describing the current event, phase, or condition in which the question is asked. This does not have to be realted to the question causally.
+   - Each context must describe a different  EVENT, PHASE or CONDITION, taking place when the question becomes relevant.
+   - No specific years.
+   - No meta reasoning.
+   - No "current"
+   - No "the question is asked"
+
+Return JSON:
+{{
+  "recency_list": ["label1", "label2"],
+  "context_list": ["context1", "context2"]
+}}
+"""
+
+def label_nonstationary(q):
+    js = extract_json(llm(LABEL_NONSTATIONARY_PROMPT.format(question=q)))
+    return js
 
 
 ########################################################
-# 6. RECONSTRUCT FINAL FORMAT
+# 6. Label list conversion
 ########################################################
 
-def build_final_labels(raw_labels):
-    """Convert list-format model output → your desired key structure."""
-    final_list = []
-
-    recs = raw_labels["recency_list"]
-    ctxs = raw_labels["context_list"]
+def build_final_labels(raw):
+    final = []
+    recs = raw.get("recency_list", [])
+    ctxs = raw.get("context_list", [])
 
     for i, (r, c) in enumerate(zip(recs, ctxs), start=1):
-        final_list.append({
+        final.append({
             f"recency_label{i}": r,
             f"context{i}": c
         })
 
-    if len(recs) == 1:
-        stationary_flag = "YES"
-    else:
-        stationary_flag = "NO"
-
-    return final_list, stationary_flag
-
+    return final
 
 
 ########################################################
-# 7. MAIN PIPELINE
+# 7. Helper: ensure exact N
 ########################################################
 
-def generate_recencyqa_plus(input_path, output_path):
+def ensure_n(gen_func, example_q, n):
+    out = []
+    while len(out) < n:
+        qs = gen_func(example_q)
+        out.extend(qs)
+        if not qs:
+            break
+    return out[:n]
+
+
+########################################################
+# 8. MAIN PIPELINE
+########################################################
+
+########################################################
+
+def generate_recencyqa_4way(
+    input_path,
+    output_path,
+    n_single_stationary=2,
+    n_multi_stationary=2,
+    n_multi3_stationary=2,
+    n_single_nonstat=2,
+    n_multi_nonstat=2,
+    n_multi3_nonstat=2
+):
 
     df = load_dataset(input_path)
     output = []
 
     for _, row in tqdm(df.iterrows(), total=len(df)):
+        example = [row["question"]]
 
-        example_questions = [row["question"]]
+        # ---- generate question sets ----
+        qs_ss = ensure_n(gen_stationary_single, example, n_single_stationary)
+        qs_sm_causal = ensure_n(gen_stationary_multi_causal, example, n_multi_stationary)
+        qs_sm_temporal = ensure_n(gen_stationary_multi_temporal, example, n_multi_stationary)
 
-        # Generate questions
-        qs_single = generate_single_questions(example_questions)
-        qs_multi = generate_multi_questions(example_questions)
+        qs_sm3_causal = ensure_n(gen_stationary_multi3_causal, example, n_multi3_stationary)
+        qs_sm3_temporal = ensure_n(gen_stationary_multi3_temporal, example, n_multi3_stationary)
 
-        # --- SINGLE EVENT QUESTIONS ---
-        for q in qs_single:
-            raw = label_question(q)
-            if not raw:
-                continue
+        qs_ns = ensure_n(gen_nonstationary_single, example, n_single_nonstat)
+        qs_nm_causal = ensure_n(gen_nonstationary_multi_causal, example, n_multi_nonstat)
+        qs_nm_temporal = ensure_n(gen_nonstationary_multi_temporal, example, n_multi_nonstat)
 
-            labels, stationary = build_final_labels(raw)
+        qs_nm3_causal = ensure_n(gen_nonstationary_multi3_causal, example, n_multi3_nonstat)
+        qs_nm3_temporal = ensure_n(gen_nonstationary_multi3_temporal, example, n_multi3_nonstat)
 
-            output.append({
-                "q_id": row["q_id"],
-                "question": q,
-                "event_dependency": "Single-Event",
-                "labels": labels,
-                "stationary": stationary
-            })
+        # ---- STATIONARY SINGLE ----
+        for q in qs_ss:
+            raw = label_stationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Single-Event",
+                    "num_events": 1,
+                    "stationary": "YES",
+                    "labels": build_final_labels(raw)
+                })
 
-        # --- MULTI EVENT QUESTIONS ---
-        for q in qs_multi:
-            raw = label_question(q)
-            if not raw:
-                continue
+        # ---- STATIONARY MULTI (2 EVENTS) ----
+        for q in qs_sm_causal:
+            raw = label_stationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 2,
+                    "generation_type": "causal",
+                    "stationary": "YES",
+                    "labels": build_final_labels(raw)
+                })
 
-            labels, stationary = build_final_labels(raw)
+        for q in qs_sm_temporal:
+            raw = label_stationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 2,
+                    "generation_type": "temporal_only",
+                    "stationary": "YES",
+                    "labels": build_final_labels(raw)
+                })
 
-            output.append({
-                "q_id": row["q_id"],
-                "question": q,
-                "event_dependency": "Multi-Event",
-                "labels": labels,
-                "stationary": stationary
-            })
+        # ---- STATIONARY MULTI (3 EVENTS) ----
+        for q in qs_sm3_causal:
+            raw = label_stationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 3,
+                    "generation_type": "causal",
+                    "stationary": "YES",
+                    "labels": build_final_labels(raw)
+                })
 
-    # Save to JSONL
+        for q in qs_sm3_temporal:
+            raw = label_stationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 3,
+                    "generation_type": "temporal_only",
+                    "stationary": "YES",
+                    "labels": build_final_labels(raw)
+                })
+
+        # ---- NON-STATIONARY SINGLE ----
+        for q in qs_ns:
+            raw = label_nonstationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Single-Event",
+                    "num_events": 1,
+                    "stationary": "NO",
+                    "labels": build_final_labels(raw)
+                })
+
+        # ---- NON-STATIONARY MULTI (2 EVENTS) ----
+        for q in qs_nm_causal:
+            raw = label_nonstationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 2,
+                    "generation_type": "causal",
+                    "stationary": "NO",
+                    "labels": build_final_labels(raw)
+                })
+
+        for q in qs_nm_temporal:
+            raw = label_nonstationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 2,
+                    "generation_type": "temporal_only",
+                    "stationary": "NO",
+                    "labels": build_final_labels(raw)
+                })
+
+        # ---- NON-STATIONARY MULTI (3 EVENTS) ----
+        for q in qs_nm3_causal:
+            raw = label_nonstationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 3,
+                    "generation_type": "causal",
+                    "stationary": "NO",
+                    "labels": build_final_labels(raw)
+                })
+
+        for q in qs_nm3_temporal:
+            raw = label_nonstationary(q)
+            if raw:
+                output.append({
+                    "q_id": row["q_id"],
+                    "question": q,
+                    "event_dependency": "Multi-Event",
+                    "num_events": 3,
+                    "generation_type": "temporal_only",
+                    "stationary": "NO",
+                    "labels": build_final_labels(raw)
+                })
+
+    # ---- write JSON (FIXED, no trailing comma) ----
     with open(output_path, "w", encoding="utf-8") as f:
-        for o in output:
-            f.write(json.dumps(o, ensure_ascii=False) + "\n")
+        json.dump(output, f, ensure_ascii=False, indent=2)
 
     print("Saved:", output_path)
 
 
-###############################################
-# RUN
-###############################################
+
+########################################################
+# 9. RUN
+########################################################
 
 if __name__ == "__main__":
-    generate_recencyqa_plus(
-        "E:\\Uni\\ws2025\\aktuelleThemen\\RecencyQA\\NewDataset\\RecencyQA_dataset_small.json",
-        "recencyqa_plus_final.json"
+    generate_recencyqa_4way("C:\\ws2025\\aktuelle\\RecencyQA\\NewDataset\\selected_75.json",
+        "C:\\ws2025\\aktuelle\\RecencyQA\\generatedSet\\recencyqa_final.json",
+        n_single_stationary=2,
+        n_multi_stationary=2,
+        n_single_nonstat=2,
+        n_multi_nonstat=2,
     )
