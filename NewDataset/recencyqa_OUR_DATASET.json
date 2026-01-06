@@ -1,31 +1,5 @@
 [
   {
-    "q_id": 1,
-    "question": "What is the current water level in the Amazon River during the annual flooding season?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Heavy rainfall is occurring in the Amazon basin."
-      }
-    ]
-  },
-  {
-    "q_id": 2,
-    "question": "How many days until the next lunar eclipse is visible from Earth?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "A lunar eclipse is approaching its visibility from Earth."
-      }
-    ]
-  },
-  {
     "q_id": 3,
     "question": "Does a decrease in temperature typically lead to an increase in hot chocolate sales during the winter months?",
     "event_dependency": "Multi-Event",
@@ -124,20 +98,6 @@
     ]
   },
   {
-    "q_id": 10,
-    "question": "Are the dates of the FIFA World Cup final, the peak bloom of cherry blossoms in Washington D.C., and the annual Google I/O conference typically staggered over a short period?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Weeks",
-        "context1": "Spring is in full bloom in the Northern Hemisphere."
-      }
-    ]
-  },
-  {
     "q_id": 11,
     "question": "What are the current evacuation zones and emergency instructions during the wildfire in California?",
     "event_dependency": "Single-Event",
@@ -186,24 +146,6 @@
       {
         "recency_label2": "A-Few-Months",
         "context2": "A major airline has just announced its plans for expansion into new international routes."
-      }
-    ]
-  },
-  {
-    "q_id": 14,
-    "question": "Will an unexpected change in government regulations on renewable energy immediately impact the stock prices of major solar panel manufacturers in the following weeks?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Weeks",
-        "context1": "The company's quarterly earnings report is about to be released"
-      },
-      {
-        "recency_label2": "A-Day",
-        "context2": "A major solar panel manufacturer has just announced a significant breakthrough in technology"
       }
     ]
   },
@@ -370,20 +312,6 @@
     ]
   },
   {
-    "q_id": 25,
-    "question": "Does the timing of the weekly farmers' market in Portland coincide with the start of the MLB baseball games on Sundays?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Week",
-        "context1": "Sunday afternoons are filled with outdoor activities and sports events."
-      }
-    ]
-  },
-  {
     "q_id": 26,
     "question": "Are the opening hours of the Louvre Museum in Paris synchronized with the daily tidal patterns in the Bay of Fundy?",
     "event_dependency": "Multi-Event",
@@ -454,23 +382,6 @@
     ]
   },
   {
-    "q_id": 31,
-    "question": "What is the current status of the evacuation routes during the hurricane in Florida?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Hours",
-        "context1": "Emergency responders are scrambling to prepare for the storm's landfall."
-      },
-      {
-        "recency_label2": "A-Day",
-        "context2": "Residents are assessing the damage to their homes and neighborhoods after the hurricane passed."
-      }
-    ]
-  },
-  {
     "q_id": 32,
     "question": "Are there any updates on the number of power outages in the affected areas since the hurricane made landfall?",
     "event_dependency": "Single-Event",
@@ -520,24 +431,6 @@
       {
         "recency_label2": "A-Few-Hours",
         "context2": "The IT department is conducting a routine security audit of the hospital's network infrastructure."
-      }
-    ]
-  },
-  {
-    "q_id": 35,
-    "question": "Is the New York Stock Exchange open for trading during the hours that the Wimbledon tennis tournament is being broadcast?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "The summer sports season is in full swing with various tournaments taking place globally."
-      },
-      {
-        "recency_label2": "A-Few-Weeks",
-        "context2": "Financial markets are experiencing high volatility due to recent economic changes."
       }
     ]
   },
@@ -592,42 +485,6 @@
       {
         "recency_label2": "A-Week",
         "context2": "Emergency management teams are mobilizing resources to respond to the disaster."
-      }
-    ]
-  },
-  {
-    "q_id": 39,
-    "question": "Is the current stock market fluctuation affecting the scheduling of the upcoming NASA rocket launch and the release of the new iPhone model?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Stock market volatility is increasing during a major economic conference."
-      },
-      {
-        "recency_label2": "A-Week",
-        "context2": "NASA is preparing for a series of critical rocket launches amid intense media scrutiny."
-      }
-    ]
-  },
-  {
-    "q_id": 40,
-    "question": "Will the unexpected change in the monsoon season in India impact the timing of the Tour de France and the opening of the new museum exhibit on ancient civilizations?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Months",
-        "context1": "The annual sports calendar is being finalized for the upcoming season."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Climate change researchers are gathering to discuss long-term global weather patterns."
       }
     ]
   },
@@ -840,42 +697,6 @@
     ]
   },
   {
-    "q_id": 55,
-    "question": "What was the average price of Bitcoin when the COVID-19 vaccine was first administered to a human participant?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Months",
-        "context1": "Financial markets are experiencing high volatility due to global economic uncertainty."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "A new wave of cryptocurrency investment is gaining momentum among young investors."
-      }
-    ]
-  },
-  {
-    "q_id": 56,
-    "question": "Who was the President of the United States when the first image of a black hole was captured by the Event Horizon Telescope?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The annual astronomy conference is taking place in a major city."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A new textbook on modern astronomy is being published worldwide."
-      }
-    ]
-  },
-  {
     "q_id": 57,
     "question": "What was the name of the hurricane that caused the power outage which led to the cancellation of the Coldplay concert in Miami?",
     "event_dependency": "Multi-Event",
@@ -926,24 +747,6 @@
       {
         "recency_label2": "Many-Years",
         "context2": "Historians are reflecting on major achievements in space exploration and their impact on society."
-      }
-    ]
-  },
-  {
-    "q_id": 60,
-    "question": "Which company acquired the most startups during the period between the discovery of the first fast radio burst and the release of the iPhone 13, and the election of the current President of the European Commission?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Years",
-        "context1": "The annual report of a prominent tech firm is being reviewed by investors."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A new decade of technological advancements is being retrospected by historians."
       }
     ]
   },
@@ -1080,7 +883,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Day",
+        "recency_label1": "Never",
         "context1": "Morning classes are in session at universities around the world."
       }
     ]
@@ -1099,23 +902,6 @@
       {
         "recency_label2": "A-Day",
         "context2": "Emergency responders are assessing damage after a night of strong winds."
-      }
-    ]
-  },
-  {
-    "q_id": 72,
-    "question": "How many people have been evacuated from the flooded areas in Florida so far?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Emergency responders are working around the clock to rescue those stranded by the floodwaters."
-      },
-      {
-        "recency_label2": "A-Week",
-        "context2": "Relief efforts are shifting focus from evacuation to providing aid to displaced residents."
       }
     ]
   },
@@ -1174,24 +960,6 @@
     ]
   },
   {
-    "q_id": 76,
-    "question": "What is the impact of the recent fluctuations in Bitcoin prices on the timing of the upcoming iPhone release event?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "The tech industry is experiencing a surge in cryptocurrency investments as major companies announce new blockchain projects."
-      },
-      {
-        "recency_label2": "A-Week",
-        "context2": "Apple is finalizing the production of its latest smartphone model in preparation for a highly anticipated product launch event."
-      }
-    ]
-  },
-  {
     "q_id": 77,
     "question": "How does the sudden change in weather affect the timing of the harvest, and subsequently, the availability of fresh produce in the local market?",
     "event_dependency": "Multi-Event",
@@ -1206,24 +974,6 @@
       {
         "recency_label2": "A-Week",
         "context2": "A severe storm warning has been issued for the region."
-      }
-    ]
-  },
-  {
-    "q_id": 78,
-    "question": "What is the impact of the upcoming election on the stock market, and how will the resulting economic fluctuations influence the decision to launch a new product?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "The company's quarterly earnings report is about to be released"
-      },
-      {
-        "recency_label2": "A-Few-Weeks",
-        "context2": "A major economic summit is taking place in the country's capital"
       }
     ]
   },
@@ -1260,46 +1010,6 @@
       {
         "recency_label2": "A-Week",
         "context2": "The entertainment industry is buzzing with anticipation as award season is in full swing"
-      }
-    ]
-  },
-  {
-    "q_id": 81,
-    "question": "What is the current position of Halley's Comet in its orbit?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Astronomers are tracking celestial bodies in the solar system during a period of heightened astronomical activity."
-      }
-    ]
-  },
-  {
-    "q_id": 82,
-    "question": "How many days are left until the next lunar eclipse?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "A lunar eclipse is approaching and astronomical events are being closely monitored."
-      }
-    ]
-  },
-  {
-    "q_id": 83,
-    "question": "What event occurred before the eruption of Mount St. Helens in 1980, which led to the massive landslide that exposed the volcano's summit?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Volcanic activity is being monitored by geologists worldwide."
       }
     ]
   },
@@ -1459,14 +1169,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Years",
-        "context1": "Investors are analyzing the growth of technology companies during a period of economic downturn."
-      },
-      {
-        "recency_label2": "Many-Years",
+        "recency_label2": "Never",
         "context2": "Historians are researching the evolution of the electric vehicle industry as it approaches a major milestone."
       }
     ]
@@ -1508,24 +1214,6 @@
     ]
   },
   {
-    "q_id": 97,
-    "question": "What were the weather conditions before the flood that caused the evacuation of the town?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "The town is still recovering from the aftermath of the disaster."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "A new warning system is being implemented to prevent similar evacuations in the future."
-      }
-    ]
-  },
-  {
     "q_id": 98,
     "question": "At what temperature did the water boil before it was poured into the container that triggered the chemical reaction?",
     "event_dependency": "Multi-Event",
@@ -1558,24 +1246,6 @@
       {
         "recency_label2": "Many-Years",
         "context2": "Historians are researching the impact of technological advancements on global markets"
-      }
-    ]
-  },
-  {
-    "q_id": 100,
-    "question": "How many COVID-19 cases were reported in the United States between the launch of the SpaceX Falcon Heavy and the discovery of the first exoplanet orbiting a star similar to the Sun?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The annual report on global health trends is being compiled."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Historians are researching the long-term impact of the pandemic on society."
       }
     ]
   },
@@ -1616,20 +1286,6 @@
       {
         "recency_label1": "A-Few-Years",
         "context1": "As governments worldwide are increasingly focusing on environmental sustainability, stricter regulations are being introduced to mitigate the effects of pollution."
-      }
-    ]
-  },
-  {
-    "q_id": 104,
-    "question": "Does the regular maintenance of solar panels cause an increase in their energy output during peak sunlight hours?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "During peak sunlight hours, solar panels are operating at maximum capacity."
       }
     ]
   },
@@ -1700,20 +1356,6 @@
       {
         "recency_label1": "A-Year",
         "context1": "The holiday shopping season is in full swing."
-      }
-    ]
-  },
-  {
-    "q_id": 110,
-    "question": "Are the quarterly earnings reports of Toyota typically announced before, during, or after the FIFA World Cup and the harvesting season of wheat in Kansas?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The financial year is nearing its end."
       }
     ]
   },
@@ -1806,24 +1448,6 @@
     ]
   },
   {
-    "q_id": 116,
-    "question": "Does the recent discovery of exoplanets influence the schedule of the annual Cannes Film Festival?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The film festival is undergoing a significant overhaul in its programming theme."
-      },
-      {
-        "recency_label2": "Never",
-        "context2": "A new astronomical research facility is being inaugurated near the festival venue."
-      }
-    ]
-  },
-  {
     "q_id": 117,
     "question": "How will the sudden change in weather patterns caused by the approaching hurricane affect the timing of the emergency response team's deployment and subsequent relief efforts after the storm makes landfall?",
     "event_dependency": "Multi-Event",
@@ -1896,19 +1520,6 @@
     ]
   },
   {
-    "q_id": 121,
-    "question": "What is the current water level of the Nile River during its annual flooding season?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Weeks",
-        "context1": "Heavy rainfall is occurring in the Ethiopian Highlands."
-      }
-    ]
-  },
-  {
     "q_id": 122,
     "question": "How many days are left until the next lunar eclipse?",
     "event_dependency": "Single-Event",
@@ -1930,7 +1541,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "Many-Years",
+        "recency_label1": "Never",
         "context1": "A major restoration project is underway in a historic city."
       }
     ]
@@ -2086,24 +1697,6 @@
     ]
   },
   {
-    "q_id": 134,
-    "question": "How did the eruption of Mount Pinatubo in 1991 affect global climate patterns, leading to extreme weather events in the following years?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Scientists are gathering data during a period of intense volcanic activity."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Researchers are reviewing historical climate patterns to identify long-term trends."
-      }
-    ]
-  },
-  {
     "q_id": 135,
     "question": "When did the COVID-19 pandemic first impact global stock markets and the release of the film 'No Time to Die'?",
     "event_dependency": "Multi-Event",
@@ -2122,24 +1715,6 @@
     ]
   },
   {
-    "q_id": 136,
-    "question": "What was the time difference between the landing of the Perseverance rover on Mars and the start of the 2021 Australian Open tennis tournament?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "The space agency is preparing for a new Mars mission."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Historians are reviewing major sporting events and space exploration milestones from the past century."
-      }
-    ]
-  },
-  {
     "q_id": 137,
     "question": "What triggered the massive evacuation during the 2018 Camp Fire after the fire department issued a warning and the national guard was deployed to assist?",
     "event_dependency": "Multi-Event",
@@ -2154,24 +1729,6 @@
       {
         "recency_label2": "A-Day",
         "context2": "Relief efforts are underway to provide shelter and aid to those displaced by the disaster."
-      }
-    ]
-  },
-  {
-    "q_id": 138,
-    "question": "How did the sudden power outage at the Atlanta airport in 2017 affect the flight schedules and what emergency measures were taken by the authorities after the backup generators kicked in?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Hours",
-        "context1": "Flights are being grounded due to severe weather conditions."
-      },
-      {
-        "recency_label2": "A-Day",
-        "context2": "Airport staff are reviewing security protocols during a routine inspection."
       }
     ]
   },
@@ -2590,7 +2147,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Day",
+        "recency_label1": "A-Few-Years",
         "context1": "Summer is at its peak with the longest days of the year."
       }
     ]
@@ -2660,7 +2217,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
+        "recency_label1": "Never",
         "context1": "The financial planning season is in full swing as businesses and individuals prepare for the upcoming fiscal year."
       }
     ]
@@ -3250,7 +2807,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Months",
+        "recency_label1": "Never",
         "context1": "Summer is transitioning into fall, bringing changes in weather patterns and agricultural activities."
       }
     ]
@@ -3436,24 +2993,6 @@
       {
         "recency_label2": "A-Month",
         "context2": "A major competitor has just released a similar product."
-      }
-    ]
-  },
-  {
-    "q_id": 219,
-    "question": "How do fluctuations in global stock markets impact the scheduling of tennis tournaments during the Australian Open, which in turn affects the migration patterns of monarch butterflies in North America?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Stock market volatility is escalating during a major economic conference."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "The annual tennis tournament season is about to commence in the southern hemisphere."
       }
     ]
   },
@@ -4005,14 +3544,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "temporal_only",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Months",
-        "context1": "The tech industry is buzzing with rumors about upcoming smartphone releases."
-      },
-      {
-        "recency_label2": "A-Year",
+        "recency_label2": "Never",
         "context2": "Astronomers are preparing for a rare celestial event that will be visible from the northern hemisphere."
       }
     ]
@@ -4032,24 +3567,6 @@
       {
         "recency_label2": "A-Year",
         "context2": "The annual calendar of global events is being planned by a travel company."
-      }
-    ]
-  },
-  {
-    "q_id": 257,
-    "question": "What will happen to the water level in the dam if a strong earthquake hits the area during a period of heavy rainfall, and how will this impact the nearby village?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Hours",
-        "context1": "Heavy rainfall has been forecasted for the region, prompting concerns about flooding."
-      },
-      {
-        "recency_label2": "A-Few-Days",
-        "context2": "Emergency response teams are conducting drills in the nearby village to prepare for potential disasters."
       }
     ]
   },
@@ -4086,37 +3603,6 @@
       {
         "recency_label2": "A-Year",
         "context2": "The annual tech conference is taking place in a major city."
-      }
-    ]
-  },
-  {
-    "q_id": 260,
-    "question": "Does the timing of the annual wildebeest migration in Africa coincide with the Grammy Awards and the peak of the Atlantic hurricane season?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The tourist season is at its peak in Africa."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Climate change researchers are analyzing long-term patterns in global weather events."
-      }
-    ]
-  },
-  {
-    "q_id": 261,
-    "question": "What is the current highest-grossing film of the year?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Box office numbers are being closely monitored as the year's major film releases are underway."
       }
     ]
   },
@@ -4226,7 +3712,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "Many-Years",
+        "recency_label1": "Never",
         "context1": "A rare astronomical event is occurring, coinciding with significant technological and sporting announcements."
       }
     ]
@@ -4478,34 +3964,6 @@
     ]
   },
   {
-    "q_id": 285,
-    "question": "What day of the week did the summer solstice fall on in 2022, and what was the highest temperature recorded in New York City on that day?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Summer is approaching in the Northern Hemisphere."
-      }
-    ]
-  },
-  {
-    "q_id": 286,
-    "question": "What time did the first race of the 2022 Formula 1 season start, and when did the sunrise occur in Tokyo on that day?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The Formula 1 season is underway with multiple races taking place around the world."
-      }
-    ]
-  },
-  {
     "q_id": 287,
     "question": "What happens to the water level in a reservoir after a dam is built and then heavy rainfall occurs?",
     "event_dependency": "Multi-Event",
@@ -4610,42 +4068,6 @@
       {
         "recency_label2": "Many-Years",
         "context2": "A new wave of technological advancements is transforming international business practices."
-      }
-    ]
-  },
-  {
-    "q_id": 294,
-    "question": "How did the sudden change in weather patterns during the 2010 winter season affect the timing of the Olympic events in Vancouver?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Meteorologists are analyzing weather trends during a major sporting event."
-      },
-      {
-        "recency_label2": "A-Few-Years",
-        "context2": "Researchers are reviewing historical climate data to identify patterns and anomalies."
-      }
-    ]
-  },
-  {
-    "q_id": 295,
-    "question": "What was the status of the COVID-19 pandemic when the Perseverance rover landed on Mars?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Scientists are analyzing recent data from NASA missions to Mars."
-      },
-      {
-        "recency_label2": "A-Few-Months",
-        "context2": "Global health officials are reviewing the effectiveness of pandemic mitigation strategies during major international events."
       }
     ]
   },
@@ -5118,7 +4540,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "Many-Years",
+        "recency_label1": "Never",
         "context1": "A significant increase in global energy demand is underway."
       }
     ]
@@ -5173,11 +4595,11 @@
     "stationary": "NO",
     "labels": [
       {
-        "recency_label1": "A-Few-Hours",
+        "recency_label1": "An-Hour",
         "context1": "The crowd is cheering as the players take to the court."
       },
       {
-        "recency_label2": "A-Day",
+        "recency_label2": "A-Year",
         "context2": "The finalists are preparing for their post-match interviews."
       }
     ]
@@ -5190,7 +4612,7 @@
     "stationary": "NO",
     "labels": [
       {
-        "recency_label1": "A-Few-Hours",
+        "recency_label1": "A-Few-Minutes",
         "context1": "The championship game is in its final minutes of play."
       },
       {
@@ -5205,14 +4627,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
-        "context1": "The government is preparing its annual budget report."
-      },
-      {
-        "recency_label2": "Many-Years",
+        "recency_label2": "Never",
         "context2": "Economists are reflecting on the long-term consequences of past financial downturns."
       }
     ]
@@ -5241,14 +4659,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "temporal_only",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
-        "context1": "The cryptocurrency market is experiencing a significant surge in trading volumes."
-      },
-      {
-        "recency_label2": "A-Few-Years",
+        "recency_label2": "Never",
         "context2": "A new financial regulation is being implemented to oversee digital currency exchanges."
       }
     ]
@@ -5268,24 +4682,6 @@
       {
         "recency_label2": "A-Few-Months",
         "context2": "Researchers are analyzing historical data to identify patterns and trends in pandemic spread during major scientific events."
-      }
-    ]
-  },
-  {
-    "q_id": 335,
-    "question": "What were the environmental conditions like before, during, and after the 2011 Tohoku earthquake and tsunami in Japan that triggered a nuclear meltdown at the Fukushima Daiichi power plant?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Heavy rainfall is causing widespread flooding in coastal areas."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Scientists are reviewing decades of disaster response data to improve emergency preparedness protocols."
       }
     ]
   },
@@ -5976,19 +5372,6 @@
     ]
   },
   {
-    "q_id": 379,
-    "question": "How will the population growth of major cities impact the development of public transportation systems in the next decade?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Years",
-        "context1": "Cities are experiencing increased urbanization and migration, leading to growing demands for efficient public services."
-      }
-    ]
-  },
-  {
     "q_id": 380,
     "question": "What effects will the changing global climate have on the migratory patterns of certain bird species over the next five years?",
     "event_dependency": "Single-Event",
@@ -6354,7 +5737,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
+        "recency_label1": "Never",
         "context1": "Cherry blossoms are in full bloom across Japan."
       }
     ]
@@ -6464,24 +5847,6 @@
     ]
   },
   {
-    "q_id": 411,
-    "question": "How does a sudden change in weather patterns affect the timing of a wildfire breaking out in a dry forest area, and what are the immediate consequences for the local wildlife?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "A severe heatwave has been ongoing in the region."
-      },
-      {
-        "recency_label2": "A-Few-Weeks",
-        "context2": "Fire season is nearing its peak in the dry forest area."
-      }
-    ]
-  },
-  {
     "q_id": 412,
     "question": "What is the impact of a power grid failure on the functioning of life-support systems in a hospital, and how quickly can backup generators be activated to prevent patient harm?",
     "event_dependency": "Multi-Event",
@@ -6505,14 +5870,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "temporal_only",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Years",
-        "context1": "Scientists are analyzing a surge in astronomical discoveries to better understand the universe."
-      },
-      {
-        "recency_label2": "Many-Years",
+        "recency_label2": "Never",
         "context2": "Historians are reflecting on major technological advancements and their impact on society."
       }
     ]
@@ -6604,19 +5965,6 @@
       {
         "recency_label2": "A-Few-Months",
         "context2": "Spring festivities are underway in Japan."
-      }
-    ]
-  },
-  {
-    "q_id": 419,
-    "question": "What is the current water level in the largest reservoir in California compared to this time last year?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Water management efforts are being closely monitored during a period of drought."
       }
     ]
   },
@@ -6742,40 +6090,6 @@
       {
         "recency_label1": "A-Year",
         "context1": "Summer is approaching in the Northern Hemisphere."
-      }
-    ]
-  },
-  {
-    "q_id": 429,
-    "question": "What is the current evacuation route for Hurricane Katrina evacuees in New Orleans?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "Emergency responders are scrambling to establish safe zones for displaced residents."
-      },
-      {
-        "recency_label2": "A-Few-Hours",
-        "context2": "A mandatory evacuation order has just been issued for several parishes."
-      }
-    ]
-  },
-  {
-    "q_id": 430,
-    "question": "How many people have been rescued from flooded areas in the last 24 hours since the levees broke in New Orleans?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "Emergency responders are working around the clock to evacuate people from flooded neighborhoods."
-      },
-      {
-        "recency_label2": "A-Few-Days",
-        "context2": "Aid shipments are arriving at the disaster zone to support relief efforts."
       }
     ]
   },
@@ -8414,24 +7728,6 @@
     ]
   },
   {
-    "q_id": 534,
-    "question": "What is the relationship between the migration patterns of monarch butterflies and the release schedules of new smartphone models by major tech companies?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Researchers are studying the annual migration patterns of monarch butterflies during the peak season."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A new tech expo is being held to showcase innovative smartphone models and emerging technologies."
-      }
-    ]
-  },
-  {
     "q_id": 535,
     "question": "How do recent fluctuations in global stock markets influence the likelihood of a company laying off employees after a failed product launch?",
     "event_dependency": "Multi-Event",
@@ -8833,19 +8129,6 @@
     ]
   },
   {
-    "q_id": 560,
-    "question": "How often does the Earth's rotation cause a change in the length of a day?",
-    "event_dependency": "Single-Event",
-    "num_events": 1,
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Scientists are studying astronomical phenomena to better understand the Earth's behavior."
-      }
-    ]
-  },
-  {
     "q_id": 561,
     "question": "How long after a company announces layoffs does the stock price typically react?",
     "event_dependency": "Multi-Event",
@@ -9060,24 +8343,6 @@
       {
         "recency_label2": "A-Year",
         "context2": "The annual sports calendar is being planned by a major broadcaster."
-      }
-    ]
-  },
-  {
-    "q_id": 575,
-    "question": "What is the sequence of events when a hurricane warning is issued, the subsequent evacuation of a coastal town occurs, and the town's emergency services are deployed to handle the aftermath?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Emergency management teams are mobilizing resources in preparation for the hurricane's landfall"
-      },
-      {
-        "recency_label2": "A-Week",
-        "context2": "Relief efforts are underway to restore basic services and infrastructure in the affected areas"
       }
     ]
   },
@@ -10942,37 +10207,15 @@
     ]
   },
   {
-    "q_id": 694,
-    "question": "How many days after the discovery of gravitational waves did the winter storm of 2017 hit the northeastern United States?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Scientists are gathering for an annual astrophysics conference."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "A severe storm warning has been issued for the northeastern region."
-      }
-    ]
-  },
-  {
     "q_id": 695,
     "question": "What was the economic impact of the 2008 global financial crisis on the employment rates in the United States after the government implemented the American Recovery and Reinvestment Act in response to the crisis?",
     "event_dependency": "Multi-Event",
     "num_events": 3,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Years",
-        "context1": "The country is experiencing a significant surge in unemployment rates."
-      },
-      {
-        "recency_label2": "Many-Years",
+        "recency_label2": "Never",
         "context2": "Economists are reviewing historical data to identify patterns and trends in global financial crises."
       }
     ]
@@ -11335,14 +10578,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 3,
     "generation_type": "temporal_only",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
-        "context1": "The city is experiencing a surge in COVID-19 variants"
-      },
-      {
-        "recency_label2": "A-Few-Years",
+        "recency_label2": "Never",
         "context2": "Public health officials are reviewing annual reports on disease outbreaks"
       }
     ]
@@ -12468,24 +11707,6 @@
     ]
   },
   {
-    "q_id": 791,
-    "question": "How many hours after a significant stock market crash does it typically take for related currency exchange rates to stabilize?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Financial regulators are holding emergency meetings to discuss the market volatility."
-      },
-      {
-        "recency_label2": "A-Week",
-        "context2": "Investors are attending a global economic forum to reassess their investment strategies."
-      }
-    ]
-  },
-  {
     "q_id": 792,
     "question": "What is the average time frame between the announcement of a new smartphone model and the subsequent surge in sales of accessories for that particular device?",
     "event_dependency": "Multi-Event",
@@ -12694,20 +11915,6 @@
     ]
   },
   {
-    "q_id": 805,
-    "question": "Does a full moon always occur after a new moon and before a lunar eclipse in the lunar cycle?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Month",
-        "context1": "A lunar eclipse is approaching within the next few days."
-      }
-    ]
-  },
-  {
     "q_id": 806,
     "question": "Will a tree produce fruit after it has blossomed and been pollinated by bees in the spring?",
     "event_dependency": "Multi-Event",
@@ -12732,20 +11939,6 @@
       {
         "recency_label1": "A-Day",
         "context1": "Financial markets are experiencing a period of high volatility during early morning trading hours."
-      }
-    ]
-  },
-  {
-    "q_id": 808,
-    "question": "Can a person watch the tennis match at Wimbledon, then attend a concert at the Sydney Opera House, and finally see the sunset over the Grand Canyon on the same day?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "Summer vacation is in full swing with various international events and tourist attractions being visited simultaneously."
       }
     ]
   },
@@ -13452,24 +12645,6 @@
     ]
   },
   {
-    "q_id": 853,
-    "question": "What is the impact of the PGA golf tournament schedule on the timing of the annual monsoon season in India?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "Never",
-        "context1": "The summer heat is intensifying over the Indian subcontinent."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "The golfing season is about to begin in the United States."
-      }
-    ]
-  },
-  {
     "q_id": 854,
     "question": "How does the release date of the new iPhone model coincide with the migration patterns of the wildebeest in the Serengeti?",
     "event_dependency": "Multi-Event",
@@ -13827,14 +13002,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 3,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Hours",
-        "context1": "A severe storm is causing widespread power outages across the city"
-      },
-      {
-        "recency_label2": "A-Day",
+        "recency_label2": "Never",
         "context2": "The hospital is experiencing an unusually high volume of emergency cases during a pandemic surge"
       }
     ]
@@ -14174,24 +13345,6 @@
     ]
   },
   {
-    "q_id": 898,
-    "question": "What is the relationship between the frequency of earthquakes in California, the scheduling of tennis tournaments at Wimbledon, and the emergence of new fashion trends in Paris?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Scientists are gathering data during a period of increased seismic activity"
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Fashion designers are preparing for a major annual showcase in the city of lights"
-      }
-    ]
-  },
-  {
     "q_id": 899,
     "question": "How many weeks are left before the next total solar eclipse?",
     "event_dependency": "Single-Event",
@@ -14312,20 +13465,6 @@
       {
         "recency_label1": "A-Year",
         "context1": "Summer vacation is ending in the Northern Hemisphere."
-      }
-    ]
-  },
-  {
-    "q_id": 908,
-    "question": "Are the weekly farmers' markets in Paris open on the same days as the biannual book fairs in Frankfurt and the quarterly full moon occurrences?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Tourist season is in full swing in European cities."
       }
     ]
   },
@@ -15664,24 +14803,6 @@
     ]
   },
   {
-    "q_id": 993,
-    "question": "How many days will it take for the monsoon season to arrive in Mumbai after the release of the next iPhone model in California?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Months",
-        "context1": "The summer solstice is approaching in the northern hemisphere."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A severe drought is affecting the agricultural production in several countries."
-      }
-    ]
-  },
-  {
     "q_id": 994,
     "question": "What is the expected time difference between the peak bloom of cherry blossoms in Washington D.C. and the start of the next Wimbledon tennis tournament in London?",
     "event_dependency": "Multi-Event",
@@ -15840,20 +14961,6 @@
     ]
   },
   {
-    "q_id": 1004,
-    "question": "Who was the CEO of Toyota during the last total solar eclipse?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Years",
-        "context1": "A rare astronomical event is underway, captivating the attention of people worldwide."
-      }
-    ]
-  },
-  {
     "q_id": 1005,
     "question": "What is the average temperature during the winter season when the previous summer's extreme heat causes a drought that affects the current autumn's foliage?",
     "event_dependency": "Multi-Event",
@@ -15949,14 +15056,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "Many-Years",
-        "context1": "The medical community is preparing for a potential outbreak of a similar disease."
-      },
-      {
-        "recency_label2": "A-Few-Years",
+        "recency_label2": "Never",
         "context2": "Researchers are reviewing historical breakthroughs in vaccine development to inform new projects."
       }
     ]
@@ -15967,14 +15070,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "Many-Years",
-        "context1": "The space agency is preparing for a new interplanetary mission."
-      },
-      {
-        "recency_label2": "A-Few-Years",
+        "recency_label2": "Never",
         "context2": "A documentary about historic moon landings is being broadcast on television."
       }
     ]
@@ -16508,7 +15607,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Days",
+        "recency_label1": "Never",
         "context1": "Gardening activities are in full swing during the spring season."
       }
     ]
@@ -17208,24 +16307,6 @@
     ]
   },
   {
-    "q_id": 1091,
-    "question": "What event triggered the widespread power outage that occurred during the peak of the hurricane season in Florida?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "Heavy rainfall is causing flash floods in several cities"
-      },
-      {
-        "recency_label2": "A-Month",
-        "context2": "Emergency responders are conducting damage assessments after a natural disaster"
-      }
-    ]
-  },
-  {
     "q_id": 1092,
     "question": "How did the sudden change in weather patterns affect the timing of the annual flooding in Venice, and what were the consequences for the subsequent tourist season?",
     "event_dependency": "Multi-Event",
@@ -17240,24 +16321,6 @@
       {
         "recency_label2": "A-Few-Years",
         "context2": "Tourist officials are reviewing last year's revenue numbers to plan for upcoming marketing campaigns."
-      }
-    ]
-  },
-  {
-    "q_id": 1093,
-    "question": "What was the status of the COVID-19 pandemic when the Perseverance rover landed on Mars?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Months",
-        "context1": "Scientists are analyzing recent Mars exploration data to plan future missions."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "Historians are reflecting on major achievements in space exploration over the past century."
       }
     ]
   },
@@ -17416,20 +16479,6 @@
       {
         "recency_label1": "A-Day",
         "context1": "Morning rush hour is in full swing in major cities around the world."
-      }
-    ]
-  },
-  {
-    "q_id": 1104,
-    "question": "Are the tidal patterns in the Bay of Fundy synchronized with the scheduling of cricket matches in India?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "Tidal patterns are being monitored during peak tourist season in the Bay of Fundy."
       }
     ]
   },
@@ -18004,7 +17053,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Hours",
+        "recency_label1": "Never",
         "context1": "Space agencies are actively monitoring satellite orbits during peak astronomical events."
       }
     ]
@@ -18102,7 +17151,7 @@
     "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
+        "recency_label1": "A-Few-Months",
         "context1": "The technology industry is experiencing a period of rapid innovation and frequent product releases."
       }
     ]
@@ -18206,24 +17255,6 @@
       {
         "recency_label2": "A-Month",
         "context2": "Hurricane warnings are issued for several coastal cities in the Atlantic region."
-      }
-    ]
-  },
-  {
-    "q_id": 1154,
-    "question": "Will the announcement of the Nobel Prize winners in physics affect the timing of the annual monsoon rains in India?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "Never",
-        "context1": "Meteorologists are closely monitoring weather patterns in India during the summer season."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "The Nobel Prize committee is preparing for its annual award ceremony in Stockholm."
       }
     ]
   },
@@ -18449,7 +17480,7 @@
         "context1": "The fourth quarter is about to start."
       },
       {
-        "recency_label2": "A-Day",
+        "recency_label2": "A-Few-Days",
         "context2": "Fans are leaving the stadium after the game."
       }
     ]
@@ -18914,24 +17945,6 @@
     ]
   },
   {
-    "q_id": 1198,
-    "question": "How did the stock market react on the day of the discovery of gravitational waves, the launch of the Voyager 1 spacecraft, and the premiere of the movie Titanic?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "The annual meeting of the Astronomy and Finance Society is underway."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A new book about major scientific discoveries and their impact on society is being written."
-      }
-    ]
-  },
-  {
     "q_id": 1199,
     "question": "What are the current tidal hours for the Sea of Japan?",
     "event_dependency": "Single-Event",
@@ -18986,20 +17999,6 @@
     ]
   },
   {
-    "q_id": 1203,
-    "question": "What time do banks typically open on Sundays when the Grammy Awards are being held?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Year",
-        "context1": "The Grammy Awards are being held on a Sunday evening."
-      }
-    ]
-  },
-  {
     "q_id": 1204,
     "question": "At what hour do the New York Stock Exchange markets close on Fridays during the FIFA World Cup?",
     "event_dependency": "Multi-Event",
@@ -19010,20 +18009,6 @@
       {
         "recency_label1": "A-Day",
         "context1": "The FIFA World Cup is underway on Fridays."
-      }
-    ]
-  },
-  {
-    "q_id": 1205,
-    "question": "What time does the morning sunrise typically occur when the overnight temperature inversion has dissipated and the daily dew has evaporated?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "Morning is breaking after a cool night."
       }
     ]
   },
@@ -19510,24 +18495,6 @@
     ]
   },
   {
-    "q_id": 1236,
-    "question": "How might a rapid increase in global temperatures affect the melting of polar ice caps, and subsequently, the migration patterns of endangered species that rely on those ice caps for survival?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "Many-Years",
-        "context1": "Researchers are gathering data during an intense heatwave in the Arctic region."
-      },
-      {
-        "recency_label2": "A-Few-Years",
-        "context2": "A new environmental policy is being implemented to reduce carbon emissions globally."
-      }
-    ]
-  },
-  {
     "q_id": 1237,
     "question": "How do fluctuations in global commodity prices impact the timing of NASA's asteroid exploration missions and the release of new smartphone models?",
     "event_dependency": "Multi-Event",
@@ -19840,24 +18807,6 @@
       {
         "recency_label2": "A-Week",
         "context2": "Investors are eagerly awaiting the release of the company's quarterly financial reports."
-      }
-    ]
-  },
-  {
-    "q_id": 1257,
-    "question": "What is the current ranking of the top tennis player in the world, given that the Wimbledon tournament is about to start and the latest economic data on global trade is being released today?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Day",
-        "context1": "The economic data release is underway, affecting market trends."
-      },
-      {
-        "recency_label2": "A-Few-Weeks",
-        "context2": "The tennis season is nearing its peak, with several major tournaments scheduled."
       }
     ]
   },
@@ -20590,20 +19539,6 @@
       {
         "recency_label1": "A-Quarter",
         "context1": "Financial reports are being released for the latest quarter."
-      }
-    ]
-  },
-  {
-    "q_id": 1305,
-    "question": "What happens to the water level in a reservoir after a period of heavy rainfall, followed by a drought, and then a subsequent rainy season?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "causal",
-    "stationary": "YES",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Months",
-        "context1": "A severe drought is ending with the onset of a new rainy season."
       }
     ]
   },
@@ -21370,24 +20305,6 @@
     ]
   },
   {
-    "q_id": 1354,
-    "question": "How many days after the release of the movie 'Avengers: Endgame' did the first case of the Ebola outbreak in the Democratic Republic of Congo occur?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Days",
-        "context1": "The Ebola outbreak is spreading rapidly across neighboring countries."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A retrospective analysis of major global health crises is being conducted by researchers."
-      }
-    ]
-  },
-  {
     "q_id": 1355,
     "question": "What was the sequence of events involving the storm warning, the flash flood, and the subsequent evacuation of the town?",
     "event_dependency": "Multi-Event",
@@ -21686,24 +20603,6 @@
     ]
   },
   {
-    "q_id": 1374,
-    "question": "How many hours are between the start of the monsoon season in India and the release time of the latest iPhone model?",
-    "event_dependency": "Multi-Event",
-    "num_events": 2,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Months",
-        "context1": "The summer season is approaching in the northern hemisphere."
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "A new decade of technological advancements is unfolding."
-      }
-    ]
-  },
-  {
     "q_id": 1375,
     "question": "How long after a severe thunderstorm warning is issued will the tornado touch down, given that the storm has already caused a power outage in the nearby town?",
     "event_dependency": "Multi-Event",
@@ -21754,24 +20653,6 @@
       {
         "recency_label2": "A-Year",
         "context2": "Football fans are eagerly anticipating the upcoming league finals."
-      }
-    ]
-  },
-  {
-    "q_id": 1378,
-    "question": "How many hours are between the start of the monsoon season in India, the first launch of a SpaceX Starship, and the announcement of the Nobel Prize in Physics?",
-    "event_dependency": "Multi-Event",
-    "num_events": 3,
-    "generation_type": "temporal_only",
-    "stationary": "NO",
-    "labels": [
-      {
-        "recency_label1": "A-Few-Years",
-        "context1": "SpaceX is actively testing its Starship prototype"
-      },
-      {
-        "recency_label2": "Many-Years",
-        "context2": "The Indian government is reviewing its monsoon preparedness strategies"
       }
     ]
   },
@@ -22395,15 +21276,11 @@
     "event_dependency": "Multi-Event",
     "num_events": 3,
     "generation_type": "temporal_only",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Few-Days",
+        "recency_label1": "Never",
         "context1": "The astronomy club is preparing for their annual symposium."
-      },
-      {
-        "recency_label2": "A-Year",
-        "context2": "Fans are celebrating the anniversary of Kendrick Lamar's iconic album release."
       }
     ]
   },
@@ -23235,14 +22112,10 @@
     "event_dependency": "Multi-Event",
     "num_events": 2,
     "generation_type": "causal",
-    "stationary": "NO",
+    "stationary": "YES",
     "labels": [
       {
-        "recency_label1": "A-Year",
-        "context1": "The annual report of the vaccine manufacturer is being reviewed by investors."
-      },
-      {
-        "recency_label2": "A-Few-Months",
+        "recency_label2": "Never",
         "context2": "A new wave of COVID-19 infections is spreading across the globe, putting pressure on vaccine supply chains."
       }
     ]
