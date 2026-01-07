@@ -16,12 +16,12 @@ from collections import defaultdict
 # CONFIG
 # =========================
 
-DATASET_FILE = "C:\\ws2025\\aktuelle\\RecencyQA\\NewDataset\\recencyqa_OUR_DATASET.json"
-OUTPUT_DIR = "results_KIMI"
+DATASET_FILE = "C:\\ws2025\\aktuelle\\RecencyQA\\finetune\\test_eval.json"
+OUTPUT_DIR = "results_finetuned"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 MODELS = [
-   "moonshotai/Kimi-K2-Instruct-0905"
+   "schulzeschulbus_b2df/Qwen2.5-14B-Instruct-recency_QWEN2_5_14B-852a4208"
     
 ]
 
