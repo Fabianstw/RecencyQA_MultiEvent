@@ -16,8 +16,8 @@ from collections import defaultdict
 # CONFIG
 # =========================
 
-DATASET_FILE = "C:\\ws2025\\aktuelle\\RecencyQA\\generatedSet\\recencyqa_betterMulti.json"
-OUTPUT_DIR = "results"
+DATASET_FILE = "C:\\ws2025\\aktuelle\\RecencyQA\\NewDataset\\recencyqa_OUR_DATASET.json"
+OUTPUT_DIR = "results_whole_dataset"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 MODELS = [
