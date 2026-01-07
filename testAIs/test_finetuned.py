@@ -21,25 +21,15 @@ OUTPUT_DIR = "results_finetuned"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 MODELS = [
-   "schulzeschulbus_b2df/Qwen2.5-14B-Instruct-recency_QWEN2_5_14B-852a4208"
+   "schulzeschulbus_b2df/Qwen2.5-14B-Instruct-recency_QWEN2_5_14B-852a4208",
+   "moonshotai/Kimi-K2-Instruct-0905",
+   "Qwen/Qwen2.5-72B-Instruct-Turbo",
+   "deepseek-ai/DeepSeek-V3"
+
     
 ]
 
-""""
 
- "Qwen/Qwen2.5-72B-Instruct-Turbo",
-    "deepseek-ai/DeepSeek-V3",
-    "openai/gpt-oss-120b"
-
-
-Qwen/Qwen2.5-72B-Instruct-Turbo",
-    "deepseek-ai/DeepSeek-R1",
-    "openai/gpt-oss-120b"
-    
-
-    "Qwen/Qwen2.5-72B-Instruct-Turbo",
-    "deepseek-ai/DeepSeek-V3",
-    """
 
 TEMPERATURE = 0.0
 MAX_TOKENS = 90
