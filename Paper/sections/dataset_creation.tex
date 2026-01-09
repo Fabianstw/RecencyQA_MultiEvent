@@ -1,18 +1,25 @@
-Our dataset pipeline converts a small seed set of temporal questions into a large collection annotated with fine-grained recency demands. We implement the pipeline with Llama-3.3-70B-Instruct-Turbo via Together AI, using deterministic prompts that separate generation, labeling, and augmentation (full templates appear in Appendix~\ref{app:prompts}).
+\begin{figure*}[!t]
+  \centering
+  \includegraphics[width=\textwidth]{res/PipelineWorkflow.png}
+  \caption{Caption text.}
+  \label{fig:pipeline}
+\end{figure*}
+
+Our dataset pipeline converts a small seed set of temporal questions into a larger collection annotated with fine-grained recency demands and explicit event cardinality. We implement the pipeline with Llama-3.3-70B-Instruct-Turbo~\cite{touvron2023llamaopenefficientfoundation} via \href{https://www.together.ai/}{Together AI}\footnote{Together AI | The AI Native Cloud: \url{https://www.together.ai/}}, using deterministic prompts that separate generation and labeling (full templates appear in Appendix~\ref{app:prompts}). This separation keeps the phrasing space broad while making the labeling step auditable and repeatable.
 
 \subsection{Seed data and model setup}
-We start from a compact seed split of RecencyQA. Each seed question is passed as a one-shot example to the generator to anchor topic diversity and phrasing. The generation and labeling calls are made through the Together chat API with temperature 1.0 and top-$p$ 0.95. Token usage is logged to track cost, but no seed answers are exposed to the model.
+We start from a compact seed split of RecencyQA. Each seed question is passed as a one-shot example to the generator to anchor topic diversity and phrasing. The generation and labeling calls use the Together chat API with temperature 1.0 and top-$p$ 0.95. Token usage is logged to track cost, but no seed answers are exposed to the model.
 
 \subsection{Question taxonomy}
-We combine two axes: stationarity of temporal change and the number of events referenced by a question.
+We factor questions along stationarity and event cardinality, storing both the categorical choices and the cardinality as explicit metadata for every record.
 \begin{itemize}
-    \item \textbf{Stationary vs. non-stationary}: Stationary questions have predictable update cycles (for example, seasonal patterns); non-stationary questions depend on volatile or event-triggered changes.
-    \item \textbf{Single-event vs. multi-event}: Single-event questions revolve around one evolving process. Our new multi-event category requires two distinct events. We support (a) \textit{causal} pairs where one event drives another and (b) \textit{temporal-only} pairs that co-occur in time but come from different domains without direct influence.
+    \item \textbf{Stationary vs. non-stationary}: Stationary questions have predictable update cycles; non-stationary questions depend on volatile or event-triggered changes.
+    \item \textbf{Event cardinality (1/2/3 events)}: Single-event questions revolve around one evolving process. Multi-event questions use either two or three events. For multi-event items we prompt both \textit{causal} chains and \textit{temporal-only} co-occurrences across different domains. Each record stores an event dependency flag (Single-Event vs. Multi-Event), the number of events, and the generation type when multi-event.
 \end{itemize}
-This yields four primary buckets: stationary single, stationary multi, non-stationary single, and non-stationary multi. For multi-event cases, both causal and temporal-only variants are generated, effectively giving six generation modes.
+This yields ten prompt modes: single-event stationary and non-stationary, two-event causal and temporal-only counterparts for each stationarity setting, and three-event causal and temporal-only counterparts. The metadata reflects these choices through an event dependency flag (Single-Event vs. Multi-Event), the number of events, and for multi-event items a generation type tag (causal vs. temporal-only).
 
 \subsection{Question generation}
-Prompt templates explicitly instruct the model to output exactly two questions per call and forbid placeholders or paraphrasing of the seed (Appendix~\ref{app:gen-prompts}). A helper loops until the desired count is reached for each mode. Every generated question is tagged with the seed question identifier and metadata for stationarity, event dependency, and (for multi-event) causal vs. temporal-only linkage.
+Prompt templates instruct the model to output exactly two questions per call and forbid placeholders or paraphrasing of the seed (Appendix~\ref{app:gen-prompts}). A helper repeats calls until the target count is reached for each mode, reissuing only the missing portion to avoid over-generation. The ten prompt families are: stationary single (Appendix~\ref{prompt:stat-single}); stationary two-event causal (Appendix~\ref{prompt:stat-2-causal}) and temporal-only (Appendix~\ref{prompt:stat-2-temporal}); stationary three-event causal (Appendix~\ref{prompt:stat-3-causal}) and temporal-only (Appendix~\ref{prompt:stat-3-temporal}); non-stationary single (Appendix~\ref{prompt:nonstat-single}); non-stationary two-event causal (Appendix~\ref{prompt:nonstat-2-causal}) and temporal-only (Appendix~\ref{prompt:nonstat-2-temporal}); and non-stationary three-event causal (Appendix~\ref{prompt:nonstat-3-causal}) and temporal-only (Appendix~\ref{prompt:nonstat-3-temporal}). Every generated question is tagged with the seed identifier and metadata for stationarity, event dependency, number of events, and (when applicable) whether the multi-event relation was prompted as causal or temporal-only.
 
 \subsection{Recency labeling}
 Each question is labeled with recency classes that describe how quickly its answer should be refreshed. We use the following twelve labels:
@@ -26,13 +33,13 @@ Each question is labeled with recency classes that describe how quickly its answ
     Many years & Never
     \end{tabular}
 \end{center}
-Stationary questions receive one label; non-stationary questions receive two labels to capture alternative temporal regimes. For every label we also elicit a one-sentence temporal context (event, phase, or condition) that makes the question relevant. The labeling prompt prohibits meta-reasoning or explicit time stamps and is reproduced in Appendix~\ref{app:label-prompts}. Labels and contexts are merged into a structured list so downstream models can pair each recency class with its motivating scenario.
+Stationary questions receive one label; non-stationary questions receive two labels to capture alternative temporal regimes. For every label we also elicit a one-sentence temporal context (event, phase, or condition) that makes the question relevant. The labeling prompt prohibits meta-reasoning or explicit time stamps and is reproduced in Appendix~\ref{app:label-prompts} via the stationary template (Appendix~\ref{prompt:label-stat}) and the non-stationary template (Appendix~\ref{prompt:label-nonstat}). Labels and contexts are merged into a structured list so downstream models can pair each recency class with its motivating scenario. We retain only entries whose labels parse as JSON and whose context count matches the expected label count.
 
-\subsection{Perturbation-based augmentation}
-To probe sensitivity, we check whether small lexical edits could change a question's recency demand. After the base dataset is built, we run the perturbation script (Appendix~\ref{app:perturbation}) to mark perturbable questions and generate minimally edited variants. Each variant is re-labeled with the same procedure, and both the original and variant are stored with a perturbable flag. This step expands coverage of borderline cases where temporal cues are subtle.
-
-\subsection{Human and external validation}
-After automatic generation and perturbation, we perform a filtering pass. We sample questions through the Gemini Free API, a VSCode-based spot-check script, and manual review to discard malformed or semantically weak questions. During this pass we also verify that recency labels and contexts remain plausible; items with inconsistent labels are either corrected or removed. Only questions that survive this triage are kept in the final release.
+\subsection{Sampling and size}
+Running the ten-generation-mode configuration on 75 seed questions yields 1{,}498 retained questions after discarding malformed generations that fail JSON parsing or lack labels. The ensure-and-top-off loop keeps modes balanced: 748 stationary vs. 750 non-stationary questions; 300 single-event, 598 two-event, and 600 three-event items; and within multi-event items 600 were prompted as causal chains and 598 as temporal-only pairs or triples. Mode totals differ from the ideal 1{,}500 by two items that were filtered for malformed JSON.
 
 \subsection{Output format}
-All examples are written to JSON with one object per question. Each record stores the seed question identifier, the generated question text, stationarity flag, event dependency type, optional causal vs. temporal-only marker, the list of recency labels and contexts, and the perturbable indicator when augmentation is applied. The resulting corpus offers controlled variation across temporal behaviors and provides explicit supervision for estimating when an answer is likely to drift.
+All examples are written as one JSON object per line. Each record stores the seed question identifier, question text, stationarity flag, event dependency type, number of events, the causal vs. temporal-only generation tag for multi-event items, and the list of recency labels with their paired contexts. The resulting corpus offers controlled variation across temporal behaviors and provides explicit supervision for estimating when an answer is likely to drift. We also keep the original seed linkage so downstream work can group generated questions by provenance or remove seed-specific leakage.
+
+\subsection{Dataset Statistics}
+The released split contains 1{,}498 examples. Stationarity is balanced (748 stationary, 750 non-stationary), and label cardinality follows the prompt contract (one label for stationary, two for non-stationary). Event cardinality is spread across 300 single-event, 598 two-event, and 600 three-event questions, with multi-event items split nearly evenly between causal (600) and temporal-only (598) prompting. The most common recency labels are ``A-Year'' (406), ``A-Day'' (368), and ``A-Few-Days'' (341); the tail includes a handful of model-emitted variants (e.g., ``A-Quarter'', ``A-Few-Minutes'') that remain in the data for transparency and can be remapped if a downstream system requires a closed label set.

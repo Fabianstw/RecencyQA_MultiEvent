@@ -4,7 +4,7 @@
 
 % Change "review" to "final" to generate the final (sometimes called camera-ready) version.
 % Change to "preprint" to generate a non-anonymous version with page numbers.
-\usepackage{acl}
+\usepackage[preprint]{acl}
 
 % Standard package includes
 \usepackage{times}
@@ -37,7 +37,22 @@
 %additional package(s)
 \usepackage{graphicx}
 
+\usepackage{listing}
+
+% For enquote
+\usepackage{csquotes}
+
 \usepackage{siunitx}
+\usepackage{dblfloatfix}  
+\usepackage{placeins}
+
+\usepackage{booktabs} % Required for \toprule, \midrule, \bottomrule
+\usepackage{amssymb}  % Required for \checkmark
+\usepackage{pifont}   % Required for \ding (nicer checks and crosses)
+
+% Define convenient macros for check and cross
+\newcommand{\cmark}{\ding{51}} % Checkmark
+\newcommand{\xmark}{\ding{55}} % Cross (X)
 
 % If the title and author information does not fit in the area allocated, uncomment the following
 %
@@ -121,6 +136,16 @@
 \section{Dataset Creation}
 \label{sec:dataset-creation}
 \input{sections/dataset_creation}
+
+\section{Experiments}
+\label{sec:experiments}
+
+\section{LLM Fine-Tuning}
+\label{sec:fine_tuning}
+
+\section{Conclusion and Future Work}
+\label{sec:conclusion}
+
 
 % Bibliography entries for the entire Anthology, followed by custom entries
 %\bibliography{anthology,custom}
