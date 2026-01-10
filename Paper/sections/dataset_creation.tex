@@ -1,24 +1,52 @@
+\begin{table*}[!t]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcl}
+        \textbf{Recency Class} & \textbf{Expected time until answer change} & \textbf{Example Question} \\
+        \midrule
+        An-Hour & Within an hour & What is the current stock price of Apple? \\
+        A-Few-Hours & Within a few hours & What is the current traffic situation on the A9 highway? \\
+        A-Day & Within a day & What is today’s weather forecast for Munich? \\
+        A-Few-Days & Within a few days & What movies are currently trending on Netflix this week? \\
+        A-Week & Within a week & What are the top-ranked songs on the Billboard chart this week? \\
+        A-Few-Weeks & Within a few weeks & What is the current FIFA world ranking of the German national team? \\
+        A-Month & Within a month & What is the current unemployment rate in Italy? \\
+        A-Few-Months & Within a few months & What is the current inflation rate in the Eurozone? \\
+        A-Year & Within a year & What is the current version of the Java programming language? \\
+        A-Few-Years & Within a few years & Who is the president of the United States? \\
+        Many-Years & After many years & What is the population of Germany? \\
+        Never & Never changes & What is the chemical symbol for gold? \\
+        \end{tabular}
+    }
+    \caption{The recency classes proposed by the \textit{RecencyQA} paper, along with example questions for each class.}
+    \label{tab:recency-classes}
+\end{table*}
+
+Our dataset creation is closely aligned with the \textit{RecencyQA} paper's methodology, but we extend their approach by incorporating multi-event questions and refining the stationarity aspect. The dataset generation pipeline consists of two main stages: question generation and recency labeling, as illustrated in Figure~\ref{fig:pipeline}. This pipeline constructs (as described in the following sections) a diverse set of recency-aware questions, each annotated with appropriate recency labels and contextual conditions. The code and dataset are publicly available at GitHub\footnote{\href{https://github.com/Fabianstw/RecencyQA_MultiEvent}{GitHub | RecencyQA\_MultiEvent}} for reproducibility and further research.
+
+\subsection{Question Taxonomy}
+As a core component of the dataset generation pipeline, we organize questions along a small set of structural dimensions, which are stored as explicit metadata for every record.
+\begin{itemize}
+    \item \textbf{Stationarity}: Questions differ in whether their correct answers are stable over time or change as the underlying real-world situation evolves. Non-stationary questions require access to recent information, while stationary questions remain valid independently of time.
+    \item \textbf{Multi-Event}: Questions may depend on a single situation or combine information from multiple distinct or connected events. Multi-event questions increase temporal and structural complexity by requiring the integration of information across several concurrent or related processes.
+    \item \textbf{Inter-event relationship}: When multiple events are involved, their relationship can be causal—where one event influences another—or purely temporal, where events co-occur in time without an assumed dependency.
+    \item \textbf{Recency classes}: Each question is associated with a recency class indicating the expected timescale on which its answer may change (e.g., hours, days, or years). We adopt the recency classes proposed by the \textit{RecencyQA} paper (see \autoref{tab:recency-classes}).
+    \item \textbf{Contextual conditions}: Recency is not absolute but depends on the assumed state of the world. Contextual conditions describe the situation under which a given recency class applies, allowing the same question (under Non-Stationary) to have different recency labels.
+\end{itemize}
+
+\subsection{Question Selection}
+Having defined the question taxonomy, the next step in the pipeline is to select an initial set of seed questions from which new items are generated. These seeds serve as prompts that anchor topic, style, and temporal structure while still allowing the language model to introduce new events, domains, and cross-event interactions.
+
+In our setting, we randomly select \num{75} questions from the original \textit{RecencyQA} dataset as seed inputs. The selected questions are evenly distributed across stationarity and recency classes. All questions are provided to the model in a structured JSON format (see Appendix~\ref{app:sec:input-json}), which allows the generator to preserve key properties of the original question while flexibly expanding it into new single- and multi-event formulations.
+
+\subsection{Question generation}
 \begin{figure*}[!t]
   \centering
-  \includegraphics[width=\textwidth]{res/PipelineWorkflow.png}
+  \includegraphics[width=0.7\textwidth]{res/PipelineWorkflow.png}
   \caption{Caption text.}
   \label{fig:pipeline}
 \end{figure*}
 
-Our dataset pipeline converts a small seed set of temporal questions into a larger collection annotated with fine-grained recency demands and explicit event cardinality. We implement the pipeline with Llama-3.3-70B-Instruct-Turbo~\cite{touvron2023llamaopenefficientfoundation} via \href{https://www.together.ai/}{Together AI}\footnote{Together AI | The AI Native Cloud: \url{https://www.together.ai/}}, using deterministic prompts that separate generation and labeling (full templates appear in Appendix~\ref{app:prompts}). This separation keeps the phrasing space broad while making the labeling step auditable and repeatable.
-
-\subsection{Seed data and model setup}
-We start from a compact seed split of RecencyQA. Each seed question is passed as a one-shot example to the generator to anchor topic diversity and phrasing. The generation and labeling calls use the Together chat API with temperature 1.0 and top-$p$ 0.95. Token usage is logged to track cost, but no seed answers are exposed to the model.
-
-\subsection{Question taxonomy}
-We factor questions along stationarity and event cardinality, storing both the categorical choices and the cardinality as explicit metadata for every record.
-\begin{itemize}
-    \item \textbf{Stationary vs. non-stationary}: Stationary questions have predictable update cycles; non-stationary questions depend on volatile or event-triggered changes.
-    \item \textbf{Event cardinality (1/2/3 events)}: Single-event questions revolve around one evolving process. Multi-event questions use either two or three events. For multi-event items we prompt both \textit{causal} chains and \textit{temporal-only} co-occurrences across different domains. Each record stores an event dependency flag (Single-Event vs. Multi-Event), the number of events, and the generation type when multi-event.
-\end{itemize}
-This yields ten prompt modes: single-event stationary and non-stationary, two-event causal and temporal-only counterparts for each stationarity setting, and three-event causal and temporal-only counterparts. The metadata reflects these choices through an event dependency flag (Single-Event vs. Multi-Event), the number of events, and for multi-event items a generation type tag (causal vs. temporal-only).
-
-\subsection{Question generation}
 Prompt templates instruct the model to output exactly two questions per call and forbid placeholders or paraphrasing of the seed (Appendix~\ref{app:gen-prompts}). A helper repeats calls until the target count is reached for each mode, reissuing only the missing portion to avoid over-generation. The ten prompt families are: stationary single (Appendix~\ref{prompt:stat-single}); stationary two-event causal (Appendix~\ref{prompt:stat-2-causal}) and temporal-only (Appendix~\ref{prompt:stat-2-temporal}); stationary three-event causal (Appendix~\ref{prompt:stat-3-causal}) and temporal-only (Appendix~\ref{prompt:stat-3-temporal}); non-stationary single (Appendix~\ref{prompt:nonstat-single}); non-stationary two-event causal (Appendix~\ref{prompt:nonstat-2-causal}) and temporal-only (Appendix~\ref{prompt:nonstat-2-temporal}); and non-stationary three-event causal (Appendix~\ref{prompt:nonstat-3-causal}) and temporal-only (Appendix~\ref{prompt:nonstat-3-temporal}). Every generated question is tagged with the seed identifier and metadata for stationarity, event dependency, number of events, and (when applicable) whether the multi-event relation was prompted as causal or temporal-only.
 
 \subsection{Recency labeling}

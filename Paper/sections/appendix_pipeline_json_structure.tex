@@ -1,0 +1,29 @@
+\subsection{Input JSON format for the pipeline}
+\label{app:sec:input-json}
+\begin{figure}[h]
+\begin{lstlisting}[language=JSON]
+[
+  {
+    "q_id": "<string | int>",
+    "question": "<string>"
+  }
+]
+\end{lstlisting}
+\caption{JSON structure for the RecencyQA\_MultiEvent pipeline input.}
+\end{figure}
+
+\subsection{Output JSON format from the pipeline}
+\label{app:sec:output-json}
+\begin{figure}[h]
+\begin{lstlisting}[language=JSON]
+[
+  {
+    "q_id": "<string | int>",
+    "question": "<string>",   
+
+    "stationarity": "<'Stationary' | 'Non-Stationary'>",
+  }
+]
+\end{lstlisting}
+\caption{JSON structure for the RecencyQA\_MultiEvent pipeline output.}
+\end{figure}
