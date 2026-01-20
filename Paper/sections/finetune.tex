@@ -1,0 +1,74 @@
+In this section we fintune a model and compare it with the other models discussed in Section~\ref{sec:results}. Therefore we use \textit{Qwen2.5-14B-Instruct-recency}~\cite{qwen2,qwen2.5} and finetune it via Together AI. We choose this model, because we want to improve the best of the already evaluated models (i.e. Qwen2.5-72B), but we need a smaller model version to be able to finetune it within our compute budget.
+
+\subsection{Dataset Splitting}
+Before finetuning, we split the dataset into a train, test and evaluation part with a \num{70}/\num{15}/\num{15} ratio, using a python script\footnote{\href{https://github.com/Fabianstw/RecencyQA_MultiEvent/blob/main/finetune/split_dataset.py}{GitHub RecencyQA\_MultiEvent}}. To prevent data leakage, we split at the \emph{question level}, ensuring that all contextual variants of a question remain within the same partition.
+
+We apply a stratified splitting strategy to preserve the original distribution across the key dataset axes:
+\begin{enumerate}[label=(\roman*)]
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{1pt}
+  \setlength{\parsep}{1pt}
+  \setlength{\topsep}{1pt}
+  \item event dependency,
+  \item number of events,
+  \item stationarity, and
+  \item generation type.
+\end{enumerate}
+Stratification labels are constructed as a composite of these attributes and used with a two-stage \textit{StratifiedShuffleSplit} procedure. Afterwards we flatten the dataset, to make it compatible with the required format of Together AI.
+We exclusively use the development split for validation during fine-tuning, while the test split keeps in its original hierarchical structure for the evaluation against the other models later on.
+
+\subsection{Training}
+Fine-tuning is performed on the \textit{Qwen2.5-14B-Instruct} base model using parameter-efficient \emph{Low-Rank Adaptation} (LoRA)~\cite{hu2021loralowrankadaptationlarge} via Together AI. \emph{Supervised fine-tuning} (SFT) with chat-style prompts is applied, framing the task as a single-label classification problem over \num{12} discrete temporal recency classes.
+
+Each training instance begins with a system instruction that defines the model as an expert in temporal reasoning, followed by a user message containing the question, its context, and the list of admissible labels. The assistant output is restricted to the gold label only, thereby enforcing a strict classification setup.
+
+LoRA adapters are applied to all linear layers with rank $r=8$ and scaling factor $\alpha=16$, enabling lightweight adaptation while preserving the base model weights. Training runs for two epochs with a batch size of $8$ and a learning rate of $2\times10^{-5}$. A cosine learning rate scheduler with a warmup ratio of $0.05$ is used, and gradient norms are clipped at $1.0$. No weight decay is applied.
+
+To ensure consistent training and evaluation conditions, the model is trained deterministically with temperature set to zero. Validation is performed on the held-out development split after each epoch, and the best-performing checkpoint is retained for final evaluation.
+
+\subsection{Fine-Tuning Results}
+\begin{table*}[t]
+  \centering
+  \small
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{l|cc|cc|cc|cc|cc}
+    \toprule
+    & \multicolumn{2}{c|}{Overall} & \multicolumn{2}{c|}{St.} & \multicolumn{2}{c|}{Non-St.} & \multicolumn{2}{c|}{Single-event} & \multicolumn{2}{c}{Multi-event} \\
+    Model & Acc & Tol. & Acc & Tol. & Acc & Tol. & Acc & Tol. & Acc & Tol. \\
+    \midrule
+    Qwen2.5-14B (FT) & \num{40.9} & \num{69.6} & \num{55.1} & \num{72.9} & \num{33.5} & \num{68.0} & \num{41.5} & \num{78.5} & \num{40.7} & \num{67.3} \\
+    Kimi & \num{35.5} & \num{64.9} & \num{46.3} & \num{70.4} & \num{29.8} & \num{62.0} & \num{29.7} & \num{65.6} & \num{36.9} & \num{64.7} \\
+    Qwen2.5-72B & \num{46.5} & \num{76.1} & \num{63.9} & \num{82.4} & \num{37.4} & \num{72.8} & \num{46.2} & \num{87.7} & \num{46.6} & \num{73.1} \\
+    DeepSeek-V3 & \num{41.4} & \num{69.7} & \num{50.9} & \num{71.3} & \num{36.4} & \num{68.9} & \num{38.5} & \num{70.8} & \num{42.2} & \num{69.5} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Accuracy (Acc) and tolerant F$_1$ (Tol., $\pm 1$ label). St.: stationary; Non-St.: non-stationary.}
+  \label{tab:finetune-overview}
+\end{table*}
+
+We compare the fine-tuned \textit{Qwen2.5-14B-Instruct-recency} (\num{14} billion parameters)\cite{qwen2,qwen2.5} model against the models presented in Section\ref{sec:results}, using the same evaluation pipeline and recency labels. To ensure a fair and direct comparison, all models are re-evaluated on the reduced dataset rather than the full dataset used in the original experiments. Table~\ref{tab:finetune-overview} reports exact accuracy and tolerant F$_1$ ($\pm 1$ label). Despite the large parameter gap (\num{14}B vs. \num{72}B--\num{1000}B), the fine-tuned model reaches \num{40.9}\unit{\%} accuracy and \num{69.6}\unit{\%} tolerant F$_1$, essentially matching DeepSeek-V3 (\num{41.4}\unit{\%}/\num{69.7}\unit{\%}) and outperforming Kimi-K2 (\num{35.5}\unit{\%}/\num{64.9}\unit{\%}). Qwen2.5-72B remains strongest at \num{46.5}\unit{\%} accuracy and \num{76.1}\unit{\%} tolerant F$_1$.
+
+Stationarity remains the main driver of variance. The fine-tuned model drops from \num{55.1}\unit{\%} to \num{33.5}\unit{\%} accuracy ($-21.6$ points) between stationary and non-stationary questions. Qwen shows the steepest drop (\num{63.9}\unit{\%} to \num{37.4}\unit{\%}), while DeepSeek and Kimi drop by \num{14.5} and \num{16.5} points, respectively. For event dependency, the fine-tuned model is nearly invariant in exact accuracy (\num{41.5}\unit{\%} single-event vs. \num{40.7}\unit{\%} multi-event), but tolerant F$_1$ declines from \num{78.5}\unit{\%} to \num{67.3}\unit{\%}, indicating more near-miss errors in multi-event questions.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{res/finetuned_accuracy_barplot.pdf}
+	\caption{Exact accuracy and tolerant F$_1$ for the fine-tuned model versus the three baselines.}
+	\label{fig:finetune-accuracy}
+\end{figure}
+
+The fine-tuned model shows the same \enquote{too-early} bias as the baselines (128 \enquote{too early} vs. 57 \enquote{too late}).
+
+\subsubsection{Comparison between Finetuned and other models}
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{res/finetuned_param_normalized.pdf}
+  \caption{Parameter-normalized performance (score per $\log_{10}$ parameter count), highlighting the fine-tuned models strength per parameter.}
+  \label{fig:finetune-param-efficiency}
+\end{figure}
+
+The fine-tuned \textit{Qwen2.5-14B-Instruct-recency} closes most of the gap to much larger models on the reduced test set despite using only \num{14}B parameters (\num{5}$\times$ smaller than Qwen2.5-72B and orders of magnitude below trillion-parameter systems). In overall accuracy it reaches \num{40.9}\unit{\%}, only \num{0.5} points below DeepSeek-V3 (\num{41.4}\unit{\%}), \num{5.4} points above Kimi (\num{35.5}\unit{\%}), and \num{5.6} points below Qwen2.5-72B (\num{46.5}\unit{\%}). The same pattern holds for tolerant F$_1$: \num{69.6}\unit{\%} for the fine-tuned model versus \num{69.7}\unit{\%} for DeepSeek, \num{64.9}\unit{\%} for Kimi, and \num{76.1}\unit{\%} for Qwen2.5-72B, indicating that fine-tuning yields performance near the best baselines at a fraction of the size.
+
+By stationarity, the fine-tuned model remains competitive on stationary questions (\num{55.1}\unit{\%} accuracy), but degrades on non-stationary questions (\num{33.5}\unit{\%}), matching the central difficulty observed across all models. While Qwen2.5-72B still leads in both regimes, fine-tuning narrows the gap to DeepSeek-V3 on non-stationary items (\num{33.5}\unit{\%} vs. \num{36.4}\unit{\%}) and stays ahead of Kimi (\num{29.8}\unit{\%}). For event dependency, exact accuracy is stable between single- and multi-event settings (\num{41.5}\unit{\%} vs. \num{40.7}\unit{\%}), suggesting that fine-tuning improves overall calibration rather than removing the multi-event challenge.
+
+Overall, the fine-tuned model delivers near--state-of-the-art quality at a fraction of the parameter count, making it the most efficient option among the evaluated systems. In particular, it stays competitive with substantially larger models on key metrics, reinforcing that the gains stem from effective adaptation rather than scale alone. This is further emphasized by the parameter-normalized view in Figure~\ref{fig:finetune-param-efficiency}, where the fine-tuned model achieves the strongest performance per parameter.

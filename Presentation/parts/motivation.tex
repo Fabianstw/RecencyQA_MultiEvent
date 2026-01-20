@@ -1,0 +1,46 @@
+\begin{frame}[plain]
+  \frametitle{Motivation}
+  \vspace{-.5em}
+  \centering
+  % Each figure appears on its own overlay
+  \only<1>{\includegraphics[width=0.95\linewidth]{helper_scripts/volatility_reveal_1.pdf}}
+  \only<2>{\includegraphics[width=0.95\linewidth]{helper_scripts/volatility_reveal_2.pdf}}
+  \only<3>{\includegraphics[width=0.95\linewidth]{helper_scripts/volatility_reveal_3.pdf}}
+  \only<4>{\includegraphics[width=0.95\linewidth]{helper_scripts/volatility_reveal_4.pdf}}
+  \only<5>{\includegraphics[width=0.95\linewidth]{helper_scripts/volatility_reveal_5.pdf}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why recency demand?}
+  \begin{itemize}
+    \item Answer to questions change 
+    \item \textbf{Recency demand}: refresh rate; to keep answer up-to-date
+    \vspace{3em}
+  \end{itemize}
+  \vspace{1em}
+  \begin{block}{Goal}
+    Build datasets that stress temporal reasoning and evaluate \textbf{LLM} performance on recency demand.
+  \end{block}
+\end{frame}
+
+\begin{frame}[c]
+  \frametitle{Related datasets}
+  \begin{center}
+    \scriptsize
+    \centering
+    \begin{tabular}{@{} l l l c c c r @{}}
+      \toprule
+      Dataset & Creation & Knowledge & KC & Recency & Multi-Event & \#Q \\
+      \midrule
+      TimeQA & Templ. & Wikipedia & \xmark & \xmark & \xmark & \num{20000} \\
+      StreamingQA & Man.+Gen. & News & \cmark & \xmark & \xmark & \num{410000} \\
+      RealTimeQA & News & News & \cmark & \xmark & \xmark & \num{5000} \\
+      PATQA & Templ. & Wikipedia & \cmark & \xmark & \xmark & \num{6172} \\
+      FreshQA & Manual & Web & \cmark & \xmark & \xmark & \num{600} \\
+      RecencyQA (orig.) & Man.+Gen. & Wiki & \cmark & \cmark & \xmark & \num{6115} \\
+      \midrule
+      RecencyQA-Multi (ours) & Man.+Gen. & RecencyQA+LLM & \xmark & \cmark & \cmark & \num{1432} \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{frame}

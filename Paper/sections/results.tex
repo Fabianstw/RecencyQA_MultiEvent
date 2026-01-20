@@ -1,0 +1,53 @@
+Building on the question taxonomy from Section~\ref{sec:question-taxonomy} and the metadata annotations discussed in Section~\ref{sec:annotation-and-metadata}, we evaluate \textit{moonshotai/Kimi-K2-Instruct-0905} (\num{1} Trillion parameters)~\cite{moonshotai_Kimi-K2-Instruct-0905_2025}, \textit{Qwen/Qwen2.5-72B-Instruct-Turbo} (\num{72} Billion parameters)~\cite{qwen2.5,qwen2} and \textit{deepseek-ai/DeepSeek-V3} (\num{671} Billion parameters)~\cite{deepseekai2025deepseekv3technicalreport} with the testing pipeline from Section~\ref{sec:testing-pipeline}. 
+
+\begin{table*}[t]
+	\centering
+	\small
+	\setlength{\tabcolsep}{6pt}
+	\begin{tabular}{l|cc|cc|cc|ccc|cc}
+		\toprule
+		& \multicolumn{2}{c|}{Overall} & \multicolumn{2}{c|}{St.} & \multicolumn{2}{c|}{Non-St.} & \multicolumn{3}{c|}{\# Events} & \multicolumn{2}{c}{Multi-event} \\
+		Model & Acc & Tol. & Acc & Tol. & Acc & Tol. & 1 Acc & 2 Acc & 3 Acc & C Acc & T Acc \\
+		\midrule
+		Kimi & \num{33.0} & \num{62.2} & \num{42.1} & \num{66.3} & \num{28.3} & \num{60.0} & \num{35.0} & \num{31.1} & \num{33.6} & \num{34.9} & \num{29.8} \\
+		Qwen & \num{45.6} & \num{77.4} & \num{62.8} & \num{81.8} & \num{36.7} & \num{75.1} & \num{45.4} & \num{44.6} & \num{46.6} & \num{47.8} & \num{43.5} \\
+		Deepseek & \num{40.8} & \num{71.9} & \num{52.2} & \num{73.2} & \num{34.9} & \num{71.1} & \num{44.9} & \num{38.1} & \num{41.1} & \num{43.9} & \num{35.6} \\
+		\midrule
+		Total & \num{39.8} & \num{70.5} & \num{52.4} & \num{73.8} & \num{33.3} & \num{68.7} & \num{41.7} & \num{37.9} & \num{40.5} & \num{42.2} & \num{36.3} \\
+		\bottomrule
+	\end{tabular}
+	\caption{Accuracy (Acc) and tolerant F1 accuracy (Tol., $\pm 1$ label; computed as the tolerant F1 metric). St.: stationary; Non-St.: non-stationary; C: causal; T: temporal-only.}
+	\label{tab:model-overview}
+\end{table*}
+
+\subsection{Overall Performance}
+Qwen2.5-72B attains the strongest accuracy (\num{45.6}\unit{\%}) and tolerant F1 accuracy (\num{77.4}\unit{\%}). DeepSeek-V3 trails by roughly five absolute points, while the Kimi-K2 instruction model stays below \num{35}\unit{\%} accuracy despite a comparable tolerant score. Invalid generations remain negligible, confirming that the constrained testing prompt in Appendix~\ref{app:testing-prompts} keeps responses well-formed.
+
+\subsection{Impact of Stationarity}
+Stationarity is the clearest driver of variance. Each model loses between \num{13} and \num{26} percentage points when moving from stationary to non-stationary questions, mirroring the temporal volatility highlighted during annotation (Section~\ref{sec:annotation-and-metadata}). Qwen drops from \num{62.8}\% to \num{36.7}\% accuracy, indicating that even large instruction models struggle when the required recency hinges on punctual events rather than cyclical updates. Kimi suffers the steepest relative decline ($-13.8$ points) because its stationary accuracy is already modest, whereas DeepSeek maintains low-\num{30}s performance on non-stationary prompts despite exceeding \num{52}\% on the stable slice. These gaps confirm that the dataset captures the adaptive reasoning behaviour targeted in Section~\ref{sec:question-taxonomy}.
+
+\subsection{Mutli-Event Question Performance}
+In the final four columns of Table~\ref{tab:model-overview}, we break down model performance on multi-event questions by number of events and generation type: causal (C) vs. temporal-only (T). For all three models we don't observe significant performance differences based on the number of events involved in the question. The tolerant accuracy has a slightly more downward accuracy trend as the number of events increases (from \num{80.3}\unit{\%} to \num{66.2}\unit{\%} (two events) and \num{69.3}\unit{\%} (three events) (aggregated)). This does indicate that multi-event questions are more difficult than single-event questions, but the number of events itself does not seem to have a strong influence. 
+
+When comparing causal vs. temporal-only multi-event questions, we observe that all models perform better on causal questions. Qwen achieves \num{47.8}\unit{\%} accuracy on causal questions compared to \num{43.5}\unit{\%} on temporal-only questions. Kimi and DeepSeek show similar trends with \num{34.9}\unit{\%} vs. \num{29.8}\unit{\%} and \num{43.9}\unit{\%} vs. \num{35.6}\unit{\%}, respectively. This suggests that models may find it easier to reason about cause-and-effect relationships when determining recency, as opposed to purely temporal relationships. Though the differences are not very large, they are consistent across all models.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{res/aggregated_confusion_heatmap.pdf}
+  \caption{Model-averaged confusion matrix over all 12 recency labels, showing recall per label.}
+  \label{fig:recency-confusion}
+\end{figure}
+\subsection{Label-wise Behaviour and Error Direction}
+Per-label statistics expose systematic blind spots. All three systems excel at the shortest horizons (e.g., Qwen reaches recall \num{0.55} on \texttt{A-Few-Hours} and Kimi exceeds \num{0.73}), yet accuracy collapses for intermediate windows: \texttt{A-Week} recall never surpasses \num{0.10}, and \texttt{A-Month} remains below \num{0.20} for Kimi and DeepSeek. Long-horizon labels such as \texttt{Many-Years} and \texttt{Never} also exhibit low precision (Qwen's best F$_1$ for \texttt{Never} is \num{0.065}). A condensed, model-averaged confusion heatmap makes these failure modes visible; we therefore refer to Figure~\ref{fig:recency-confusion} for the aggregated confusion matrix over all 12 labels.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{res/error_direction_barplot.pdf}
+  \caption{Directional error counts per model, contrasting \enquote{too early} vs. \enquote{too late} predictions.}
+  \label{fig:error-direction}
+\end{figure}
+
+Directional errors emphasise another imbalance. Kimi produces \num{801} \enquote{too early} predictions versus \num{591} \enquote{too late}, Qwen \num{695} vs. \num{439}, and DeepSeek \num{652} vs. \num{582}. The models thus prefer overly fresh information, underestimating how slowly certain questions evolve. This bias matters for downstream systems that rely on recency signals to schedule refreshes: adopting a \enquote{check too often} policy could waste computation, whereas missing late updates risks outdated answers. To visualize this effect we refer to Figure~\ref{fig:error-direction}, a bar chart contrasting the error directions per model.
+
+Finally, tolerant accuracy being between \num{20} and \num{30} points higher than accuracy across all models shows that most mistakes deviate by only one label. While encouraging, this plateau also signals that the discrete label borders defined in Section~\ref{sec:question-taxonomy} remain hard to recover without explicit temporal reasoning, motivating future work on richer reasoning prompts or retrieval-augmented pipelines.

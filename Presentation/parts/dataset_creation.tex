@@ -1,0 +1,325 @@
+\begin{frame}[plain]
+  \frametitle{Pipeline overview}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.78\linewidth]{../Paper/res/PipelineWorkflow.png}
+  \end{figure}
+  \vspace{-0.4em}
+\end{frame}
+
+% \begin{frame}
+%   \frametitle{Question taxonomy}
+%   \begin{itemize}
+%     \item \textbf{Stationarity:} stationary vs. non-stationary answers (does a different context change the recency demand of the question?)
+%     \item \textbf{Event structure:} single-event vs. multi-event (typically 2 - 3 events)
+%     \item \textbf{Inter-event relation:} causal vs. temporal-only co-occurrence
+%     \item \textbf{Recency classes:} expected time until answer changes — we use 12 intuitive classes 
+%     \item \textbf{Contextual conditions:} qualifiers/constraints that determine when a label applies.
+%   \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Question taxonomy}
+%   \begin{itemize}
+%     \item \textbf{Stationarity} {\footnotesize (fixed vs. context-dependent)}
+%     \item \textbf{Event structure} {\footnotesize (single vs. 2–3 events)}
+%     \item \textbf{Inter-event relation} {\footnotesize (causal / temporal-only)}
+%     \item \textbf{Recency classes} {\footnotesize (12 time horizons)}
+%     \item \textbf{Contextual conditions} {\footnotesize (label constraints)}
+%   \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Question taxonomy}
+
+%   \begin{columns}
+%     \column{0.5\textwidth}
+%     \begin{itemize}
+%       \item \textbf{Stationarity} {\footnotesize (fixed vs. context-dependent)}
+%       \item \textbf{Event structure} {\footnotesize (single vs. 2–3 events)}
+%       \item \textbf{Inter-event relation} {\footnotesize (causal / temporal-only)}
+%     \end{itemize}
+
+%     \column{0.5\textwidth}
+%     \begin{itemize}
+%       \item \textbf{Recency classes} {\footnotesize (12 time horizons)}
+%       \item \textbf{Contextual conditions} {\footnotesize (label constraints)}
+%     \end{itemize}
+%   \end{columns}
+
+% \end{frame}
+
+\begin{frame}
+\frametitle{Question taxonomy}
+
+\begin{columns}[T]
+
+% ---- LEFT: TAXONOMY LIST ----
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+  \item<1-> \alert{Recency Classes (12)} \tikzmark{rc}
+  \vspace{1em}
+  \item Stationarity
+  \item Event structure
+  \item Inter-event relation
+  \item Recency classes
+  \item Contextual conditions
+\end{itemize}
+\end{column}
+
+% ---- RIGHT: TABLES ----
+\begin{column}{0.6\textwidth}
+
+\setlength{\tabcolsep}{2pt}%
+\renewcommand{\arraystretch}{0.6}%
+\setlength{\extrarowheight}{-2pt}%
+\tiny\centering
+\vspace{-2em}
+
+\textbf{12 Recency Classes}
+
+\vspace{0.2em}
+
+\begin{tabular}{@{}l@{\quad}l@{}}
+  \toprule
+  Class & Time to change \\
+  \midrule
+  An-Hour & Within an hour \\
+  A-Few-Hours & Within a few hours \\
+  A-Day & Within a day \\
+  A-Few-Days & Within a few days \\
+  A-Week & Within a week \\
+  A-Few-Weeks & Within a few weeks \\
+  A-Month & Within a month \\
+  A-Few-Months & Within a few months \\
+  A-Year & Within a year \\
+  A-Few-Years & Within a few years \\
+  Many-Years & After many years \\
+  Never & No change \\
+  \bottomrule
+\end{tabular}
+
+\vspace{2em}
+
+\textbf{Prompt Families}
+
+\begin{tabular}{@{}c@{\quad}c@{\quad}c@{\quad}l@{}}
+  \toprule
+  St. & \#Ev. & Rel. & Prompt template \\
+  \midrule
+  S  & 1 & -- & Stationary single \\
+  S  & 2 & C  & Stationary 2-event causal \\
+  S  & 2 & T  & Stationary 2-event temporal \\
+  S  & 3 & C  & Stationary 3-event causal \\
+  S  & 3 & T  & Stationary 3-event temporal \\
+  NS & 1 & -- & Non-stationary single \\
+  NS & 2 & C  & Non-stationary 2-event causal \\
+  NS & 2 & T  & Non-stationary 2-event temporal \\
+  NS & 3 & C  & Non-stationary 3-event causal \\
+  NS & 3 & T  & Non-stationary 3-event temporal \\
+  \bottomrule
+\end{tabular}
+
+\tikzmark{rctable}
+
+\end{column}
+\end{columns}
+
+% ---- ARROW ----
+\begin{tikzpicture}[overlay,remember picture]
+\draw[->,ultra thick,uibkblue]
+  ([xshift=3pt,yshift=3pt]pic cs:rc)
+  to[bend left=0]
+  ([xshift=-60pt,yshift=165pt]pic cs:rctable);
+\end{tikzpicture}
+
+\begin{tikzpicture}[overlay,remember picture]
+\draw[->,ultra thick,uibkblue]
+  ([xshift=-5pt,yshift=-55pt]pic cs:rc)
+  to[bend left=0]
+  ([xshift=-80pt,yshift=70pt]pic cs:rctable);
+\end{tikzpicture}
+
+\end{frame}
+
+% \begin{frame}
+%   \frametitle{Question taxonomy}
+%   \begin{itemize}
+%     \item Recency Classes (12)
+%   \end{itemize}
+%   \vspace{3em}
+%   \begin{itemize}
+%     \item Stationarity
+%     \item Event structure
+%     \item Inter-event relation
+%     \item Recency classes
+%     \item Contextual conditions
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{12 Recency classes}
+  % \small
+  \centering
+  \begin{tabular}{l l l}
+    \toprule
+    Class & Time to change & Example \\
+    \midrule
+    An-Hour & Within an hour & Current Apple stock price \\
+    A-Few-Hours & Within a few hours & Traffic on A9 highway \\
+    A-Day & Within a day & Today's weather in Munich \\
+    A-Few-Days & Within a few days & Trending movies on Netflix \\
+    A-Week & Within a week & Top Billboard songs this week \\
+    A-Few-Weeks & Within a few weeks & FIFA ranking of Germany \\
+    A-Month & Within a month & Unemployment rate in Italy \\
+    A-Few-Months & Within a few months & Inflation rate in Eurozone \\
+    A-Year & Within a year & Current Java version \\
+    A-Few-Years & Within a few years & President of the US \\
+    Many-Years & After many years & Population of Germany \\
+    Never & No change & Chemical symbol for gold \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Question taxonomy}
+
+\begin{columns}[T]
+
+% ---- LEFT: TAXONOMY LIST ----
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+  \item<1-> \alert{Recency Classes (12)} \tikzmark{rc}
+  \vspace{1em}
+  \item Stationarity
+  \item Event structure
+  \item Inter-event relation
+  \item Recency classes
+  \item Contextual conditions
+\end{itemize}
+\end{column}
+
+% ---- RIGHT: TABLES ----
+\begin{column}{0.6\textwidth}
+
+\setlength{\tabcolsep}{2pt}%
+\renewcommand{\arraystretch}{0.6}%
+\setlength{\extrarowheight}{-2pt}%
+\tiny\centering
+\vspace{-2em}
+
+\textbf{12 Recency Classes}
+
+\vspace{0.2em}
+
+\begin{tabular}{@{}l@{\quad}l@{}}
+  \toprule
+  Class & Time to change \\
+  \midrule
+  An-Hour & Within an hour \\
+  A-Few-Hours & Within a few hours \\
+  A-Day & Within a day \\
+  A-Few-Days & Within a few days \\
+  A-Week & Within a week \\
+  A-Few-Weeks & Within a few weeks \\
+  A-Month & Within a month \\
+  A-Few-Months & Within a few months \\
+  A-Year & Within a year \\
+  A-Few-Years & Within a few years \\
+  Many-Years & After many years \\
+  Never & No change \\
+  \bottomrule
+\end{tabular}
+
+\vspace{2em}
+
+\textbf{Prompt Families}
+
+\begin{tabular}{@{}c@{\quad}c@{\quad}c@{\quad}l@{}}
+  \toprule
+  St. & \#Ev. & Rel. & Prompt template \\
+  \midrule
+  S  & 1 & -- & Stationary single \\
+  S  & 2 & C  & Stationary 2-event causal \\
+  S  & 2 & T  & Stationary 2-event temporal \\
+  S  & 3 & C  & Stationary 3-event causal \\
+  S  & 3 & T  & Stationary 3-event temporal \\
+  NS & 1 & -- & Non-stationary single \\
+  NS & 2 & C  & Non-stationary 2-event causal \\
+  NS & 2 & T  & Non-stationary 2-event temporal \\
+  NS & 3 & C  & Non-stationary 3-event causal \\
+  NS & 3 & T  & Non-stationary 3-event temporal \\
+  \bottomrule
+\end{tabular}
+
+\tikzmark{rctable}
+
+\end{column}
+\end{columns}
+
+% ---- ARROW ----
+\begin{tikzpicture}[overlay,remember picture]
+\draw[->,ultra thick,uibkblue]
+  ([xshift=3pt,yshift=3pt]pic cs:rc)
+  to[bend left=0]
+  ([xshift=-60pt,yshift=165pt]pic cs:rctable);
+\end{tikzpicture}
+
+\begin{tikzpicture}[overlay,remember picture]
+\draw[->,ultra thick,uibkblue]
+  ([xshift=-5pt,yshift=-55pt]pic cs:rc)
+  to[bend left=0]
+  ([xshift=-80pt,yshift=70pt]pic cs:rctable);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Prompt families for generation}
+  % \small
+  \begin{center}
+  \begin{tabular}{c c c l}
+    \toprule
+    St. & \#Ev. & Rel. & Prompt template \\
+    \midrule
+    S  & 1 & -- & Stationary single \\
+    S  & 2 & C  & Stationary 2-event causal \\
+    S  & 2 & T  & Stationary 2-event temporal \\
+    S  & 3 & C  & Stationary 3-event causal \\
+    S  & 3 & T  & Stationary 3-event temporal \\
+    NS & 1 & -- & Non-stationary single \\
+    NS & 2 & C  & Non-stationary 2-event causal \\
+    NS & 2 & T  & Non-stationary 2-event temporal \\
+    NS & 3 & C  & Non-stationary 3-event causal \\
+    NS & 3 & T  & Non-stationary 3-event temporal \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+% --- Slide 1: Table only ---
+\begin{frame}[c]
+  \frametitle{Dataset statistics}
+  \centering
+  \begin{tabular}{l r}
+    \toprule
+    Metric & Value \\
+    \midrule
+    Total questions & \num{1411} \\
+    Stationary / Non-stationary & \num{725} / \num{686} \\
+    Single / Two / Three events & \num{286} / \num{555} / \num{570} \\
+    Multi-event (causal / temporal) & \num{565} / \num{560} \\
+    Avg. question length (tokens) & \num{22.2} \\
+    Avg. context length \num{1} / \num{2} & \num{11.2} / \num{12.6} \\
+    Total recency labels & \num{2097} \\
+    Top labels & A-Year, A-Day, A-Few-Days \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+% --- Slide 2: Figure only ---
+\begin{frame}[plain]
+  \frametitle{Recency label distribution}
+  \centering
+  \includegraphics[width=0.85\linewidth]{../Paper/res/recency_labels_treemap.pdf}
+\end{frame}

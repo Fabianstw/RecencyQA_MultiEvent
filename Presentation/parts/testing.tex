@@ -1,0 +1,20 @@
+\begin{frame}
+  \frametitle{Evaluation pipeline}
+  \begin{itemize}
+    \item Flatten dataset: each question-context-label pair becomes one instance.
+    \item Testing on three models:
+    \begin{itemize}
+      \item \emph{Kimi-K2-Instruct-0905}
+      \item \emph{Qwen2.5-72B-Instruct-Turbo}
+      \item \emph{DeepSeek-V3}
+    \end{itemize}
+    \item Collect predictions per model into \texttt{JSONL}
+    \item Summarize accuracy and tolerant ($\pm 1$ label) accuracy.
+    \item Slice metrics:
+    \begin{itemize}
+      \item Stationary vs. non-stationary
+      \item Single-event vs. multi-event
+      \item Causal vs. temporal-only
+    \end{itemize}
+  \end{itemize}
+\end{frame}

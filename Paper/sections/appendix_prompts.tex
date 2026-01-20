@@ -1,0 +1,382 @@
+\subsection{Generation prompts}
+\label{app:gen-prompts}
+
+% \subsubsection{Stationary generation}\label{app:gen-prompts-stationary}
+
+\subsubsection{Stationary single-event}\label{prompt:stat-single}
+\begin{promptblock}
+You generate STATIONARY temporal questions.
+
+Definition (internal):
+- A stationary question has a stable temporal update behavior.
+- The answer changes over time, but the timespan how often the answer must be updated
+  would remain the same regardless of when the question is asked.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions focusing on ONE event or process.
+
+Rules:
+- Must rely on real-world phenomena that change over time.
+- Must be stable, cyclical, predictable, or rhythm-based.
+- Must NOT paraphrase the examples.
+- Must NOT use placeholders.
+- Do NOT mention stationarity in the question.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1","q2"]
+}
+\end{promptblock}
+
+\subsubsection{Stationary multi-event (causal)}\label{prompt:stat-2-causal}
+\begin{promptblock}
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving TWO events that are causally related.
+
+Rules:
+- Must involve at least TWO distinct temporal events.
+- Events must have a clear cause-effect relationship.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1","q2"]
+}
+\end{promptblock}
+
+\subsubsection{Stationary multi-event (temporal-only)}\label{prompt:stat-2-temporal}
+\begin{promptblock}
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving TWO events that are ONLY temporally connected.
+
+Rules:
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1","q2"]
+}
+\end{promptblock}
+
+\subsubsection{Stationary three-event (causal)}\label{prompt:stat-3-causal}
+\begin{promptblock}
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving THREE events
+that are causally related in a chain or network.
+
+Rules:
+- Must involve EXACTLY THREE distinct temporal events.
+- Events must have clear cause-effect relationships.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1", "q2"]
+}
+\end{promptblock}
+
+\subsubsection{Stationary three-event (temporal-only)}\label{prompt:stat-3-temporal}
+\begin{promptblock}
+You generate STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 stationary temporal questions involving THREE events
+that are ONLY temporally connected.
+
+Rules:
+- Must involve EXACTLY THREE distinct events.
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
+- Temporal behavior must be stable, predictable, cyclical, or regular.
+- Must rely on real-world change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1", "q2"]
+}
+\end{promptblock}
+
+% \subsubsection{Non-stationary generation}\label{app:gen-prompts-nonstat}
+
+\subsubsection{Non-stationary single-event}\label{prompt:nonstat-single}
+\begin{promptblock}
+You generate NON-STATIONARY temporal questions.
+
+Definition (internal):
+- A non-stationary question has unstable temporal update behavior.
+- How frequently the answer must be updated depends strongly on WHEN the question is asked.
+- OR the question is only relevant within short, event-dependent windows.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions focusing on ONE event.
+
+Rules:
+- Must rely on quickly evolving or unstable processes.
+- Must be meaningful and real-world.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity explicitly.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1","q2"]
+}
+\end{promptblock}
+
+\subsubsection{Non-stationary multi-event (causal)}\label{prompt:nonstat-2-causal}
+\begin{promptblock}
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving TWO events that are causally related.
+
+Rules:
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Events must have a clear cause-effect relationship.
+- Must rely on real-world temporal change.
+- Must involve at least TWO distinct temporal events.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1","q2"]
+}
+\end{promptblock}
+
+\subsubsection{Non-stationary multi-event (temporal-only)}\label{prompt:nonstat-2-temporal}
+\begin{promptblock}
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving TWO events that are ONLY temporally connected.
+
+Rules:
+- Events must be from clearly different real-world domains.
+- Events must NOT influence each other causally.
+- Must NOT belong to the same topic, organization, or event series.
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Must rely on real-world temporal change.
+- Must involve at least TWO distinct temporal events.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1","q2"]
+}
+\end{promptblock}
+
+\subsubsection{Non-stationary three-event (causal)}\label{prompt:nonstat-3-causal}
+\begin{promptblock}
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving THREE events
+that are causally related.
+
+Rules:
+- Must involve EXACTLY THREE distinct temporal events.
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Events must have clear cause-effect relationships.
+- Must rely on real-world temporal change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1", "q2"]
+}
+\end{promptblock}
+
+\subsubsection{Non-stationary three-event (temporal-only)}\label{prompt:nonstat-3-temporal}
+\begin{promptblock}
+You generate NON-STATIONARY multi-event temporal questions.
+
+Task:
+Generate EXACTLY 2 non-stationary temporal questions involving THREE events
+that are ONLY temporally connected.
+
+Rules:
+- Must involve EXACTLY THREE distinct temporal events.
+- Events must be from clearly different real-world domains.
+- Must NOT influence each other causally.
+- At least one event must be unstable, unpredictable, or highly time-sensitive.
+- Must rely on real-world temporal change.
+- Do NOT paraphrase examples.
+- Do NOT use placeholders.
+- Do NOT mention non-stationarity.
+
+Examples:
+{examples}
+
+Return JSON:
+{
+  "questions": ["q1", "q2"]
+}
+\end{promptblock}
+
+\subsection{Verification Prompt}
+\label{sec:verification-prompt}
+\begin{promptblock}
+Can you please check for every single question in this dataset, if:
+- the recency_label1 (and if available recency_label2) is correct for the question and context1 (if available context2)
+- and if the questions makes sense in general (gramnatically)
+Write the id into correct if correct, otherwise into incorrect.
+\end{promptblock}
+
+\subsection{Labeling prompts}
+\label{app:label-prompts}
+
+\subsubsection{Stationary labeling}\label{prompt:label-stat}
+\begin{promptblock}
+Analyze this temporal question and produce temporal labels:
+
+"{question}"
+
+Your tasks (internal reasoning only, output JSON only):
+
+1. Provide ONE recency label:
+{
+  "An-Hour": "changes within one hour",
+  "A-Few-Hours": "changes within a few hours",
+  "A-Day": "changes within one day",
+  "A-Few-Days": "changes within a few days",
+  "A-Week": "changes within one week",
+  "A-Few-Weeks": "changes within a few weeks",
+  "A-Month": "changes within one month",
+  "A-Few-Months": "changes within a few months",
+  "A-Year": "changes within one year",
+  "A-Few-Years": "changes within a few years",
+  "Many-Years": "changes after 10 or more years",
+  "Never": "never changes"
+}
+
+2. Based on the selected label, write a short temporal context (ONE sentence) describing the current event, phase, or condition in which the question is asked. This does not have to be related to the question causally.
+   - Must describe an EVENT, PHASE or CONDITION, taking place when the question becomes relevant.
+   - No specific years.
+   - No meta reasoning.
+   - No "current"
+   - No "the question is asked"
+
+Return JSON:
+{
+  "recency_list": ["label1"],
+  "context_list": ["context1"]
+}
+\end{promptblock}
+
+\subsubsection{Non-stationary labeling}\label{prompt:label-nonstat}
+\begin{promptblock}
+Analyze this temporal question and produce temporal labels:
+
+"{question}"
+
+Your tasks (internal reasoning only, output JSON only):
+
+1. Provide TWO recency labels (for two different realistic temporal situations), choose from:
+{
+  "An-Hour": "changes within one hour",
+  "A-Few-Hours": "changes within a few hours",
+  "A-Day": "changes within one day",
+  "A-Few-Days": "changes within a few days",
+  "A-Week": "changes within one week",
+  "A-Few-Weeks": "changes within a few weeks",
+  "A-Month": "changes within one month",
+  "A-Few-Months": "changes within a few months",
+  "A-Year": "changes within one year",
+  "A-Few-Years": "changes within a few years",
+  "Many-Years": "changes after 10 or more years",
+  "Never": "never changes"
+}
+
+2. For each selected label provide ONE short temporal context (ONE sentence each) describing the current event, phase, or condition in which the question is asked. This does not have to be related to the question causally.
+  - Each context must describe a different EVENT, PHASE or CONDITION, taking place when the question becomes relevant.
+   - No specific years.
+   - No meta reasoning.
+   - No "current"
+   - No "the question is asked"
+
+Return JSON:
+{
+  "recency_list": ["label1", "label2"],
+  "context_list": ["context1", "context2"]
+}
+\end{promptblock}
+
+\subsection{Testing Prompts}
+\label{app:testing-prompts}
+\begin{promptblock}
+You are an expert in temporal reasoning.
+
+Given the following question and its temporal context,
+classify the needed recency of the data for the answer.
+
+Question:
+{question}
+
+Context:
+{context}
+
+Choose exactly one label from:
+[An-Hour, A-Few-Hours, A-Day, A-Few-Days, A-Week, A-Few-Weeks,
+ A-Month, A-Few-Months, A-Year, A-Few-Years, Many-Years, Never]
+
+Answer ONLY with the label.
+DO NOT provide any explanations or additional text.
+\end{promptblock}

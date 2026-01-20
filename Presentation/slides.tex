@@ -1,0 +1,176 @@
+%% RecencyQA-Multi presentation (main file)
+\documentclass[11pt,t,usepdftitle=false,aspectratio=169]{beamer}
+
+\usetheme[nototalframenumber,foot,logo,nosectiontitlepage]{uibk}
+
+%% Minimal extras for tables/figures
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{pifont}
+\usepackage{xstring}
+
+% Rounded block styling
+\usepackage[most]{tcolorbox}
+
+\usepackage{tikz}
+\usetikzlibrary{calc,tikzmark}
+\tcbuselibrary{skins}
+\usetikzlibrary{overlay-beamer-styles,positioning,arrows.meta}
+
+\usepackage{colortbl}
+\usepackage{xcolor}
+
+% For \num
+\usepackage{siunitx}
+% For quotes
+\usepackage{csquotes}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+%% Initialize
+\newcommand{\nextsectionname}{} 
+
+%% Update at each section
+\let\oldsection\section
+\renewcommand{\section}[1]{%
+    \gdef\nextsectionname{#1}% store the upcoming section
+    \oldsection{#1}%
+}
+
+\title[RecencyQA-Multi]{When Do Answers Change? Estimating Question Recency Demands in QA with Multi-Events}
+\subtitle{Recency-aware QA dataset, pipeline, and results}
+\URL{https://github.com/Fabianstw/RecencyQA\_MultiEvent}
+
+\author[Schulze \& Stiewe]{Peter Schulze \and Fabian Stiewe}
+
+\footertext{RecencyQA-Multi-Event}
+\date{\today}
+
+\headerimage{6}
+
+% Needs: \usepackage{xstring}
+
+% Layout parameters
+\newlength{\agendamarkerw}
+\setlength{\agendamarkerw}{1.1em}
+
+\newlength{\agendasep}
+\setlength{\agendasep}{0.6em}
+
+% Compact rows
+\renewcommand{\arraystretch}{0.85}
+
+\newcommand{\agendaentry}[1]{%
+  \noindent
+  \IfStrEq{\nextsectionname}{#1}{%
+    \begin{tabular}{@{}p{\agendamarkerw}@{\hspace{\agendasep}}p{0.78\linewidth}@{}}
+      {\color{uibkblue}\Large$\blacktriangleright$} &
+      {\color{uibkblue}\bfseries\large #1}
+    \end{tabular}%
+  }{%
+    \begin{tabular}{@{}p{\agendamarkerw}@{\hspace{\agendasep}}p{0.78\linewidth}@{}}
+      {\color{gray!60}\small$\bullet$} &
+      {\color{gray!75}\normalsize #1}
+    \end{tabular}%
+  }%
+}
+
+\AtBeginSection[]{
+\begin{frame}[plain]
+  \vfill
+  \centering
+  {\LARGE\color{uibkblue}\bfseries Agenda}\par
+  \vspace{0.6em}
+
+  \begin{minipage}{0.82\linewidth}
+    \begin{flushleft}
+
+      % No decorative line anymore — clean layout
+      \agendaentry{Motivation and Prior Work}\\[0.25em]
+      \agendaentry{Dataset Creation}\\[0.25em]
+      \agendaentry{Testing Pipeline}\\[0.25em]
+      \agendaentry{Results}\\[0.25em]
+      \agendaentry{Fine-Tuning}\\[0.25em]
+      \agendaentry{Conclusion and Outlook}
+
+    \end{flushleft}
+  \end{minipage}
+
+  \vfill
+\end{frame}
+}
+
+% -----------------------------
+% Rounded `block` replacement (StackExchange-inspired)
+% -----------------------------
+
+\makeatletter
+
+\newtcbox{\titlebox}{%
+  enhanced,
+  overlay={% small decorative triangle on the right of the title box
+    \draw[uibkblue,fill=uibkblue](frame.south east)--+(0,.2)to[bend right]+(.2,-0)--cycle;},
+  colback=uibkblue,
+  top=-1pt,bottom=-2pt,left=2pt,right=2pt,
+  boxrule=1pt,
+  colframe=uibkblue,
+  sharp corners=south,
+  colupper=white,
+  fontupper=\bfseries
+}
+
+\newtcolorbox{myblock}[1][]{%
+  enhanced,
+  left=6pt,
+  right=6pt,
+  colframe=uibkblue,
+  boxrule=0.9pt,
+  colback=uibkblue!8,
+  arc=6pt,
+  sharp corners=northwest,
+  overlay={%
+    \def\myblock@tempa{#1}%
+    \ifx\myblock@tempa\@empty
+    \else
+      \draw[uibkblue,fill=uibkblue]($(frame.north west)+(.2pt,-.2pt)$)--+(.1,0)to[bend right]+(-0,-.1)--cycle;
+      \node[anchor=south west,inner sep=0pt,outer sep=0pt] at (frame.north west){\titlebox{#1}};
+    \fi
+  }
+}
+\makeatother
+
+% Make beamer's `block` use the new rounded style: pass title as optional arg
+\let\oldblock\block
+\let\endoldblock\endblock
+\renewenvironment{block}[1]{\begin{myblock}[#1]}{\end{myblock}}
+
+\begin{document}
+
+\maketitle
+
+\section{Motivation and Prior Work}
+\input{parts/motivation}
+
+\section{Dataset Creation}
+\input{parts/dataset_creation}
+
+\section{Testing Pipeline}
+\input{parts/testing}
+
+\section{Results}
+\input{parts/results}
+
+\section{Fine-Tuning}
+\input{parts/finetune}
+
+\section{Conclusion and Outlook}
+\input{parts/conclusion}
+
+\begin{frame}
+  
+\end{frame}
+\input{parts/add_ons.tex}
+
+\end{document}
+

@@ -1,0 +1,1317 @@
+[
+  {
+    "q_id":1006,
+    "question":"Are there any changes in Microsoft Corporation's leadership or organizational structure announced during the quarterly earnings report?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As investors and analysts tune in to Microsoft Corporation's live quarterly earnings call,"
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":4232,
+    "question":"Are any airports or public transportation systems in Norfolk currently closed due to the storm?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Weeks",
+        "context1":"As the storm has just passed, a resident is checking for updates on transportation disruptions."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Hours",
+        "context2":"As a powerful winter storm is forecasted to hit the Norfolk area tonight, bringing heavy snow and strong winds, a concerned traveler is checking for updates on transportation disruptions."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Weeks"
+  },
+  {
+    "q_id":2925,
+    "question":"Who is the owner of the previous employer of Michaela Pereira?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As Michaela Pereira announces her departure from her current job to pursue new opportunities, fans and colleagues start wondering about her professional background."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":658,
+    "question":"What topics are discussed in the latest episode of 'The Daily Boost'?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"As I'm driving to work on the morning after a new episode of 'The Daily Boost' is released,"
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":2519,
+    "question":"Which employer did Juliet Ehimuan work for before the current employer?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"During an interview at a recent tech conference, Juliet Ehimuan was asked about her career path."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":4430,
+    "question":"Are there plans to expand the updated algorithm to other Meta-owned platforms, such as Facebook?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"Following the recent announcement of an updated algorithm on Instagram, industry experts and users are wondering about the potential expansion of this technology to other platforms."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"During the annual Meta conference where major platform updates are typically unveiled."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":1836,
+    "question":"who built pedestrian bridge at florida international university?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Many-Years",
+        "context1":"During a campus tour, a prospective student asks about the pedestrian bridge at Florida International University."
+      }
+    ],
+    "stationary":"YES",
+    "source":"SituatedQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"Many-Years"
+  },
+  {
+    "q_id":4028,
+    "question":"Who is the chair of the political party which the Helir-Valdor Seeder belongs to currently?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"During a live televised debate among politicians, a viewer wonders about the leadership of Helir-Valdor Seeder's party."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":4869,
+    "question":"How many residents have been evacuated from their homes in the first week?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Week",
+        "context1":"As a wildfire rages through the county, prompting widespread evacuations, officials hold a press conference to update the public on the situation."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"Never",
+        "context2":"As the wildfire is finally brought under control and evacuation orders are lifted, a reporter asks the question during a final debriefing with emergency management officials."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Week"
+  },
+  {
+    "q_id":5804,
+    "question":"Which political party does Danus Skene belong to currently?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As the local election campaigns are underway, voters are researching the affiliations of their candidates, including Danus Skene."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"On the eve of a major political party convention where members often switch affiliations or announce unexpected departures."
+      }
+    ],
+    "stationary":"NO",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":1448,
+    "question":"What role does social media play in promoting artists featured in the 'Staff Picks' section on Etsy?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As Etsy announces an update to its algorithm and social media strategy, sellers are wondering how the platform's 'Staff Picks' section will be promoted online."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":5047,
+    "question":"Is Uber offering any discounts or promotions to offset the effects of the price surge?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"As a major hurricane approaches the city, causing widespread disruptions and price surges in ride-hailing services,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"As Uber announces its quarterly earnings and reveals new pricing strategies to investors,"
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":6049,
+    "question":"Will there be any shuttle services provided for the Spring Bloom Festival?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"As the Spring Bloom Festival is approaching in a few days, attendees are finalizing their travel plans."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"The festival organizers have just announced that the event schedule and logistics are being revised due to unforeseen weather conditions, and attendees are eagerly awaiting the updated information."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":4173,
+    "question":"Who won the latest NBA championship?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Year",
+        "context1":"As the NBA playoffs have just concluded and the new season has not yet started, fans are eager to discuss the recent championship winner."
+      }
+    ],
+    "stationary":"YES",
+    "source":"FreshQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Year"
+  },
+  {
+    "q_id":1978,
+    "question":"what nba team did derrick rose play for?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As Derrick Rose announces his retirement from professional basketball, a fan wonders which NBA team he played for most recently."
+      }
+    ],
+    "stationary":"YES",
+    "source":"SituatedQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":299,
+    "question":"Can attendees meet the comedians during the Laugh Out Loud comedy festival?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Year",
+        "context1":"As the Laugh Out Loud comedy festival is about to start its monthly series, potential attendees are wondering about the opportunities to interact with the performers."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Year"
+  },
+  {
+    "q_id":2671,
+    "question":"Who was the previous head coach of the team FC Arge\u0219?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"Following the team's recent announcement of a new head coach, fans are wondering about the predecessor."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":1363,
+    "question":"What is the average price of NFTs in the current top 10 collections on OpenSea in New York?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"As the annual NFT auction is about to start in Manhattan, a potential buyer wants to know the current market trends."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":5463,
+    "question":"What is the expected time for the situation at the Springfield Industrial Park to be brought under control?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Hours",
+        "context1":"As firefighters and emergency responders rush to the scene of a large blaze at the Springfield Industrial Park, which erupted just 30 minutes ago,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"As the fire chief announces that the blaze at the Springfield Industrial Park has been largely contained and is now being monitored for hotspots, just before declaring the situation under control,"
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Hours"
+  },
+  {
+    "q_id":5024,
+    "question":"In what ways will the agreement influence trade relations between the US and other countries outside the EU?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As news breaks that the US has just reached a major trade agreement with the EU, economists and policymakers are wondering about the broader implications of this deal."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"As the US and EU are on the verge of finalizing the trade agreement, but details have not yet been made public."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":5186,
+    "question":"What are the most common keywords associated with the 'Galactic Odyssey' trailer on YouTube?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"As the 'Galactic Odyssey' movie trailer just dropped on YouTube this morning, marketing teams are eager to analyze its initial impact."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"The movie 'Galactic Odyssey' has just been released on streaming platforms after a successful theatrical run, and the marketing teams are now comparing its long-term online presence to its initial trailer impact."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":5111,
+    "question":"What are the current sales figures for 'The Litigators' in the e-book format compared to physical copies?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"During the weekly meeting of the publishing company's marketing team, as they review the latest data on John Grisham's newly released novel."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"Just as the publishing company announces a major discount on the e-book version of 'The Litigators' to coincide with a holiday sale."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":256,
+    "question":"What is the average length of stay for patients hospitalized at New York-Presbyterian Hospital this month?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Month",
+        "context1":"During a monthly hospital administration meeting, the director of operations inquires about the current patient stay averages."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Month"
+  },
+  {
+    "q_id":4236,
+    "question":"Are any local New York City authors or bookstores hosting events related to John Grisham's new book release?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"As John Grisham's highly anticipated new novel is set to hit bookshelves next week,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"On the day of John Grisham's book release, just as local bookstores are finalizing their event schedules"
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":4312,
+    "question":"Are there any new recommendations for COVID-19 vaccination in New York based on the latest CDC report?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"As the CDC releases its weekly update on vaccination guidelines, a concerned New York resident wonders about the latest recommendations."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"As a new variant of COVID-19 is discovered in the United States and an emergency meeting of health officials is convened to discuss potential updates to vaccination protocols."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":453,
+    "question":"how many books are in the diary of a whimpy kid series?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Never",
+        "context1":"As the author announces the upcoming release of a new book in the series at a literary festival, a curious fan wonders"
+      }
+    ],
+    "stationary":"YES",
+    "source":"SituatedQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"Never"
+  },
+  {
+    "q_id":600,
+    "question":"What are the current applications of Artificial Intelligence for Cybersecurity in Silicon Valley?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"During a keynote speech at a major tech conference, an industry expert is asked about the latest advancements in AI-powered cybersecurity solutions being implemented by companies in Silicon Valley."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":4328,
+    "question":"Are there any plans for TechCorp to release an updated version of the X5 model with the battery issue resolved?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"During the annual tech conference where TechCorp unveiled the latest X5 model, but faced criticism for its battery life issues."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"The day after TechCorp's official announcement of a software patch to address the X5 model's battery issues."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":5581,
+    "question":"What is the timeline for the new coaching staff to take over team operations?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"The team's management just announced the replacement of their current coaching staff during a press conference held at the stadium earlier today."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"The team's management is rumored to be in the final stages of negotiating with potential new coaches, but no official announcement has been made yet."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":693,
+    "question":"What is the impact of Leonardo DiCaprio's retirement on his current endorsement deals?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Never",
+        "context1":"As Leonardo DiCaprio announces he has no plans to retire from acting anytime soon, fans and sponsors begin to speculate about his future career moves."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"Never"
+  },
+  {
+    "q_id":4242,
+    "question":"Are emergency services on high alert in the Denver area?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Hours",
+        "context1":"As a severe snowstorm warning has just been issued for the Denver area, with heavy blizzard conditions expected to hit within the next few hours,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Months",
+        "context2":"As the severe snowstorm has just passed the Denver area, leaving behind clear skies and calm conditions,"
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Hours"
+  },
+  {
+    "q_id":4375,
+    "question":"Are there any reports of ticket scalping or resale restrictions being implemented for the Taylor Swift concert at the Los Angeles Staples Center?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"With the Taylor Swift concert at the Los Angeles Staples Center scheduled to go on sale tomorrow morning, fans are eager to learn about any ticket purchasing rules or restrictions."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"The day after the Taylor Swift concert tickets have gone on sale and the event organizers have just announced an investigation into ticket scalping activities."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":940,
+    "question":"What is the average tenure of a member on Microsoft's board of directors?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Year",
+        "context1":"As the annual Microsoft shareholder meeting approaches, investors begin to wonder about the stability and experience of the company's leadership team."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Year"
+  },
+  {
+    "q_id":4666,
+    "question":"How has the Dragonflight expansion affected the game's overall revenue in North America?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"Following the highly anticipated launch of the Dragonflight expansion, gamers and investors are now wondering about its impact on the game's revenue."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Months",
+        "context2":"Just before the announcement of the next major expansion, as rumors and leaks are circulating about significant changes to the game's monetization model."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":3933,
+    "question":"Who did the previous head of the state of Indonesia succeed in office?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Many-Years",
+        "context1":"As the newly sworn-in president of Indonesia begins their term, historians and political analysts start to reflect on the previous administration."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"Many-Years"
+  },
+  {
+    "q_id":4831,
+    "question":"How many local dancers from Los Angeles were featured in Taylor Swift's new music video?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Never",
+        "context1":"During the premiere of Taylor Swift's latest music video at a Los Angeles film festival, fans and critics alike are abuzz with questions about the production."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"Just before the official casting call for Taylor Swift's upcoming music video, when rumors about the production are circulating among local dance communities."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"Never"
+  },
+  {
+    "q_id":3840,
+    "question":"Who is the head of the government of Bicske currently?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As the local news in Bicske reports on the recent municipal elections, residents are wondering about the new leadership."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":5312,
+    "question":"What is the current availability of tickets for Taylor Swift's surprise concert at Wembley Stadium?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Hours",
+        "context1":"It's the morning of the concert day and fans are eagerly trying to get last-minute tickets."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"The concert has just been announced and tickets are about to go on sale in the next 10 minutes."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Hours"
+  },
+  {
+    "q_id":4329,
+    "question":"Are there any plans for UberEats or DoorDash to expand their trending sections to include other types of businesses in Manhattan?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As the annual New York City Food Festival comes to a close, with many local businesses having just been featured on popular food delivery platforms,"
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":238,
+    "question":"How many readers have downloaded ebooks from Amazon Kindle Direct Publishing in the past week?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Week",
+        "context1":"During the annual Amazon Kindle Direct Publishing conference, an author asks about the recent ebook downloads to gauge the platform's current performance."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Week"
+  },
+  {
+    "q_id":4438,
+    "question":"Can John Grisham's new book be purchased online from New York City bookstores?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"The day before the official release of John Grisham's latest novel, fans in New York City are eagerly awaiting the book's launch."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"The morning after the book's official release, when online ordering and in-store pickup options are about to go live."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":1410,
+    "question":"\"\"\"Can the popularity of a server outside of the 'Featured' section influence its chances of being featured in the future, based on user activity over a few weeks?\"\"\"",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Weeks",
+        "context1":"As the platform's community team prepares for their monthly review of server popularity and featured listings, a curious user wonders about the impact of recent user activity."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Weeks"
+  },
+  {
+    "q_id":4846,
+    "question":"How many passengers are affected by the delay of Flight AA101?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"An-Hour",
+        "context1":"As a flight attendant announces a 2-hour delay of Flight AA101 due to mechanical issues, a concerned passenger asks about the expected impact on travelers."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"As the airline's customer service team is about to release an official update on the flight's revised departure schedule, a passenger inquires about the number of affected travelers."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"An-Hour"
+  },
+  {
+    "q_id":1739,
+    "question":"What amenities are offered in each class of service on the new flights?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As the airline prepares to launch its new route, travelers are eager to learn about the services they can expect on board."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":1141,
+    "question":"How does the current weekly ranking of social media apps in the App Store compare to last week's ranking?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Week",
+        "context1":"During the weekly tech news roundup, a reporter is analyzing the latest App Store rankings."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Week"
+  },
+  {
+    "q_id":5052,
+    "question":"Is the City Heritage Museum accessible for visitors with disabilities during its first month?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Month",
+        "context1":"As the City Heritage Museum prepares to open its doors to the public for the first time next week,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Month",
+        "context2":"On the day the City Heritage Museum announces plans for a major renovation to its accessibility features,"
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Month"
+  },
+  {
+    "q_id":5500,
+    "question":"What is the latest information on the storm's potential impact on local businesses and daily activities in Norfolk?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Hours",
+        "context1":"As a powerful hurricane is forecasted to make landfall in Norfolk within the next 24 hours,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Hours",
+        "context2":"As the hurricane has just made landfall in Norfolk and emergency response teams are assessing the damage,"
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Hours"
+  },
+  {
+    "q_id":4292,
+    "question":"Are there any discounts available for students or seniors attending the Laugh Out Loud comedy festival?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"With the Laugh Out Loud comedy festival scheduled to start next weekend, a potential attendee is looking for ways to save on tickets."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"The day before the festival's ticket prices are scheduled to increase, a last-minute decision-maker is searching for any remaining discounts."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":5916,
+    "question":"Who did the previous head of the government of Boise succeed in office?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Many-Years",
+        "context1":"As the new mayor of Boise is sworn into office, a local journalist begins researching the history of the city's government leadership."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Weeks",
+        "context2":"As the current mayor of Boise announces their resignation, effective immediately, sparking a special election to fill the vacancy."
+      }
+    ],
+    "stationary":"NO",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"Many-Years"
+  },
+  {
+    "q_id":280,
+    "question":"What is the predicted change in ranking for the current number one song on the Billboard chart by the end of the month in New York City?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Month",
+        "context1":"As the monthly Billboard chart update approaches, music fans in New York City are speculating about the upcoming changes in the rankings."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Month"
+  },
+  {
+    "q_id":2981,
+    "question":"Who is the spouse of the previous chair of United States Department of Justice?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Many-Years",
+        "context1":"During a retrospective discussion about former government officials at a legal conference, an attendee asks about the personal life of a past leader of the United States Department of Justice."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"Many-Years"
+  },
+  {
+    "q_id":4499,
+    "question":"Have any in-game events or activities been postponed or cancelled due to the server issues?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"As players log in to the highly anticipated new video game on its launch day, they're met with error messages and server overload warnings."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Hours",
+        "context2":"The game's development team has just announced a scheduled maintenance window to address the ongoing server issues, set to start in a few hours."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":3988,
+    "question":"Who was the last person to hold the position that Ximena Rinc\u00f3n held previously?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Many-Years",
+        "context1":"As Ximena Rinc\u00f3n is sworn into her new office, curiosity arises about her previous role."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"Many-Years"
+  },
+  {
+    "q_id":5423,
+    "question":"What is the estimated cost to TechCorp for implementing the recall and replacing the affected X5 smartphones?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"Following a major product safety announcement earlier this week, where TechCorp revealed a critical defect in its X5 smartphone model, investors and analysts are now seeking detailed estimates of the financial impact."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"Just as TechCorp's CEO is about to announce the company's quarterly earnings and provide an update on the recall's financial implications."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":4099,
+    "question":"Who did the previous head of the government of Bat Yam succeed in office?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Many-Years",
+        "context1":"As the city's new mayor is sworn into office, curiosity arises about the previous administration."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"Many-Years"
+  },
+  {
+    "q_id":4260,
+    "question":"Are schools in Phoenix taking any special precautions or altering schedules due to the heatwave?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"As a severe heatwave is forecasted to hit Phoenix tomorrow, local parents are wondering about the safety of their children."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"As the heatwave in Phoenix has just been downgraded to an excessive heat watch after a week of record-breaking temperatures, parents are now inquiring about the potential return to normal school schedules."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":5915,
+    "question":"Who did the current head of the state of Ukraine succeed in office?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"Following a recent presidential election in Ukraine, analysts are reviewing the new leader's background and experience."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"On the eve of a highly contested Ukrainian presidential election, where the incumbent's term is set to expire."
+      }
+    ],
+    "stationary":"NO",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":6048,
+    "question":"Will there be any changes to the game's user interface or graphics with the Dragonflight expansion pack?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As gamers gather at the annual gaming convention, rumors about the upcoming Dragonflight expansion pack spark intense discussion among fans."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"The day before the official Dragonflight expansion pack release, when final patches and updates are being applied to the game."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":448,
+    "question":"what is bermuda competing in the winter olympics?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As the Winter Olympics are about to start, a curious viewer wonders about Bermuda's participation."
+      }
+    ],
+    "stationary":"YES",
+    "source":"SituatedQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":3143,
+    "question":"Where was the previous chair of archdiocese of Gatineau born?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Never",
+        "context1":"During the installation ceremony of the new archdiocese chair, a curious attendee asks about the background of the previous chair."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"Never"
+  },
+  {
+    "q_id":5146,
+    "question":"What are the hours of operation for the Spring Bloom Festival?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Year",
+        "context1":"As the city starts preparing for the upcoming Spring Bloom Festival, a curious resident wonders about the event's schedule and asks:"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"Just as the festival organizers announce a last-minute change in the schedule due to unforeseen weather conditions."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Year"
+  },
+  {
+    "q_id":4637,
+    "question":"How does the proposed policy align with or differ from existing traffic congestion reduction strategies?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As the city council prepares to vote on the new transportation bill, stakeholders are examining its potential impact on traffic congestion."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"Just after the city council has voted to approve the new transportation bill and implementation details are being finalized."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":5857,
+    "question":"Which position does Ol\u00edvia Santana hold currently?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As the newly elected city council members are being sworn in, a reporter asks about the current roles of key figures in the local government."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"As the city council election results are about to be announced, a news anchor asks about the potential future roles of key figures in the local government."
+      }
+    ],
+    "stationary":"NO",
+    "source":"PATQA",
+    "hop_type":"Multi-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":5223,
+    "question":"What are the policy violations that led to SocialHub's removal from the App Store?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Day",
+        "context1":"Just hours after SocialHub's sudden disappearance from the App Store, users are scrambling to understand what prompted the removal."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Day",
+        "context2":"The day before SocialHub's anticipated relaunch on the App Store, after the company announced it had addressed all concerns raised by the platform's moderators."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Day"
+  },
+  {
+    "q_id":1951,
+    "question":"where was the capital of the habsburg empire located?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"Never",
+        "context1":"As a historian begins to lecture on the rise and fall of European dynasties, a curious student asks"
+      }
+    ],
+    "stationary":"YES",
+    "source":"SituatedQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"Never"
+  },
+  {
+    "q_id":5061,
+    "question":"Is there a compensation plan in place for players who have been affected by the server issues in World of Warcraft?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"Following a recent wave of server crashes and downtime in World of Warcraft, frustrated players are seeking information about potential restitution."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  },
+  {
+    "q_id":4360,
+    "question":"Are there any reports of damage to buildings or infrastructure in Norfolk due to the storm?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Hours",
+        "context1":"As a powerful storm makes landfall in eastern England, bringing strong winds and heavy rainfall to the region."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Few-Days",
+        "context2":"As emergency responders begin conducting thorough damage assessments in the storm's aftermath, several days after the storm has passed."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Hours"
+  },
+  {
+    "q_id":2661,
+    "question":"Who was the previous head coach of the team Australia national rugby union team?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Year",
+        "context1":"As the news breaks that the current head coach of the Australia national rugby union team has just resigned, fans start wondering about the team's previous leadership and"
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Year"
+  },
+  {
+    "q_id":583,
+    "question":"What is the current number of active users on ViralZone?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Hours",
+        "context1":"During the peak of a major social media influencer's livestream promotion of ViralZone, an administrator wants to know the current user engagement."
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Hours"
+  },
+  {
+    "q_id":1733,
+    "question":"Has the trading of Tesla's stock been halted at any point in the last hour at the NYSE due to extreme price movement?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"An-Hour",
+        "context1":"As news breaks that Tesla's CEO is about to announce a major update to their electric vehicle lineup, causing volatility in the stock market,"
+      }
+    ],
+    "stationary":"YES",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"An-Hour"
+  },
+  {
+    "q_id":2648,
+    "question":"Who was the previous head coach of the team Futebol Clube do Porto?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Year",
+        "context1":"As the news breaks that the current head coach of Futebol Clube do Porto is stepping down, fans begin to speculate about the team's future leadership and reflect on the past."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Year"
+  },
+  {
+    "q_id":4648,
+    "question":"How does the sales performance of 'The Litigators' compare to John Grisham's previous novels?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Months",
+        "context1":"As 'The Litigators' hits the bookstores and initial sales reports start coming in, fans and critics alike are wondering how it will stack up against John Grisham's previous bestsellers."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"A-Year",
+        "context2":"As the final annual book sales reports are released, just before John Grisham announces his retirement from writing."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Months"
+  },
+  {
+    "q_id":4834,
+    "question":"How many minutes are left before the storm is expected to make landfall in Miami Beach?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"An-Hour",
+        "context1":"As a hurricane warning is issued for Miami Beach, with the storm currently 60 miles offshore and moving rapidly towards the coast,"
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"An-Hour",
+        "context2":"As the storm suddenly slows down its approach 20 miles offshore, entering a period of unpredictable intensity and trajectory changes."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"An-Hour"
+  },
+  {
+    "q_id":3863,
+    "question":"Who is the spouse of the current owner of Le R\u00eave?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Years",
+        "context1":"As the audience is about to watch a performance of Le R\u00eave at the Wynn Las Vegas, a curious spectator wonders about the personal life of the show's current owner."
+      }
+    ],
+    "stationary":"YES",
+    "source":"PATQA",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Years"
+  },
+  {
+    "q_id":5393,
+    "question":"What is the current status of the regulatory approvals needed for the partnership to move forward?",
+    "labels":[
+      {
+        "stage":"L1",
+        "recency_label1":"A-Few-Days",
+        "context1":"As the company's board of directors meets for a quarterly review, just before a major press conference announcing the new partnership, an investor asks about the regulatory approvals."
+      },
+      {
+        "stage":"L2",
+        "recency_label2":"Never",
+        "context2":"As the company's CEO steps off the stage after announcing the successful completion of all regulatory approvals for the partnership at a major industry conference."
+      }
+    ],
+    "stationary":"NO",
+    "source":"LLM-generated",
+    "hop_type":"Single-Hop",
+    "primary_recency":"A-Few-Days"
+  }
+]

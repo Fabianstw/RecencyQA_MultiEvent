@@ -1,0 +1,51 @@
+\begin{frame}
+  \frametitle{Fine-tuning setup}
+  \begin{columns}
+    \begin{column}{0.37\textwidth}
+      \begin{itemize}
+      \item Smaller Qwen model (\num{14}B)
+      \item Split Dataset \num{70}/\num{15}/\num{15} 
+      \item Finetuned via Together AI
+      \item Compared to previous models
+    \end{itemize}
+    \end{column}
+    \begin{column}{0.63\textwidth}
+      \vspace{-2em}
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{_images/FineTuneOverview.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[c]
+  \frametitle{Fine-tuning results (reduced test set)}
+  \scriptsize
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{l|cc|cc|cc|cc|cc}
+    \toprule
+    & \multicolumn{2}{c|}{Overall} & \multicolumn{2}{c|}{St.} & \multicolumn{2}{c|}{Non-St.} & \multicolumn{2}{c|}{Single-event} & \multicolumn{2}{c}{Multi-event} \\
+    Model & Acc & Tol. & Acc & Tol. & Acc & Tol. & Acc & Tol. & Acc & Tol. \\
+    \midrule
+    Qwen2.5-14B (FT) & \num{40.9} & \num{69.6} & \num{55.1} & \num{72.9} & \num{33.5} & \num{68.0} & \num{41.5} & \num{78.5} & \num{40.7} & \num{67.3} \\
+    Kimi & \num{35.5} & \num{64.9} & \num{46.3} & \num{70.4} & \num{29.8} & \num{62.0} & \num{29.7} & \num{65.6} & \num{36.9} & \num{64.7} \\
+    Qwen2.5-72B & \num{46.5} & \num{76.1} & \num{63.9} & \num{82.4} & \num{37.4} & \num{72.8} & \num{46.2} & \num{87.7} & \num{46.6} & \num{73.1} \\
+    DeepSeek-V3 & \num{41.4} & \num{69.7} & \num{50.9} & \num{71.3} & \num{36.4} & \num{68.9} & \num{38.5} & \num{70.8} & \num{42.2} & \num{69.5} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{frame}
+
+% \begin{frame}[c]
+%   \frametitle{Fine-tuning results — accuracy barplot}
+%   \centering
+%   \includegraphics[width=0.85\linewidth]{../Paper/res/finetuned_accuracy_barplot.pdf}
+% \end{frame}
+
+\begin{frame}[plain]
+  \frametitle{Parameter efficiency}
+  \centering
+  \includegraphics[width=0.85\linewidth]{../Paper/res/finetuned_param_normalized.pdf}
+\end{frame}

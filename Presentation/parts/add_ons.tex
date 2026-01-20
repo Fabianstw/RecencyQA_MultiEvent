@@ -1,0 +1,17 @@
+\begin{frame}
+  \frametitle{Labeling and verification}
+  \begin{itemize}
+    \item Label recency classes: 
+    \begin{itemize}
+      \item Stationary: single label + context
+      \item Non-Stationary: two labels + contexts 
+    \end{itemize}
+    \item Use \emph{Llama-3.3-70B-Instruct-Turbo} for labeling
+    \item Enforce structured JSON
+    \item LLM screening (\emph{GPT-5.1 Codex Max}) for label-question consistency
+    \item Manual audit of flagged items; remove or fix ambiguous cases
+    \begin{itemize}
+      \item Sample \num{75} items for manual verification
+    \end{itemize}
+  \end{itemize}
+\end{frame}

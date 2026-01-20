@@ -1,0 +1,87 @@
+\subsection{Specific Questions}
+\label{app:example-questions-each-variation}
+
+\begin{questionexample}[title=Stationary Single Event]
+  \question{What is the current water level in the Amazon River during the wet season?}
+  \context{Heavy rainfall is occurring in the Amazon basin during the wet season.}
+  \recencylabel{A-Few-Days}
+\end{questionexample}
+
+\begin{questionexample}[title=Stationary Two Events Causal]
+  \question{Do the daily tidal patterns in the Bay of Fundy trigger the opening and closing of the Annapolis Royal tidal power plant?}
+  \context{Tidal patterns are being closely monitored by researchers at the Bay of Fundy.}
+  \recencylabel{A-Day}
+\end{questionexample}
+
+\begin{questionexample}[title=Stationary Two Events Temporal-Only]
+  \question{Are the opening hours of the Louvre Museum in Paris synchronized with the daily tidal patterns in the Bay of Fundy?}
+  \context{Tourist season is in full swing in Europe.}
+  \recencylabel{Never}
+\end{questionexample}
+
+\begin{questionexample}[title=Stationary Three Events Causal]
+  \question{Will the rise in global temperatures cause more frequent heatwaves in Australia, which in turn increase the risk of bushfires in the region?}
+  \context{A prolonged period of climate change is being observed globally.}
+  \recencylabel{Many-Years}
+\end{questionexample}
+
+\begin{questionexample}[title=Stationary Three Events Temporal-Only]
+  \question{What is the current time in New York when the Tokyo Stock Exchange opens and the first tennis match at Wimbledon begins?}
+  \context{Financial markets and sports events are in full swing during summer mornings.}
+  \recencylabel{A-Few-Hours}
+\end{questionexample}
+
+\newpage
+\begin{questionexample}[title=Non-Stationary Single Event]
+  \question{What is the current status of the wildfire in California?}
+  \contextii{Firefighters are working to contain the blaze during intense heat waves.}{Emergency responders are assessing damage after a night of strong winds.}
+  \labelsii{A-Few-Hours}{A-Day}
+\end{questionexample}
+
+\begin{questionexample}[title=Non-Stationary Two Events Causal]
+  \question{How do weather forecasters predict the trajectory of a hurricane after it makes landfall, given the rapid change in atmospheric conditions?}
+  \contextii{Hurricane warnings have been issued for several coastal cities as the storm approaches land.}{Emergency responders are scrambling to prepare evacuation routes as the hurricane's outer rain bands start to affect the area.}
+  \labelsii{A-Few-Days}{A-Day}
+\end{questionexample}
+
+\begin{questionexample}[title=Non-Stationary Two Events Temporal-Only]
+  \question{What was the status of the COVID-19 pandemic in the United States when the Perseverance rover landed on Mars?}
+  \contextii{Scientists are analyzing the latest wave of COVID-19 variants.}{The world is reflecting on the pandemic's impact during a global health conference.}
+  \labelsii{A-Few-Months}{A-Year}
+\end{questionexample}
+
+\begin{questionexample}[title=Non-Stationary Three Events Causal]
+  \question{What impact will the unexpected power outage have on the scheduled software update and the subsequent data backup process, considering the backup window is limited to a narrow time frame?}
+  \contextii{The IT team is rushing to meet a tight project deadline.}{A severe thunderstorm warning has been issued for the area.}
+  \labelsii{A-Few-Hours}{A-Day}
+\end{questionexample}
+
+\begin{questionexample}[title=Non-Stationary Three Events Temporal-Onlys]
+  \question{Does the timing of the annual Monaco Grand Prix overlap with the blooming of cherry blossoms in Japan and the announcement of the Nobel Prize winners?}
+  \contextii{The Monaco Grand Prix is nearing its traditional date in late spring.}{Tourists are finalizing their travel itineraries for the upcoming cherry blossom festival in Japan.}
+  \labelsii{A-Year}{A-Few-Days}
+\end{questionexample}
+
+
+\newpage
+\subsection{Example Question JSON Output}
+\label{app:example-questions-json}
+\begin{lstlisting}[language=JSON]
+  {
+    "q_id": 12,
+    "question": "How many people have been reported injured or missing since the last update on the hurricane landfall in Florida?",
+    "event_dependency": "Single-Event",
+    "num_events": 1,
+    "stationary": "NO",
+    "labels": [
+      {
+        "recency_label1": "A-Few-Hours",
+        "context1": "Emergency responders are scrambling to evacuate coastal areas as the hurricane makes landfall."
+      },
+      {
+        "recency_label2": "A-Day",
+        "context2": "Relief efforts are underway as communities begin to assess the damage from the storm."
+      }
+    ]
+  }
+\end{lstlisting}

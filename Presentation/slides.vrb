@@ -1,0 +1,24 @@
+\frametitle{Installation}
+
+   \textbf{Presentation slides:}
+   \begin{itemize}
+      \item Copy both the file \file{beamerthemeuibk.sty} and the entire folder \file{\_images}.
+
+      \item Either to your local working directory\dots
+
+      \item \dots or to your TEXMF tree (\emph{recommended}), e.g., \file{texmf/tex/latex/uibk-beamer/}.
+
+      \item Start with the file \file{slides.tex}, containing the sources for this demo
+        along with many useful hints and comments in the source code.
+
+      \item Compile with \texttt{xelatex} or \texttt{pdflatex}.
+   \end{itemize}
+
+\medskip
+
+   \textbf{Posters:}
+   \begin{itemize}
+      \item Additionally copy \file{beamerthemeuibkposter.sty}.
+      \item Use \file{poster.tex} as the starting point.
+   \end{itemize}
+

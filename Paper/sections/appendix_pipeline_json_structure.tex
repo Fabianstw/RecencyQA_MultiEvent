@@ -1,0 +1,42 @@
+\subsection{Input JSON format for the pipeline}
+\label{app:sec:input-json}
+\begin{figure}[h]
+\begin{lstlisting}[language=JSON]
+[
+  {
+    "q_id": "<string | int>",
+    "question": "<string>"
+  }
+]
+\end{lstlisting}
+\caption{JSON structure for the RecencyQA\_MultiEvent pipeline input.}
+\end{figure}
+
+\subsection{Output JSON format from the pipeline}
+\label{app:sec:output-json}
+\begin{figure}[h]
+\begin{lstlisting}[language=JSON]
+[
+  {
+    "q_id": 3,
+    "question": "...",
+    "event_dependency": "Single-Event | Multi-Event",
+    "num_events": 1 | 2 | 3,
+    "generation_type": "causal | temporal_only",   // only for Multi-Event
+    "stationary": "YES | NO",
+    "labels": [
+      {
+        "recency_label1": <Recency label>,
+        "context1": "short natural-language description of the assumed situation"
+      },
+      {
+        "recency_label2": <Recency label>,
+        "context2": "short natural-language description of the assumed situation"
+      }
+      // second entry only appears when stationary = NO
+    ]
+  }
+]
+\end{lstlisting}
+\caption{JSON structure for the RecencyQA\_MultiEvent pipeline output.}
+\end{figure}

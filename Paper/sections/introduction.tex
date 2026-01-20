@@ -1,0 +1,48 @@
+In the last couple of years, large language models (LLMs) have demonstrated remarkable capabilities across a wide range of natural language processing tasks. In particular, their performance on question answering (QA) tasks has been studied extensively \cite{fischer2024questionlargelanguagemodels,brown2020languagemodelsfewshotlearners}, with very strong results. However, a persistent challenge for QA systems is handling temporal dynamics, specifically answering questions whose correct answers change over time.
+
+Much of this prior work largely ignores the fact that many real-world questions require information that is time-sensitive and may change frequently, such as:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{1pt}
+  \setlength{\parsep}{1pt}
+  \setlength{\topsep}{1pt}
+  \item \textit{\enquote{What is the current population of Germany?}}
+  \item \textit{\enquote{Who is the current president of the United States?}}
+\end{itemize}
+As facts evolve, answers that were once correct inevitably degrade, and outdated responses can harm user trust. Despite this, many QA evaluations remain static, implicitly assuming that factual correctness is invariant over time.
+
+\begin{table*}[!t]
+  \centering
+  \label{tab:related-datasets}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{} l l l c c c r @{} }
+      \toprule
+      Dataset & Creation & KC & Multi-hop & Recency-Label & Multi-Event & \# Ques. \\
+      \midrule
+      TimeQA~\cite{chen2021datasetansweringtimesensitivequestions} & Templ.-Wikidata & Wikipedia & \xmark & \xmark & \xmark & \num{20000} \\
+      SituatedQA~\cite{zhang2021situatedqaincorporatingextralinguisticcontexts} & Man.-Filt. & Wikipedia & \xmark & \xmark & \xmark & \num{12000} \\
+      TempLama~\cite{10.1162/tacl_a_00459} & Templ./Cloze & Custom-News & \xmark & \xmark & \xmark & \num{50000} \\
+      StreamingQA~\cite{liška2022streamingqabenchmarkadaptationnew} & Man.+Gen. & WMT News & \cmark & \xmark & \xmark & \num{410000} \\
+      ArchivalQA~\cite{wang2022archivalqalargescalebenchmarkdataset} & Gen. & NYT Articles & \xmark & \xmark & \xmark & \num{532000} \\
+      ChroniclingAmericaQA~\cite{Piryani_2024} & Gen. & Chronicling America Newspapers & \xmark & \xmark & \xmark & \num{485000} \\
+      RealTimeQA~\cite{kasai2024realtimeqawhatsanswer} & News websites & News Articles & \cmark & \xmark & \xmark & $\sim$\num{5000} \\
+      PATQA~\cite{meem-etal-2024-pat} & Templ.-wikidata & Wikipedia & \cmark & \xmark & \xmark & \num{6172} \\
+      FreshQA~\cite{vu-etal-2024-freshllms} & Man. & Google Search & \cmark & \xmark & \xmark & \num{600} \\
+      RecencyQA (\textit{unpublished}) & Man.-Filt.+Gen & Wikipedia/Wikidata & \cmark & \cmark & \xmark & \num{6115} \\
+      \midrule
+      \textbf{RecencyQA-Multi (\textit{ours})} & Man.-Filt.+Gen & RecencyQA+LLM & \xmark & \cmark & \cmark & \num{1432} \\
+      \bottomrule
+    \end{tabular}%
+  }
+  \caption{Overview of question answering datasets. Abbreviations: \textit{Man.}=created manually, \textit{Gen.}=Au- tomatically generated, \textit{Man.-Filt.}=filtered from other datasets, \textit{Man.+Gen.}=created by crowdsourcing and LLM generation \textit{Templ.}=created using templates, \textit{Man.-Filt.+Gen}=filtered from other datasets and LLM generation, \textit{KC}=Knowledge Corpus.}
+\end{table*}
+
+Prior work on temporal QA and time-aware modeling has highlighted this limitation from several perspectives. These include datasets for time-sensitive questions \citep{chen2021datasetansweringtimesensitivequestions}, temporal knowledge bases for language models \citep{10.1162/tacl_a_00459}, real-time QA benchmarks \citep{kasai2024realtimeqawhatsanswer}, search-augmented approaches for refreshing model knowledge \citep{vu-etal-2024-freshllms}, and self-updating present-anchored QA suites \citep{meem-etal-2024-pat}. While these efforts underscore the importance of temporal awareness, they typically treat time sensitivity as a coarse or binary property and do not explicitly characterize how frequently answers change or how complex their temporal dependencies are.
+
+We refer to this requirement as the \textit{recency demand} of a question: the degree to which an answer must be updated over time to remain accurate. Recency demand varies across questions, depending on factors such as the predictability of change and whether an answer depends on a single evolving event or on multiple temporally related events.
+
+A very recent paper, \emph{RecencyQA} (unpublished), introduces a dataset explicitly labeled with recency demands. The authors annotate questions according to how frequently their answers are expected to change and use this dataset to evaluate the ability of various LLMs to predict a question's recency demand. Their results indicate that, while models capture coarse distinctions between static and rapidly changing facts, accurately estimating finer-grained recency requirements remains challenging.
+
+Building on this line of work, our approach extends prior recency-aware QA datasets along several important dimensions. Rather than relying on a fixed set of annotated questions, we introduce a generation-and-labeling pipeline that systematically expands a small seed set into a substantially richer collection of temporal questions. Starting from \num{75} input questions, the pipeline produces approximately \num{1500} recency-aware questions by varying both temporal behavior and event structure. In addition to distinguishing stationary from non-stationary temporal dynamics, we explicitly control event dependency—an aspect that has received little explicit attention in prior work—by generating single-event questions as well as multi-event questions involving two or three temporally connected events, with both causal and non-causal relationships. Each generated question is further annotated with a recency label and contextual condition under which the label applies. This structured expansion enables finer-grained analysis of temporal complexity in QA than prior datasets, which typically focus on isolated questions or coarse recency distinctions.
+
+We start explaining the generation pipeline in \autoref{sec:dataset-creation}, followed by creating another pipeline for testing LLMs in \autoref{sec:testing-pipeline}. Using this second pipeline we then test various LLMs on the created dataset in \autoref{sec:results}. Using the results, we fine-tune a smaller model and compare it to the larger LLMs in \autoref{sec:fine_tuning}. Finally, we conclude with a discussion of findings and future work in \autoref{sec:conclusion}.
