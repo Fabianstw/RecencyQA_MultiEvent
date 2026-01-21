@@ -30,7 +30,7 @@ PREDICTION_FILES = [
     "deepseek-ai_DeepSeek-V3_predictions.jsonl",
 ]
 
-DATASET_FILE = "../NewDataset/recencyqa_OUR_DATASET.json"
+DATASET_FILE = "../../NewDataset/recencyqa_OUR_DATASET.json"
 
 
 # -----------------------

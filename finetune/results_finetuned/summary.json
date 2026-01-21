@@ -1,6 +1,6 @@
 [
   {
-    "model": "schulzeschulbus_b2df/Qwen2.5-14B-Instruct-recency_QWEN2_5_14B-852a4208",
+    "model": "finetuned-model",
     "ALL": {
       "count": 313,
       "invalid": 1,
