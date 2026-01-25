@@ -3,6 +3,7 @@
   \scriptsize
   \begin{tabular}{l|cc|cc|cc|ccc|cc}
     \toprule
+    \centering
     & \multicolumn{2}{c|}{Overall} & \multicolumn{2}{c|}{St.} & \multicolumn{2}{c|}{Non-St.} & \multicolumn{3}{c|}{\# Events Acc} & \multicolumn{2}{c}{Multi-event Acc} \\
     Model & Acc & Tol. & Acc & Tol. & Acc & Tol. & 1 & 2 & 3 & C & T \\
     \midrule
@@ -23,6 +24,21 @@
     \item Causal is easier than temporal-only
     \item Tolerant scores $+20$ to $+30$ pts \textrightarrow{} many near-misses
   \end{itemize}
+  \vspace{1.5em}
+  \scriptsize
+  \begin{tabular}{l|cc|cc|cc|ccc|cc}
+    \toprule
+    \centering
+    & \multicolumn{2}{c|}{Overall} & \multicolumn{2}{c|}{St.} & \multicolumn{2}{c|}{Non-St.} & \multicolumn{3}{c|}{\# Events Acc} & \multicolumn{2}{c}{Multi-event Acc} \\
+    Model & Acc & Tol. & Acc & Tol. & Acc & Tol. & 1 & 2 & 3 & C & T \\
+    \midrule
+    Kimi-K2-0905 & \num{33.0} & \num{62.2} & \num{42.1} & \num{66.3} & \num{28.3} & \num{60.0} & \num{35.0} & \num{31.1} & \num{33.6} & \num{34.9} & \num{29.8} \\
+    Qwen2.5-72B & \num{45.6} & \num{77.4} & \num{62.8} & \num{81.8} & \num{36.7} & \num{75.1} & \num{45.4} & \num{44.6} & \num{46.6} & \num{47.8} & \num{43.5} \\
+    DeepSeek-V3 & \num{40.8} & \num{71.9} & \num{52.2} & \num{73.2} & \num{34.9} & \num{71.1} & \num{44.9} & \num{38.1} & \num{41.1} & \num{43.9} & \num{35.6} \\
+    \midrule
+    Average & \num{39.8} & \num{70.5} & \num{52.4} & \num{73.8} & \num{33.3} & \num{68.7} & \num{41.7} & \num{37.9} & \num{40.5} & \num{42.2} & \num{36.3} \\
+    \bottomrule
+  \end{tabular}
 \end{frame}
 
 \begin{frame}[plain]
